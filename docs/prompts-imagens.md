@@ -1,0 +1,23 @@
+# Prompts das imagens novas do SIA Markets
+
+Formato: PNG, 1536 × 1024 (paisagem). Mesmo estilo 3D colorido do SIA Reserve.
+Nome do arquivo ao entregar está indicado em cada uma.
+
+## 1. Topo do site (hero) — `hero-mercado.png`
+
+Anexar como referência a mascote oficial (`sia-agente.png`, a mesma usada no SIA Reserve).
+
+> Create a premium landscape website hero illustration, 1536x1024, for the Brazilian AI product SIA Markets. Use the attached image as strict character identity reference: exactly this friendly adult stylized 3D female mascot, short wavy dark bob with vivid blue highlights, blue eyes, freckles, royal blue polo with the small white brand emblem. Preserve facial identity, outfit and premium polished 3D style. New scene: she stands inside a bright, clean, small Brazilian neighborhood supermarket, smiling, holding a smartphone in one hand and looking at it, three-quarter view, visible from the knees up. Place her at x=64% of the canvas, face at y=34%. Behind her, softly out of focus: a colorful fresh produce stand with oranges, bananas, tomatoes and green leaves in wooden crates, and a light warm aisle in the far background, all blurred. One large sculptural soft cobalt-blue chat bubble floats near the upper right, with a small white checklist symbol (three short lines with check marks, no letters) inside it. Natural skin color, warm ivory and light wood tones, green leaves, vivid cobalt blue accents. Colorful, inviting, tactile, rich visual depth, not a flat vector graphic. Left 35% of the canvas is airy pale cool blue #edf3ff gradient fading into the scene with no objects near the left edge, to blend seamlessly into a left-side website text column. No text, no letters, no numbers, no price tags, no product labels, no brand names, no readable signs, no shopping-cart logos, no watermarks. Shelves must never be the focus. The image should feel like a premium Apple/Meta-style product campaign illustration, restrained and beautiful. Keep the character's white shirt emblem as shown, no other logos.
+
+## 2. Equipe separando o pedido — `separacao-pedido.png`
+
+> Create a premium landscape illustration, 1536x1024, in polished stylized 3D (same style as a premium Apple/Meta product campaign), for the Brazilian product SIA Markets. Scene: a friendly adult Brazilian supermarket attendant (natural skin tone, dark curly hair tied back, warm smile) wearing a royal blue apron over a white t-shirt, standing at a light wooden counter in a bright small neighborhood supermarket, calmly packing a home delivery order into two kraft paper bags: bread loaf, bunch of bananas, apples, a plain white milk carton, eggs in a plain carton, green vegetables. A smartphone stands on a small holder on the counter, its screen showing an abstract chat with a short checklist made only of blue check marks and grey bars (no letters). Composition: attendant at x=40%, counter in the lower third, bags at the right. Background softly blurred, warm ivory walls, a green plant, daylight from a window. Calm, organized, unhurried mood: the work is easy. Natural colors with vivid cobalt blue accents. No text, no letters, no numbers, no price tags, no product labels, no brand names, no readable signs, no watermarks. Shelves must never be the focus.
+
+## 3. Cliente mandando a lista por áudio — `cliente-audio.png`
+
+> Create a premium landscape illustration, 1536x1024, in polished stylized 3D (premium Apple/Meta product campaign style), for the Brazilian product SIA Markets. Scene: a friendly adult Brazilian woman in her forties (natural skin tone, casual home clothes) in a bright, cozy home kitchen, holding a smartphone close to her mouth, recording a voice message with a relaxed smile, while glancing at an open fridge door or a fruit bowl on the counter as if remembering what she needs. Next to the phone, a large sculptural soft cobalt-blue chat bubble floats with a white audio waveform inside it (no letters). Composition: woman at x=58%, face at y=36%; left 30% of the canvas calm and uncluttered in light warm ivory and pale blue, fading softly, to leave room for website text. Warm daylight, light wood, green plant, natural colors with vivid cobalt blue accents. Colorful, inviting, tactile, rich depth, not flat vector. No text, no letters, no numbers, no product labels, no brand names, no logos, no watermarks.
+
+## Se der errado
+
+- Apareceu texto, preço ou rótulo legível: gere de novo acrescentando no começo *"Absolutely no text or labels anywhere."*
+- A mascote mudou de rosto ou roupa: gere de novo com a referência anexada e a frase *"Preserve the reference character exactly."*
