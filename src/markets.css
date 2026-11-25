@@ -93,3 +93,36 @@ h2 .accent{color:var(--blue)}
 @media(max-width:1180px){.dashboard-section{grid-template-columns:1fr;gap:40px;padding:60px 6%}.dashboard-copy>p:not(.eyebrow){max-width:620px}}
 @media(max-width:760px){.dashboard-section{margin-top:16px;padding:44px 20px 32px}.dashboard-copy>p:not(.eyebrow),.dashboard-highlights li{font-size:14px}.dashboard-preview{padding:14px;border-radius:20px}.kpi-grid{grid-template-columns:1fr 1fr;gap:8px}.kpi-value{font-size:19px}.dashboard-lower{grid-template-columns:1fr}.dashboard-top strong{font-size:13px}.dashboard-halo{width:420px;height:420px}}
 @media(max-width:360px){.kpi-value{font-size:17px}.kpi{padding:11px}.dashboard-period{display:none}}
+
+/* Lista de compras */
+.list-section{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.list-copy>p:not(.eyebrow){margin-top:20px;font-size:16px;line-height:1.7;color:#46506b;max-width:520px}
+.list-copy>p strong{font-weight:500;color:var(--ink)}
+.team-gains{display:grid;gap:18px;margin-top:30px}
+.team-gain{display:flex;gap:16px;align-items:flex-start}
+.team-gain-icon{flex:none;width:48px;height:48px;border-radius:16px;display:flex;align-items:center;justify-content:center;color:#fff;background:linear-gradient(135deg,#2b5cff,#0052e6);box-shadow:0 12px 30px rgba(43,92,255,.25)}
+.team-gain h3{font-size:17px;font-weight:500;letter-spacing:-.3px}
+.team-gain p{margin-top:4px;font-size:14px;line-height:1.6;color:#5a6480}
+.list-stage{position:relative;border-radius:36px;overflow:hidden;min-height:640px;display:flex;align-items:center;justify-content:center;padding:40px 32px;isolation:isolate}
+.list-stage picture,.list-stage>picture>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.list-stage:after{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(10,31,168,.18),rgba(10,31,168,.42))}
+.list-chat{width:100%;max-width:420px;background:rgba(255,255,255,.9);border:1.5px solid rgba(255,255,255,.7);border-radius:24px;padding:0 18px 16px;box-shadow:0 24px 60px rgba(6,18,64,.2);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.list-chat .bubble{font-size:13px}
+.list-chat .agent-bubble ul{list-style:none;padding:0;margin:9px 0 2px;display:grid;gap:5px}
+.list-chat .agent-bubble li{display:flex;justify-content:space-between;gap:12px;border-top:1px solid rgba(255,255,255,.22);padding-top:5px}
+.list-chat .agent-bubble li span{order:2;font-size:10px;letter-spacing:.6px;text-transform:uppercase;color:rgba(255,255,255,.82);align-self:center}
+.audio-message{display:inline-flex;align-items:center;gap:8px}
+.audio-wave{width:64px;height:14px;background:repeating-linear-gradient(90deg,#2b5cff 0 2px,transparent 2px 5px);-webkit-mask:linear-gradient(180deg,transparent 30%,#000 30% 70%,transparent 70%),linear-gradient(90deg,#000,#000);mask-image:radial-gradient(ellipse 60% 100% at 50% 50%,#000 55%,transparent 75%);border-radius:3px;opacity:.8}
+
+/* CRM */
+.crm-section{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center;padding-top:0}
+.crm-section .product-card{border-radius:32px}
+.crm-section .crm-art{height:420px}
+.crm-copy>p:not(.eyebrow){margin-top:20px;font-size:16px;line-height:1.7;color:#46506b}
+.crm-highlights{list-style:none;padding:0;display:grid;gap:12px;margin-top:24px}
+.crm-highlights li{display:flex;align-items:center;gap:10px;font-size:15px}
+.crm-highlights svg{flex:none;color:var(--blue)}
+
+@media(max-width:1180px){.list-section,.crm-section{gap:40px}.list-stage{min-height:600px;padding:32px 22px}}
+@media(max-width:950px){.list-section,.crm-section{grid-template-columns:1fr}.crm-section .crm-art{height:auto;aspect-ratio:1.55;min-height:250px}}
+@media(max-width:760px){.list-copy>p:not(.eyebrow),.crm-copy>p:not(.eyebrow),.crm-highlights li{font-size:14px}.list-stage{min-height:0;border-radius:24px;padding:28px 14px}.list-chat{padding:0 12px 12px;border-radius:18px}.list-chat .bubble{font-size:12px}.team-gain h3{font-size:16px}.crm-section .product-card{border-radius:20px}}

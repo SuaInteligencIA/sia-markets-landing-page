@@ -32,6 +32,8 @@ export const company = {
 export const nav: { label: string; href: string }[] = [
   { label: 'Como funciona', href: '#como-funciona' },
   { label: 'Painel', href: '#painel' },
+  { label: 'Lista de compras', href: '#lista' },
+  { label: 'Sua agente', href: '#sua-agente' },
 ];
 
 // Troque por { kind: 'scene', name: 'hero-mercado', alt: '...' } quando a imagem nova chegar
@@ -115,4 +117,42 @@ export const dashboardHighlights = [
   'Quantidade de vendas e ticket médio',
   'Atendimentos finalizados',
   'Vendas de cada atendente, dia a dia',
+];
+
+// Conversa ilustrativa: itens comuns, sem preço, marca ou disponibilidade.
+export const chatDemo: { from: 'cliente' | 'sia'; text?: string; audio?: string; list?: { group: string; items: string[] }[] }[] = [
+  { from: 'cliente', text: 'Oi! Preciso de arroz, feijão e óleo' },
+  { from: 'cliente', text: 'ah, e 6 caixas de leite' },
+  { from: 'cliente', audio: '0:08' },
+  {
+    from: 'sia',
+    text: 'Entendi o áudio também! Sua lista ficou assim:',
+    list: [
+      { group: 'Mercearia', items: ['Arroz 5 kg', 'Feijão carioca 1 kg', 'Óleo de soja'] },
+      { group: 'Laticínios', items: ['Leite integral (6 caixas)'] },
+      { group: 'Padaria', items: ['Pão francês (10 unidades)'] },
+      { group: 'Hortifrúti', items: ['Banana prata (1 dúzia)'] },
+    ],
+  },
+  { from: 'sia', text: 'É para entrega ou retirada?' },
+  { from: 'cliente', text: 'Entrega, por favor!' },
+];
+
+export const teamGains = [
+  { title: 'A lista chega pronta', description: 'O atendente recebe os itens organizados e confirmados com o cliente. É só separar.', icon: 'list' },
+  { title: 'Menos tempo digitando', description: 'A IA junta os pedidos soltos, entende áudio e tira as dúvidas comuns. A equipe para de copiar mensagem por mensagem.', icon: 'messages' },
+  { title: 'Mais fôlego no pico', description: 'Quando as mensagens acumulam, a IA responde todo mundo na hora e a equipe cuida de separar e entregar.', icon: 'timer' },
+];
+
+export const agentPersonalization = [
+  { title: 'O seu tom de voz', description: 'Conversas naturais por texto ou áudio, com a simpatia do atendimento do seu balcão.', icon: 'customize' },
+  { title: 'As informações do seu supermercado', description: 'Horários, bairros atendidos, formas de pagamento e regras de entrega ficam na memória da sua agente.', icon: 'book' },
+  { title: 'Os seus roteiros de atendimento', description: 'Do primeiro "oi" à lista confirmada, cada etapa segue o jeito que a sua equipe trabalha.', icon: 'messages' },
+];
+
+export const crmHighlights = [
+  'Um WhatsApp para toda a equipe',
+  'Atendimentos distribuídos entre os atendentes',
+  'Histórico de cada cliente',
+  'Venda registrada ao finalizar o atendimento',
 ];

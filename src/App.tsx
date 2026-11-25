@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
-import { ArrowDown, ArrowUpRight, BarChart3, Bot, Check, CheckCheck, ChevronRight, Globe2, Instagram, Linkedin, ListCheck, Menu, MessagesSquare, Mic, MoreHorizontal, ShoppingBag, Sparkles, Timer, Truck, Users, WhatsApp, X } from './icons';
-import { benefits, company, contact, dashboardHighlights, heroImage, nav, problems, socials, steps, whatsappUrl } from './content';
+import { ArrowDown, ArrowUpRight, AudioLines, BarChart3, Book, Bot, Check, CheckCheck, ChevronDown, ChevronRight, Customize, Globe2, Instagram, Linkedin, ListCheck, Menu, MessagesSquare, Mic, MoreHorizontal, Plus, Receipt, Send, ShoppingBag, Sparkles, Timer, Truck, Users, WhatsApp, X } from './icons';
+import { agentPersonalization, benefits, chatDemo, company, contact, crmHighlights, dashboardHighlights, heroImage, nav, problems, socials, steps, teamGains, whatsappUrl } from './content';
 import { DashboardPreview } from './DashboardPreview';
 import { PoweredBadge } from './PoweredBadge';
 
 const talkUrl = whatsappUrl('Olá! Quero conhecer o SIA Markets e ver como ele funciona no meu supermercado.');
 
 function FeatureIcon({ name, size = 22 }: { name: string; size?: number }) {
-  const icons: Record<string, typeof Bot> = { bot: Bot, messages: MessagesSquare, whatsapp: WhatsApp, chart: BarChart3, list: ListCheck, users: Users, mic: Mic, timer: Timer, sparkles: Sparkles, instagram: Instagram, linkedin: Linkedin };
+  const icons: Record<string, typeof Bot> = { bot: Bot, messages: MessagesSquare, whatsapp: WhatsApp, chart: BarChart3, list: ListCheck, users: Users, mic: Mic, timer: Timer, customize: Customize, book: Book, sparkles: Sparkles, instagram: Instagram, linkedin: Linkedin };
   const Icon = icons[name] || Sparkles;
   return <Icon size={size} strokeWidth={1.6} aria-hidden="true" />;
 }
@@ -99,6 +99,50 @@ function App() {
         </div>
         <div className="dashboard-visual"><DashboardPreview /><span className="dashboard-note">Imagem ilustrativa. Valores fictícios.</span></div>
       </section>
+
+      <section className="section list-section" id="lista" aria-labelledby="list-title">
+        <div className="list-copy">
+          <p className="eyebrow">LISTA DE COMPRAS SEM ESFORÇO</p>
+          <h2 id="list-title">A lista sai pronta.<br /><span className="accent">A fila anda.</span></h2>
+          <p>Seu cliente manda o pedido do jeito que fala: aos pedaços, por texto ou por áudio. O agente de IA junta tudo, organiza e confirma. Para o cliente, <strong>comprar fica mais fácil</strong>. Para a equipe, <strong>o atendimento anda mais rápido</strong>.</p>
+          <div className="team-gains">{teamGains.map(gain => <div className="team-gain" key={gain.title}><span className="team-gain-icon"><FeatureIcon name={gain.icon} size={22} /></span><div><h3>{gain.title}</h3><p>{gain.description}</p></div></div>)}</div>
+        </div>
+        <div className="list-stage">
+          <picture><source type="image/avif" srcSet="/images/atendimento-ia-color-v2-640.avif 640w, /images/atendimento-ia-color-v2-768.avif 768w, /images/atendimento-ia-color-v2-1024.avif 1024w" sizes="(max-width:760px) calc(100vw - 40px), 46vw" /><img src="/images/atendimento-ia-color-v2.webp" width="1448" height="1086" alt="" loading="lazy" decoding="async" /></picture>
+          <div className="list-chat">
+            <ChatHeader />
+            {chatDemo.map((message, index) => message.from === 'cliente'
+              ? <p key={index} className="bubble guest-bubble">{message.audio ? <span className="audio-message"><Mic size={15} aria-hidden="true" /><span className="audio-wave" aria-hidden="true" /> Áudio · {message.audio}</span> : message.text}</p>
+              : <div key={index} className="bubble agent-bubble">{message.text}{message.list && <ul>{message.list.flatMap(group => group.items.map(item => <li key={item}><span>{group.group}</span>{item}</li>))}</ul>}</div>)}
+            <span className="preview-label">Exemplo ilustrativo de atendimento</span>
+          </div>
+        </div>
+      </section>
+
+      <section className="agent-section page-inset" id="sua-agente" aria-labelledby="agent-title">
+        <div className="agent-portrait">
+          <div className="agent-orbit" aria-hidden="true" />
+          <div className="agent-intro-badge"><span className="status-dot" /> SUA NOVA PARCEIRA DE ATENDIMENTO</div>
+          <img className="agent-mascot" src="/brand/sia-agente.webp" srcSet="/brand/sia-agente-320.webp 320w, /brand/sia-agente-400.webp 400w, /brand/sia-agente.webp 500w" sizes="(max-width:760px) 55vw, (max-width:1180px) 42vw, 500px" width="500" height="889" alt="SIA, a agente de IA de cabelos escuros com mechas azuis e uniforme azul, segurando um celular" loading="lazy" decoding="async" />
+        </div>
+        <div className="agent-copy">
+          <p className="eyebrow">UMA AGENTE ÚNICA. COMO O SEU SUPERMERCADO.</p>
+          <h2 id="agent-title">Sou a SIA.<br /><span>Do jeito do seu supermercado.</span></h2>
+          <p className="agent-description">Seu supermercado tem clientes fiéis e um jeito próprio de atender. A SIA aprende esse jeito e conversa com a cara da sua loja.</p>
+          <div className="agent-features">{agentPersonalization.map(feature => <div className="agent-feature" key={feature.title}><span className="agent-feature-icon"><FeatureIcon name={feature.icon} size={22} /></span><div><h3>{feature.title}</h3><p>{feature.description}</p></div></div>)}</div>
+          <TalkButton href={whatsappUrl('Olá! Quero conhecer a agente SIA para o meu supermercado.')} />
+        </div>
+      </section>
+
+      <section className="section crm-section" id="crm" aria-labelledby="crm-title">
+        <article className="product-card crm-product"><div className="product-art crm-art"><CrmPreview /><span className="image-label">UM NÚMERO. TODA A EQUIPE.</span></div></article>
+        <div className="crm-copy">
+          <p className="eyebrow">CRM DA SIA</p>
+          <h2 id="crm-title">Toda a equipe<br /><span className="accent">no mesmo WhatsApp.</span></h2>
+          <p>Um número só para o supermercado inteiro. Os atendimentos são distribuídos entre a equipe, e o histórico de cada cliente fica guardado: o que pediu, quando e com quem falou.</p>
+          <ul className="crm-highlights">{crmHighlights.map(item => <li key={item}><Check size={19} aria-hidden="true" />{item}</li>)}</ul>
+        </div>
+      </section>
     </main>
 
     <footer className="site-footer"><div className="footer-main"><div className="footer-brand"><a href="#inicio" aria-label="SIA Markets — voltar ao início"><img src="/brand/logo.svg" alt="SIA Markets" width="178" height="38" /></a><p>Suas vendas pelo WhatsApp,<br />na palma da mão.</p><div className="social-links">{socials.map(social => <ExternalLink key={social.name} href={social.href} className="icon-button" aria-label={social.label}><FeatureIcon name={social.icon} size={19} /></ExternalLink>)}</div><PoweredBadge href={company.website} /></div><div className="footer-column"><h3>Explore</h3><a href="#inicio">Início</a>{nav.map(item => <a key={item.href} href={item.href}>{item.label}</a>)}</div><div className="footer-column"><h3>Vamos conversar</h3><ExternalLink href={talkUrl}>Fale com a gente</ExternalLink><a href={contact.phoneHref}>{contact.phone}</a></div><div className="footer-column"><h3>Sobre a gente</h3><ExternalLink href={company.website}>SIA Markets é um produto Sua InteligêncIA <ArrowUpRight size={12} /></ExternalLink><ExternalLink href={company.privacyUrl}>Privacidade</ExternalLink><span className="footer-company">{company.legalName}<br />CNPJ {company.cnpj}</span></div></div><div className="footer-bottom"><span>{company.copyright}</span><span><Globe2 size={14} /> Brasil · Português</span><a href="#inicio">Voltar ao topo <ArrowUpRight size={14} /></a></div></footer>
@@ -111,6 +155,16 @@ function AgentAvatar({ className = '' }: { className?: string }) {
 
 function ChatHeader() {
   return <div className="chat-header"><AgentAvatar /><div><strong>SIA · Supermercado Bom Preço</strong><small>Atendendo pelo WhatsApp</small></div><Sparkles size={19} /></div>;
+}
+
+function CrmPreview() {
+  const people = [['ana-costa', 'Ana Costa', 'Pode mandar a lista!', 'Agora'], ['rafael-lima', 'Rafael Lima', 'Chegou certinho, obrigado!', '14:32'], ['julia-martins', 'Julia Martins', 'Vocês entregam no Centro?', '14:25']];
+  return <div className="crm-preview" role="img" aria-label="Ilustração do CRM com as conversas de Ana Costa, Rafael Lima e Julia Martins no mesmo WhatsApp do supermercado">
+    <div className="crm-sidebar"><img src="/brand/icon.svg" alt="" width="24" height="24" /><span className="selected"><MessagesSquare size={18} /></span><Users size={18} /><BarChart3 size={18} /><Receipt size={18} /><span className="sidebar-avatar">S</span></div>
+    <div className="crm-inbox"><div className="crm-topline"><strong>Conversas</strong><Plus size={16} /></div><div className="inbox-filter">Todas as conversas <ChevronDown size={11} /></div>{people.map(([portrait, name, text, time], index) => <div key={name} className={`inbox-person ${index === 0 ? 'active' : ''}`}><span className="person-avatar"><img src={`/images/people/${portrait}.webp`} width="27" height="27" alt="" loading="lazy" decoding="async" /></span><div><strong>{name}</strong><span>{text}</span></div><small>{time}</small></div>)}<span className="crm-connected"><span className="status-dot" /> WhatsApp conectado</span></div>
+    <div className="crm-chat"><div className="chat-topline"><span className="person-avatar"><img src="/images/people/ana-costa.webp" width="27" height="27" alt="" loading="lazy" decoding="async" /></span><div><strong>Ana Costa</strong><small>WhatsApp · SIA atendendo</small></div><MoreHorizontal size={16} /></div><div className="crm-message received">Oi! Queria fazer um pedido para entrega.</div><div className="crm-message sent">Claro, Ana! Pode mandar a lista do jeito que preferir. <CheckCheck size={12} /></div><div className="crm-message received"><AudioLines size={12} /> Áudio · 0:21</div><div className="crm-confirm"><Check size={13} /> Lista confirmada. Pronta para separar.</div><div className="crm-input">Escreva uma mensagem… <Send size={13} /></div></div>
+    <div className="crm-preview-caption">Visualização ilustrativa</div>
+  </div>;
 }
 
 function StepVisual({ step }: { step: number }) {

@@ -129,6 +129,25 @@ try {
     await noOverflow([320, 375, 768]);
   });
 
+  await check('Lista: conversa ilustrativa termina em lista organizada, sem preços', async () => {
+    const chat = page.locator('#lista .list-chat');
+    assert.ok(await chat.locator('.guest-bubble .audio-message').count() >= 1, 'Ao menos um áudio do cliente');
+    assert.ok(await chat.locator('.agent-bubble ul li').count() >= 5, 'Lista com 5 itens ou mais');
+    assert.doesNotMatch(await chat.innerText(), /R\$|\d+,\d{2}/);
+    assert.equal(await page.locator('#lista .team-gain').count(), 3);
+  });
+
+  await check('Agente: mascote e três formas de personalizar', async () => {
+    assert.equal(await page.locator('#sua-agente .agent-feature').count(), 3);
+    assert.ok(await page.locator('#sua-agente .agent-mascot').evaluate(image => image.complete && image.naturalWidth > 0));
+  });
+
+  await check('CRM: retratos e conversa selecionada', async () => {
+    assert.deepEqual(await page.locator('.crm-preview .person-avatar img').evaluateAll(images => [...new Set(images.map(image => image.getAttribute('src')))].sort()), ['/images/people/ana-costa.webp', '/images/people/julia-martins.webp', '/images/people/rafael-lima.webp']);
+    assert.match(await page.locator('.crm-preview .chat-topline strong').innerText(), /Ana Costa/);
+    assert.match(await page.locator('.crm-preview .inbox-person.active').innerText(), /Ana Costa/);
+  });
+
   await check('Topo: sem rolagem lateral de 320 a 1920px', () => noOverflow([320, 360, 390, 430, 640, 768, 820, 1024, 1280, 1440, 1920]));
 
   assert.deepEqual(errors, [], 'Erros JavaScript no navegador');
