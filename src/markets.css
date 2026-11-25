@@ -23,3 +23,32 @@
   .hero-float--sales{bottom:12%;right:5%}
 }
 @media(max-width:450px){.hero-art--mascot{height:340px}.hero-float--list{left:3%;top:12%}.hero-float--sales{right:3%}}
+
+/* Trechos de destaque em azul nos títulos. */
+h2 .accent{color:var(--blue)}
+
+/* O problema */
+.problem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:44px}
+.problem-card{background:#f3f5fa;border-radius:28px;padding:32px 30px 34px;display:flex;flex-direction:column;gap:14px}
+.problem-icon{width:56px;height:56px;border-radius:18px;display:flex;align-items:center;justify-content:center;color:#fff;background:linear-gradient(135deg,#2b5cff,#0052e6);box-shadow:0 12px 30px rgba(43,92,255,.28);margin-bottom:8px}
+.problem-card h3{font-size:22px;line-height:1.2;letter-spacing:-.6px;font-weight:500}
+.problem-card p{font-size:15px;line-height:1.65;color:#46506b}
+
+/* Como funciona: lista dentro do balão e pedido em separação */
+.step-list-bubble ul{margin:8px 0 10px 18px;display:grid;gap:3px}
+.step-list-bubble strong{font-weight:500}
+.guest-bubble svg{vertical-align:-2px;margin-right:4px}
+.order-preview{margin:26px;position:relative;width:100%;background:#fff;border-radius:18px;padding:22px 22px 18px;box-shadow:0 20px 45px #304b811a;animation:enter .35s both}
+.order-top{display:flex;align-items:center;gap:12px;padding-bottom:14px;border-bottom:1px solid #edf0f6}
+.order-top>svg{color:var(--blue);flex:none}
+.order-top strong{display:block;font-size:14px;font-weight:500}
+.order-top small{font-size:11px;color:#5a6480}
+.order-items{list-style:none;padding:12px 0;display:grid;gap:9px}
+.order-items li{display:flex;align-items:center;gap:10px;font-size:13px;color:#46506b}
+.order-items li svg{color:#c3cbe0;flex:none}
+.order-items li.done svg{color:var(--blue)}
+.order-items li.done{color:var(--ink)}
+.order-status{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:500;color:var(--blue);background:#eef3ff;border-radius:100px;padding:9px 14px;width:max-content}
+
+@media(max-width:950px){.problem-grid{grid-template-columns:1fr;gap:14px;margin-top:32px}.problem-card{padding:26px 24px;border-radius:22px}}
+@media(max-width:760px){.problem-card h3{font-size:20px}.problem-card p{font-size:14px}.order-preview{margin:18px;padding:18px}.order-items li{font-size:12px}}

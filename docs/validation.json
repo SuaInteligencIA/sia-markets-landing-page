@@ -1,5 +1,5 @@
 {
-  "date": "2026-11-25T20:58:30.593Z",
+  "date": "2026-11-25T21:01:30.510Z",
   "url": "http://127.0.0.1:4175",
   "browser": "Chromium",
   "checks": [
@@ -7,6 +7,8 @@
     "Palavras proibidas: nenhum arquivo publicado as contém",
     "Botão principal: sempre \"Fale com a gente\"",
     "Acessibilidade: página desktop sem violações axe WCAG A/AA",
+    "Problema: três dores do dono do mercado",
+    "Etapas: quatro passos, teclado e ARIA",
     "Topo: sem rolagem lateral de 320 a 1920px"
   ],
   "javascriptErrors": [],

@@ -18,6 +18,7 @@ Testes = `scripts/verify.mjs` (Playwright + axe) rodando contra `npm run preview
 
 - Nunca escrever "Helena", "HelenaCRM", "white label", "estoque", "SKU", "catálogo", "prateleira", "inventário", nem frases que deem a entender controle de produtos/preços. O agente "monta a lista com o que o cliente pede"; a equipe separa.
 - Nenhum resto de hospedagem: "hóspede", "reserva", "pousada", "hotel", "hostel", "estadia", "OTA", "PMS".
+- Sempre "supermercado", nunca "mercado" sozinho (pedido do Samuel, 25/11).
 - Botão principal sempre com o texto exato **"Fale com a gente"** + `ArrowUpRight`.
 - Sem depoimentos, sem preços, sem números de resultado, sem promessa de entrega/atendimento humano 24 horas. Pode dizer que o agente recebe a lista a qualquer hora.
 - Tudo de contato/domínio em `src/content.ts`: `WHATSAPP_NUMBER = '5531995342318'` e `SITE_URL = 'https://siamarkets.com.br/'`, ambos **provisórios** (comentário `// PROVISÓRIO: confirmar com o Samuel`).

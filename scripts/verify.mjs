@@ -9,7 +9,9 @@ import { preview } from 'vite';
 // Termos que nunca podem aparecer no site publicado: o fornecedor do CRM, assuntos de estoque
 // (o site não fala disso, nem para negar) e qualquer resto do site de hospedagem que serviu de base.
 const FORBIDDEN = [/helena/i, /white.?label/i, /estoque/i, /\bsku/i, /cat[aá]logo/i, /prateleira/i, /invent[aá]rio/i,
-  /h[oó]spede/i, /\breservas?\b/i, /pousada/i, /\bhote(l|is)\b/i, /hostel/i, /estadia/i, /\bOTA\b/, /\bPMS\b/];
+  /h[oó]spede/i, /\breservas?\b/i, /pousada/i, /\bhote(l|is)\b/i, /hostel/i, /estadia/i, /\bOTA\b/, /\bPMS\b/,
+  // Pedido do Samuel: sempre "supermercado", nunca "mercado" sozinho.
+  /(?<![a-zà-ú-])mercados?\b/i];
 
 const content = await readFile('src/content.ts', 'utf8');
 const WHATSAPP_NUMBER = content.match(/WHATSAPP_NUMBER = '(\d+)'/)?.[1];
@@ -91,6 +93,29 @@ try {
   });
 
   await check('Acessibilidade: página desktop sem violações axe WCAG A/AA', () => accessibility('Página desktop'));
+
+  await check('Problema: três dores do dono do supermercado', async () => {
+    assert.equal(await page.locator('#problema .problem-card').count(), 3);
+  });
+
+  await check('Etapas: quatro passos, teclado e ARIA', async () => {
+    assert.equal(await page.locator('#como-funciona [role="tab"]').count(), 4);
+    await page.locator('#step-tab-0').focus();
+    await page.keyboard.press('ArrowDown');
+    assert.equal(await page.locator('#step-tab-1').getAttribute('aria-selected'), 'true');
+    assert.equal(await page.evaluate(() => document.activeElement.id), 'step-tab-1');
+    await accessibility('Segunda etapa');
+    await page.keyboard.press('End');
+    assert.equal(await page.locator('#step-tab-3').getAttribute('aria-selected'), 'true');
+    await accessibility('Última etapa');
+    await page.keyboard.press('ArrowRight');
+    assert.equal(await page.locator('#step-tab-0').getAttribute('aria-selected'), 'true', 'Depois da última volta à primeira');
+    await page.keyboard.press('ArrowUp');
+    assert.equal(await page.locator('#step-tab-3').getAttribute('aria-selected'), 'true', 'Antes da primeira vai à última');
+    assert.deepEqual(await page.locator('[role="tab"]').evaluateAll(tabs => tabs.filter(tab => !document.getElementById(tab.getAttribute('aria-controls'))).map(tab => tab.id)), []);
+    await page.keyboard.press('Home');
+    assert.equal(await page.locator('#step-tab-0').getAttribute('aria-selected'), 'true');
+  });
 
   await check('Topo: sem rolagem lateral de 320 a 1920px', () => noOverflow([320, 360, 390, 430, 640, 768, 820, 1024, 1280, 1440, 1920]));
 

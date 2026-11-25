@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
-import { ArrowDown, ArrowUpRight, BarChart3, Bot, Globe2, Instagram, Linkedin, ListCheck, Menu, MessagesSquare, Sparkles, Users, WhatsApp, X } from './icons';
-import { benefits, company, contact, heroImage, nav, socials, whatsappUrl } from './content';
+import { ArrowDown, ArrowUpRight, BarChart3, Bot, Check, CheckCheck, ChevronRight, Globe2, Instagram, Linkedin, ListCheck, Menu, MessagesSquare, Mic, MoreHorizontal, ShoppingBag, Sparkles, Timer, Truck, Users, WhatsApp, X } from './icons';
+import { benefits, company, contact, heroImage, nav, problems, socials, steps, whatsappUrl } from './content';
 import { PoweredBadge } from './PoweredBadge';
 
-const talkUrl = whatsappUrl('Olá! Quero conhecer o SIA Markets e ver como ele funciona no meu mercado.');
+const talkUrl = whatsappUrl('Olá! Quero conhecer o SIA Markets e ver como ele funciona no meu supermercado.');
 
 function FeatureIcon({ name, size = 22 }: { name: string; size?: number }) {
-  const icons: Record<string, typeof Bot> = { bot: Bot, messages: MessagesSquare, whatsapp: WhatsApp, chart: BarChart3, list: ListCheck, users: Users, sparkles: Sparkles, instagram: Instagram, linkedin: Linkedin };
+  const icons: Record<string, typeof Bot> = { bot: Bot, messages: MessagesSquare, whatsapp: WhatsApp, chart: BarChart3, list: ListCheck, users: Users, mic: Mic, timer: Timer, sparkles: Sparkles, instagram: Instagram, linkedin: Linkedin };
   const Icon = icons[name] || Sparkles;
   return <Icon size={size} strokeWidth={1.6} aria-hidden="true" />;
 }
@@ -35,6 +35,7 @@ function HeroArt() {
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeStep, setActiveStep] = useState(0);
   const headerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -63,19 +64,47 @@ function App() {
         <div className="hero-shade" />
         <div className="hero-copy">
           <p className="eyebrow hero-eyebrow"><span className="tiny-mark"><Sparkles size={14} /></span> IA PARA SUPERMERCADOS NO WHATSAPP</p>
-          <h1 id="hero-title">Quanto o seu mercado <br /><span>vende pelo WhatsApp?</span></h1>
+          <h1 id="hero-title">Quanto o seu supermercado <br /><span>vende pelo WhatsApp?</span></h1>
           <p className="hero-description">Com o SIA Markets, cada venda feita pelo WhatsApp vai para um <strong>painel</strong> que você acompanha. E um <strong>agente de IA</strong> atende seus clientes e monta a lista de compras para a sua equipe.</p>
-          <div className="button-row"><TalkButton /></div>
+          <div className="button-row"><TalkButton /><a className="button button-light" href="#como-funciona">Veja como funciona</a></div>
           <p className="hero-note">Para supermercados de pequeno e médio porte.</p>
         </div>
         <a className="hero-explore" href="#beneficios" aria-label="Ver mais"><ArrowDown size={18} /></a>
       </section>
 
       <div className="benefit-strip" id="beneficios" aria-label="Benefícios do SIA Markets">{benefits.map(benefit => <span key={benefit.label}><FeatureIcon name={benefit.icon} />{benefit.label}</span>)}</div>
+
+      <section className="section problem-section" id="problema" aria-labelledby="problem-title">
+        <div className="section-heading centered"><p className="eyebrow">O QUE ACONTECE HOJE</p><h2 id="problem-title">Os pedidos chegam.<br /><span className="accent">Os números, não.</span></h2><p>O WhatsApp já vende para o seu supermercado.<br className="desktop-break" /> Falta enxergar quanto, e tirar o peso das costas da equipe.</p></div>
+        <div className="problem-grid">{problems.map(problem => <article className="problem-card" key={problem.title}><span className="problem-icon"><FeatureIcon name={problem.icon} size={26} /></span><h3>{problem.title}</h3><p>{problem.description}</p></article>)}</div>
+      </section>
+
+      <section className="workflow-section page-inset" id="como-funciona" aria-labelledby="workflow-title">
+        <div className="workflow-copy"><p className="eyebrow">COMO FUNCIONA</p><h2 id="workflow-title">Do pedido no WhatsApp<br />à venda no painel.</h2><div className="step-list" role="tablist" aria-label="Etapas do atendimento">{steps.map((step, index) => <button key={step.id} id={`step-tab-${index}`} role="tab" aria-selected={activeStep === index} aria-controls="step-panel" tabIndex={activeStep === index ? 0 : -1} onClick={() => setActiveStep(index)} onKeyDown={event => { const keys = ['ArrowDown', 'ArrowRight', 'ArrowUp', 'ArrowLeft', 'Home', 'End']; if (!keys.includes(event.key)) return; event.preventDefault(); const last = steps.length - 1; const next = event.key === 'Home' ? 0 : event.key === 'End' ? last : ['ArrowDown', 'ArrowRight'].includes(event.key) ? (index === last ? 0 : index + 1) : (index === 0 ? last : index - 1); setActiveStep(next); document.getElementById(`step-tab-${next}`)?.focus(); }} className={`step ${activeStep === index ? 'active' : ''}`}><span className="step-number">{step.number}</span><span><strong>{step.title}</strong>{activeStep === index && <span className="step-description">{step.description}</span>}</span><ChevronRight size={20} aria-hidden="true" /></button>)}</div><ExternalLink className="text-link">Quero ver no meu supermercado <span className="round-arrow"><ArrowUpRight size={18} /></span></ExternalLink></div>
+        <div className="workflow-visual" role="tabpanel" id="step-panel" aria-labelledby={`step-tab-${activeStep}`} tabIndex={0}>
+          <div className="workflow-orbit orbit-one" /><div className="workflow-orbit orbit-two" />
+          <StepVisual step={activeStep} />
+        </div>
+      </section>
     </main>
 
     <footer className="site-footer"><div className="footer-main"><div className="footer-brand"><a href="#inicio" aria-label="SIA Markets — voltar ao início"><img src="/brand/logo.svg" alt="SIA Markets" width="178" height="38" /></a><p>Suas vendas pelo WhatsApp,<br />na palma da mão.</p><div className="social-links">{socials.map(social => <ExternalLink key={social.name} href={social.href} className="icon-button" aria-label={social.label}><FeatureIcon name={social.icon} size={19} /></ExternalLink>)}</div><PoweredBadge href={company.website} /></div><div className="footer-column"><h3>Explore</h3><a href="#inicio">Início</a>{nav.map(item => <a key={item.href} href={item.href}>{item.label}</a>)}</div><div className="footer-column"><h3>Vamos conversar</h3><ExternalLink href={talkUrl}>Fale com a gente</ExternalLink><a href={contact.phoneHref}>{contact.phone}</a></div><div className="footer-column"><h3>Sobre a gente</h3><ExternalLink href={company.website}>SIA Markets é um produto Sua InteligêncIA <ArrowUpRight size={12} /></ExternalLink><ExternalLink href={company.privacyUrl}>Privacidade</ExternalLink><span className="footer-company">{company.legalName}<br />CNPJ {company.cnpj}</span></div></div><div className="footer-bottom"><span>{company.copyright}</span><span><Globe2 size={14} /> Brasil · Português</span><a href="#inicio">Voltar ao topo <ArrowUpRight size={14} /></a></div></footer>
   </>;
+}
+
+function AgentAvatar({ className = '' }: { className?: string }) {
+  return <span className={`agent-avatar ${className}`}><img src="/brand/sia-agente-avatar.webp" width="160" height="284" alt="SIA, agente de IA do supermercado" /></span>;
+}
+
+function ChatHeader() {
+  return <div className="chat-header"><AgentAvatar /><div><strong>SIA · Supermercado Bom Preço</strong><small>Atendendo pelo WhatsApp</small></div><Sparkles size={19} /></div>;
+}
+
+function StepVisual({ step }: { step: number }) {
+  if (step === 0) return <div className="step-conversation"><ChatHeader /><p className="bubble guest-bubble">Oi! Queria fazer um pedido para entrega.</p><p className="bubble guest-bubble"><Mic size={14} aria-hidden="true" /> Áudio · 0:14</p><p className="bubble agent-bubble">Oi, Ana! Claro. Pode mandar tudo o que precisa, do jeito que for mais fácil.</p><span className="preview-label">Exemplo ilustrativo de atendimento</span></div>;
+  if (step === 1) return <div className="step-conversation"><ChatHeader /><div className="bubble agent-bubble step-list-bubble"><strong>Sua lista ficou assim:</strong><ul><li>Arroz 5 kg</li><li>Feijão carioca 1 kg</li><li>Leite integral (6 unidades)</li><li>Pão francês (10 unidades)</li><li>Banana prata (1 dúzia)</li></ul>Está tudo certo? <CheckCheck size={13} aria-hidden="true" /></div><p className="bubble guest-bubble">Tudo certo!</p><span className="preview-label">Exemplo ilustrativo de atendimento</span></div>;
+  if (step === 2) return <div className="order-preview"><div className="order-top"><ShoppingBag size={20} aria-hidden="true" /><div><strong>Pedido de Ana Costa</strong><small>Lista confirmada pela SIA · 5 itens</small></div></div><ul className="order-items">{['Arroz 5 kg', 'Feijão carioca 1 kg', 'Leite integral (6 unidades)', 'Pão francês (10 unidades)', 'Banana prata (1 dúzia)'].map((item, index) => <li key={item} className={index < 3 ? 'done' : ''}><Check size={17} aria-hidden="true" />{item}</li>)}</ul><div className="order-status"><Truck size={17} aria-hidden="true" /> Separando para entrega</div><span className="preview-label">Visualização ilustrativa</span></div>;
+  return <div className="insights-preview"><div className="insights-top"><img src="/brand/icon.svg" width="26" height="26" alt="" /><span>Vendas pelo WhatsApp</span><MoreHorizontal size={18} /></div><p>Venda registrada.</p><strong>Direto no seu painel.</strong><div className="chart-bars" aria-hidden="true">{[36, 53, 44, 65, 57, 79, 72, 93].map((h, i) => <span key={i} style={{ height: `${h}%` }} />)}</div><div className="insights-foot"><span><BarChart3 /> Vendas</span><span><MessagesSquare /> Atendimentos</span><span><Users /> Equipe</span></div><span className="preview-label">Visualização ilustrativa</span></div>;
 }
 
 export default App;
