@@ -115,10 +115,11 @@ export const dashboardDemo = {
     { day: 'Seg', value: 46 }, { day: 'Ter', value: 52 }, { day: 'Qua', value: 49 }, { day: 'Qui', value: 58 },
     { day: 'Sex', value: 81 }, { day: 'Sáb', value: 77 }, { day: 'Dom', value: 49 },
   ],
+  // Atendentes com os retratos fictícios dos nossos outros sites.
   byAgent: [
-    { name: 'Camila', sales: 152 },
-    { name: 'Diego', sales: 138 },
-    { name: 'Larissa', sales: 122 },
+    { name: 'Ana', photo: 'ana-costa', sales: 152 },
+    { name: 'Rafael', photo: 'rafael-lima', sales: 138 },
+    { name: 'Julia', photo: 'julia-martins', sales: 122 },
   ],
 };
 

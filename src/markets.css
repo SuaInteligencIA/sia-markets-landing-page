@@ -84,7 +84,7 @@ h2 .accent{color:var(--blue)}
 .day-bar-fill{width:100%;border-radius:7px 7px 3px 3px;background:linear-gradient(180deg,#2b5cff,#8fb0ff)}
 .day-bar small{font-size:10px;color:#46506b}
 .agent-row{display:grid;grid-template-columns:26px 58px 1fr auto;align-items:center;gap:8px;margin-top:12px;font-size:12px}
-.agent-initial{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#dfe7ff;color:#173785;font-weight:500;font-size:12px}
+.agent-photo{width:26px;height:26px;border-radius:50%;object-fit:cover;background:#dfe7ff}
 .agent-name{color:#46506b}
 .agent-track{height:8px;border-radius:100px;background:#e1e7f5;overflow:hidden}
 .agent-track>span{display:block;height:100%;border-radius:100px;background:linear-gradient(90deg,#2b5cff,#00a0fe)}
@@ -141,3 +141,6 @@ h2 .accent{color:var(--blue)}
 @media(max-width:600px){.crm-section .crm-preview,.crm-section .crm-product:hover .crm-preview{zoom:.7}}
 @media(max-width:450px){.crm-section .crm-preview,.crm-section .crm-product:hover .crm-preview{zoom:.46}}
 @media(max-width:950px){.crm-section .crm-art{min-height:0;width:100%}}
+
+/* Clientes do CRM com iniciais */
+.person-initials{display:flex;align-items:center;justify-content:center;background:#dfe7ff;color:#173785;font-size:9px;font-weight:600;letter-spacing:.3px}

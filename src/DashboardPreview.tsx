@@ -15,7 +15,7 @@ export function DashboardPreview() {
     <div className="kpi-grid">{kpis.map(kpi => { const Icon = kpiIcons[kpi.icon as keyof typeof kpiIcons]; return <div className="kpi" key={kpi.label}><span className="kpi-icon"><Icon size={17} /></span><span className="kpi-label">{kpi.label}</span><strong className="kpi-value">{kpi.value}</strong></div>; })}</div>
     <div className="dashboard-lower">
       <div className="dashboard-card"><span className="dashboard-card-title">Vendas por dia</span><div className="day-bars">{byDay.map(day => <span className="day-bar" key={day.day}><span className="day-bar-fill" style={{ height: `${Math.round(day.value / highest * 100)}%` }} /><small>{day.day}</small></span>)}</div></div>
-      <div className="dashboard-card"><span className="dashboard-card-title">Por atendente</span>{byAgent.map(agent => <div className="agent-row" key={agent.name}><span className="agent-initial">{agent.name[0]}</span><span className="agent-name">{agent.name}</span><span className="agent-track"><span style={{ width: `${Math.round(agent.sales / topAgent * 100)}%` }} /></span><strong>{agent.sales}</strong></div>)}</div>
+      <div className="dashboard-card"><span className="dashboard-card-title">Por atendente</span>{byAgent.map(agent => <div className="agent-row" key={agent.name}><img className="agent-photo" src={`${BASE}images/people/${agent.photo}.webp`} width="26" height="26" alt="" loading="lazy" decoding="async" /><span className="agent-name">{agent.name}</span><span className="agent-track"><span style={{ width: `${Math.round(agent.sales / topAgent * 100)}%` }} /></span><strong>{agent.sales}</strong></div>)}</div>
     </div>
   </div>;
 }

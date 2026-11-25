@@ -1,5 +1,5 @@
 {
-  "date": "2026-11-25T21:40:25.964Z",
+  "date": "2026-11-25T22:22:00.658Z",
   "url": "http://127.0.0.1:4175/markets/",
   "browser": "Chromium",
   "checks": [
@@ -14,7 +14,8 @@
     "Lista: conversa ilustrativa termina em lista organizada, sem preços",
     "Imagens novas: topo, cliente mandando áudio e equipe separando",
     "Agente: mascote e três formas de personalizar",
-    "CRM: retratos e conversa selecionada",
+    "CRM: clientes com iniciais e conversa selecionada",
+    "Foto de perfil: mascote 3D recortada no rosto",
     "CRM: ilustração inteira visível no celular",
     "Configuração: domínio e telefone vêm de content.ts",
     "FAQ: abrir, ler e recolher com teclado",

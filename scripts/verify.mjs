@@ -143,6 +143,8 @@ try {
       assert.equal(await page.locator('#painel .kpi').filter({ hasText: label }).count(), 1, label);
     }
     assert.equal(await page.locator('#painel .agent-row').count(), 3);
+    // Atendentes com os retratos dos nossos outros sites.
+    assert.deepEqual(await page.locator('#painel .agent-row img').evaluateAll(images => images.map(image => new URL(image.src).pathname.split('/').pop()).sort()), ['ana-costa.webp', 'julia-martins.webp', 'rafael-lima.webp']);
     await noOverflow([320, 375, 768]);
   });
 
@@ -168,10 +170,21 @@ try {
     assert.ok(await page.locator('#sua-agente .agent-mascot').evaluate(image => image.complete && image.naturalWidth > 0));
   });
 
-  await check('CRM: retratos e conversa selecionada', async () => {
-    assert.deepEqual(await page.locator('.crm-preview .person-avatar img').evaluateAll(images => [...new Set(images.map(image => image.getAttribute('src')))].sort()), ['ana-costa', 'julia-martins', 'rafael-lima'].map(name => `${BASE_PATH}images/people/${name}.webp`));
-    assert.match(await page.locator('.crm-preview .chat-topline strong').innerText(), /Ana Costa/);
-    assert.match(await page.locator('.crm-preview .inbox-person.active').innerText(), /Ana Costa/);
+  await check('CRM: clientes com iniciais e conversa selecionada', async () => {
+    // Os retratos são dos atendentes (painel); os clientes do CRM usam iniciais, para o mesmo rosto não ter dois papéis.
+    assert.equal(await page.locator('.crm-preview .person-avatar img').count(), 0);
+    assert.equal(await page.locator('.crm-preview .inbox-person').count(), 3);
+    assert.match(await page.locator('.crm-preview .chat-topline strong').innerText(), /Marina Souza/);
+    assert.match(await page.locator('.crm-preview .inbox-person.active').innerText(), /Marina Souza/);
+    assert.doesNotMatch(await page.locator('main').innerText(), /Ana Costa|Oi, Ana/, 'Ana Costa agora é atendente, não cliente');
+  });
+
+  await check('Foto de perfil: mascote 3D recortada no rosto', async () => {
+    const avatar = page.locator('.chat-header .agent-avatar img').first();
+    await avatar.evaluate(image => { image.loading = 'eager'; return image.decode(); });
+    const size = await avatar.evaluate(image => [image.naturalWidth, image.naturalHeight]);
+    assert.equal(size[0], size[1], 'Recorte quadrado no rosto');
+    assert.ok(size[0] >= 160);
   });
 
   await check('CRM: ilustração inteira visível no celular', async () => {
