@@ -34,11 +34,16 @@ export const nav: { label: string; href: string }[] = [
   { label: 'Painel', href: '#painel' },
   { label: 'Lista de compras', href: '#lista' },
   { label: 'Sua agente', href: '#sua-agente' },
+  { label: 'Dúvidas', href: '#duvidas' },
 ];
 
 // Troque por { kind: 'scene', name: 'hero-mercado', alt: '...' } quando a imagem nova chegar
 // (arquivos public/images/hero-mercado-{768,1024,1536}.avif e hero-mercado.webp).
-export const heroImage: { kind: 'mascot' } | { kind: 'scene'; name: string; alt: string } = { kind: 'mascot' };
+export const heroImage: { kind: 'mascot' } | { kind: 'scene'; name: string; alt: string } = {
+  kind: 'scene',
+  name: 'hero-mercado',
+  alt: 'SIA, a agente de IA de uniforme azul, olhando o celular em um supermercado, ao lado de caixas de frutas e verduras, com um balão de lista confirmada',
+};
 
 export const benefits = [
   { label: 'Vendas no painel', icon: 'chart' },
@@ -155,4 +160,27 @@ export const crmHighlights = [
   'Atendimentos distribuídos entre os atendentes',
   'Histórico de cada cliente',
   'Venda registrada ao finalizar o atendimento',
+];
+
+export const faqs = [
+  {
+    question: 'Como eu sei quanto o supermercado vendeu pelo WhatsApp?',
+    answer: 'Ao finalizar cada atendimento, sua equipe registra a venda no CRM. Essas vendas formam o painel, onde você acompanha o total vendido pelo WhatsApp, a quantidade de vendas, o ticket médio e as vendas de cada atendente.',
+  },
+  {
+    question: 'A IA substitui a minha equipe?',
+    answer: 'Não. O agente de IA atende o cliente, monta a lista de compras e confirma o pedido. Sua equipe continua separando, enviando e registrando a venda, só que com a lista pronta e muito menos mensagem para digitar.',
+  },
+  {
+    question: 'Funciona com o WhatsApp que o supermercado já usa?',
+    answer: 'O atendimento acontece no WhatsApp do seu supermercado, conectado ao nosso CRM. Na conversa com o nosso time, avaliamos o número que você usa hoje e explicamos como fica a conexão no seu caso.',
+  },
+  {
+    question: 'Preciso entender de tecnologia?',
+    answer: 'Não. Nosso time acompanha a implantação e orienta a equipe. No dia a dia, seus atendentes conversam pelo CRM e você acompanha os números pelo painel.',
+  },
+  {
+    question: 'Quanto tempo leva para começar?',
+    answer: 'Depende das informações do seu supermercado e de como a sua equipe atende hoje. O prazo é combinado na primeira conversa com o nosso time.',
+  },
 ];

@@ -94,25 +94,30 @@ h2 .accent{color:var(--blue)}
 @media(max-width:760px){.dashboard-section{margin-top:16px;padding:44px 20px 32px}.dashboard-copy>p:not(.eyebrow),.dashboard-highlights li{font-size:14px}.dashboard-preview{padding:14px;border-radius:20px}.kpi-grid{grid-template-columns:1fr 1fr;gap:8px}.kpi-value{font-size:19px}.dashboard-lower{grid-template-columns:1fr}.dashboard-top strong{font-size:13px}.dashboard-halo{width:420px;height:420px}}
 @media(max-width:360px){.kpi-value{font-size:17px}.kpi{padding:11px}.dashboard-period{display:none}}
 
-/* Lista de compras */
-.list-section{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
-.list-copy>p:not(.eyebrow){margin-top:20px;font-size:16px;line-height:1.7;color:#46506b;max-width:520px}
-.list-copy>p strong{font-weight:500;color:var(--ink)}
-.team-gains{display:grid;gap:18px;margin-top:30px}
-.team-gain{display:flex;gap:16px;align-items:flex-start}
-.team-gain-icon{flex:none;width:48px;height:48px;border-radius:16px;display:flex;align-items:center;justify-content:center;color:#fff;background:linear-gradient(135deg,#2b5cff,#0052e6);box-shadow:0 12px 30px rgba(43,92,255,.25)}
-.team-gain h3{font-size:17px;font-weight:500;letter-spacing:-.3px}
-.team-gain p{margin-top:4px;font-size:14px;line-height:1.6;color:#5a6480}
-.list-stage{position:relative;border-radius:36px;overflow:hidden;min-height:640px;display:flex;align-items:center;justify-content:center;padding:40px 32px;isolation:isolate}
-.list-stage picture,.list-stage>picture>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
-.list-stage:after{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(10,31,168,.18),rgba(10,31,168,.42))}
-.list-chat{width:100%;max-width:420px;background:rgba(255,255,255,.9);border:1.5px solid rgba(255,255,255,.7);border-radius:24px;padding:0 18px 16px;box-shadow:0 24px 60px rgba(6,18,64,.2);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+/* Lista de compras: faixa com a cliente mandando áudio, depois a conversa e a equipe */
+.list-banner{position:relative;isolation:isolate;margin-top:32px;min-height:560px;display:flex;align-items:center;background:#fbf3e6}
+.list-banner-art{position:absolute;inset:0;z-index:-1}
+.list-banner-art img{width:100%;height:100%;object-fit:cover;object-position:right center}
+.list-banner-copy{width:min(470px,40%);margin-left:6%;padding:64px 0}
+.list-banner-copy>p:not(.eyebrow){margin-top:20px;font-size:16px;line-height:1.7;color:#46506b}
+.list-banner-copy>p strong{font-weight:500;color:var(--ink)}
+.list-section{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.list-stage{border-radius:32px;background:radial-gradient(ellipse at 50% 0%,#e8efff 0%,#d9e5fb 60%,#d8e2f5 100%);display:flex;justify-content:center;padding:36px 28px}
+.list-chat{width:100%;max-width:440px;background:#fff;border-radius:24px;padding:0 18px 16px;box-shadow:0 24px 60px rgba(6,18,64,.14)}
 .list-chat .bubble{font-size:13px}
 .list-chat .agent-bubble ul{list-style:none;padding:0;margin:9px 0 2px;display:grid;gap:5px}
 .list-chat .agent-bubble li{display:flex;justify-content:space-between;gap:12px;border-top:1px solid rgba(255,255,255,.22);padding-top:5px}
-.list-chat .agent-bubble li span{order:2;font-size:10px;letter-spacing:.6px;text-transform:uppercase;color:rgba(255,255,255,.82);align-self:center}
+.list-chat .agent-bubble li span{order:2;font-size:10px;letter-spacing:.6px;text-transform:uppercase;color:#fff;font-weight:500;align-self:center}
 .audio-message{display:inline-flex;align-items:center;gap:8px}
-.audio-wave{width:64px;height:14px;background:repeating-linear-gradient(90deg,#2b5cff 0 2px,transparent 2px 5px);-webkit-mask:linear-gradient(180deg,transparent 30%,#000 30% 70%,transparent 70%),linear-gradient(90deg,#000,#000);mask-image:radial-gradient(ellipse 60% 100% at 50% 50%,#000 55%,transparent 75%);border-radius:3px;opacity:.8}
+.audio-wave{width:64px;height:14px;background:repeating-linear-gradient(90deg,#2b5cff 0 2px,transparent 2px 5px);mask-image:radial-gradient(ellipse 60% 100% at 50% 50%,#000 55%,transparent 75%);-webkit-mask-image:radial-gradient(ellipse 60% 100% at 50% 50%,#000 55%,transparent 75%);opacity:.8}
+.team-art{border-radius:28px;overflow:hidden;aspect-ratio:1.5}
+.team-art img{width:100%;height:100%;object-fit:cover}
+.team-title{margin-top:28px;font-size:26px;font-weight:500;letter-spacing:-.7px}
+.team-gains{display:grid;gap:18px;margin-top:20px}
+.team-gain{display:flex;gap:16px;align-items:flex-start}
+.team-gain-icon{flex:none;width:48px;height:48px;border-radius:16px;display:flex;align-items:center;justify-content:center;color:#fff;background:linear-gradient(135deg,#2b5cff,#0052e6);box-shadow:0 12px 30px rgba(43,92,255,.25)}
+.team-gain h4{margin:0;font-size:17px;font-weight:500;letter-spacing:-.3px}
+.team-gain p{margin-top:4px;font-size:14px;line-height:1.6;color:#5a6480}
 
 /* CRM */
 .crm-section{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center;padding-top:0}
@@ -123,6 +128,10 @@ h2 .accent{color:var(--blue)}
 .crm-highlights li{display:flex;align-items:center;gap:10px;font-size:15px}
 .crm-highlights svg{flex:none;color:var(--blue)}
 
-@media(max-width:1180px){.list-section,.crm-section{gap:40px}.list-stage{min-height:600px;padding:32px 22px}}
-@media(max-width:950px){.list-section,.crm-section{grid-template-columns:1fr}.crm-section .crm-art{height:auto;aspect-ratio:1.55;min-height:250px}}
-@media(max-width:760px){.list-copy>p:not(.eyebrow),.crm-copy>p:not(.eyebrow),.crm-highlights li{font-size:14px}.list-stage{min-height:0;border-radius:24px;padding:28px 14px}.list-chat{padding:0 12px 12px;border-radius:18px}.list-chat .bubble{font-size:12px}.team-gain h3{font-size:16px}.crm-section .product-card{border-radius:20px}}
+@media(max-width:1180px){.list-section,.crm-section{gap:40px}.list-stage{padding:32px 22px}.list-banner-copy{width:44%}}
+@media(max-width:950px){.list-section,.crm-section{grid-template-columns:1fr}.list-banner{flex-direction:column;align-items:stretch;min-height:0;background:#fff8ee}.list-banner-art{position:relative;inset:auto;height:340px}.list-banner-art img{object-position:72% center}.list-banner-copy{width:auto;margin:0;padding:32px 28px 40px}.crm-section .crm-art{height:auto;aspect-ratio:1.55;min-height:250px}}
+@media(max-width:760px){.list-banner{margin-top:16px}.list-banner-art{height:260px}.list-banner-copy{padding:28px 22px 34px}.list-banner-copy>p:not(.eyebrow),.crm-copy>p:not(.eyebrow),.crm-highlights li{font-size:14px}.list-stage{border-radius:24px;padding:24px 12px}.list-chat{padding:0 12px 12px;border-radius:18px}.team-art{border-radius:20px}.team-title{font-size:22px}.list-chat .bubble{font-size:12px}.team-gain h4{font-size:16px}.crm-section .product-card{border-radius:20px}}
+
+/* Topo com a cena do supermercado: a mascote fica a 64% da largura da imagem. */
+.hero-art:not(.hero-art--mascot) img{object-position:62% 50%}
+@media(max-width:760px){.hero-art:not(.hero-art--mascot) img{object-position:70% 70%}}

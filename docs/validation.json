@@ -1,5 +1,5 @@
 {
-  "date": "2026-11-25T21:06:30.478Z",
+  "date": "2026-11-25T21:12:30.954Z",
   "url": "http://127.0.0.1:4175",
   "browser": "Chromium",
   "checks": [
@@ -11,9 +11,15 @@
     "Etapas: quatro passos, teclado e ARIA",
     "Painel: ilustração acessível, quatro indicadores e sem rolagem lateral",
     "Lista: conversa ilustrativa termina em lista organizada, sem preços",
+    "Imagens novas: topo, cliente mandando áudio e equipe separando",
     "Agente: mascote e três formas de personalizar",
     "CRM: retratos e conversa selecionada",
-    "Topo: sem rolagem lateral de 320 a 1920px"
+    "FAQ: abrir, ler e recolher com teclado",
+    "Chamada final: botão branco para o WhatsApp",
+    "SEO: JSON-LD com organização, produto e perguntas do FAQ",
+    "Responsividade: 11 larguras de 320 a 1920px",
+    "Mobile: menu, foco e navegação",
+    "Mobile paisagem: menu com rolagem própria"
   ],
   "javascriptErrors": [],
   "status": "passed"

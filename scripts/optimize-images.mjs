@@ -1,27 +1,28 @@
+import { existsSync } from 'node:fs';
 import { createRequire } from 'node:module';
 
-// Optional build-time utility; generated assets are checked in and need no
-// image-processing library in the browser or on the production host.
+// Utilitário opcional, usado quando as imagens novas chegam. Os derivados ficam versionados em
+// public/images/, e o site não precisa de nenhuma biblioteca de imagem para ser publicado.
+//
+// Coloque os PNGs gerados em docs/source-assets/ com estes nomes e rode:
+//   SHARP_PATH=<pasta do sharp> node scripts/optimize-images.mjs   (ou com sharp instalado no projeto)
 const require = createRequire(import.meta.url);
-const sharp = require(process.env.SHARP_PATH || 'C:/Users/samue/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/sharp');
-const sourceDirectory = 'docs/source-assets/final';
+const sharp = require(process.env.SHARP_PATH || 'sharp');
+const sourceDirectory = 'docs/source-assets';
 const images = [
-  ['hero-reservas-color-v2', [768, 1024, 1536]],
-  ['atendimento-ia-color-v2', [640, 768, 1024]],
-  ['hospitalidade-color-v2', [768, 1280]],
+  ['hero-mercado', [768, 1024, 1536]],
+  ['separacao-pedido', [640, 768, 1024]],
+  ['cliente-audio', [640, 768, 1024]],
 ];
 for (const [name, widths] of images) {
+  const source = `${sourceDirectory}/${name}.png`;
+  if (!existsSync(source)) { console.log(`Pulando ${name}: ${source} ainda não existe.`); continue; }
   for (const width of widths) {
     const output = `public/images/${name}-${width}.avif`;
-    // The mobile hero keeps the same 768px source dimensions with a visually
-    // checked, smaller encoding; larger artwork retains the original quality.
-    const mobileHero = name === 'hero-reservas-color-v2' && width === 768;
-    const info = await sharp(`${sourceDirectory}/${name}.png`).resize({ width, withoutEnlargement: true }).avif({ quality: mobileHero ? 45 : 57, effort: mobileHero ? 9 : 6 }).toFile(output);
+    const info = await sharp(source).resize({ width, withoutEnlargement: true }).avif({ quality: 57, effort: 6 }).toFile(output);
     console.log(output, info.size);
   }
+  const fallback = `public/images/${name}.webp`;
+  const info = await sharp(source).resize({ width: Math.max(...widths), withoutEnlargement: true }).webp({ quality: 82, effort: 6 }).toFile(fallback);
+  console.log(fallback, info.size);
 }
-const agentSource = 'docs/source-assets/brand/sia-agente.png';
-await sharp(agentSource).webp({ quality: 85, effort: 6 }).toFile('public/brand/sia-agente.webp');
-await sharp(agentSource).resize({ width: 320 }).webp({ quality: 82, effort: 6 }).toFile('public/brand/sia-agente-320.webp');
-await sharp(agentSource).resize({ width: 400 }).webp({ quality: 82, effort: 6 }).toFile('public/brand/sia-agente-400.webp');
-await sharp(agentSource).resize({ width: 160 }).webp({ quality: 85, effort: 6 }).toFile('public/brand/sia-agente-avatar.webp');

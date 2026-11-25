@@ -130,11 +130,20 @@ try {
   });
 
   await check('Lista: conversa ilustrativa termina em lista organizada, sem preços', async () => {
-    const chat = page.locator('#lista .list-chat');
+    const chat = page.locator('.list-chat');
     assert.ok(await chat.locator('.guest-bubble .audio-message').count() >= 1, 'Ao menos um áudio do cliente');
     assert.ok(await chat.locator('.agent-bubble ul li').count() >= 5, 'Lista com 5 itens ou mais');
     assert.doesNotMatch(await chat.innerText(), /R\$|\d+,\d{2}/);
-    assert.equal(await page.locator('#lista .team-gain').count(), 3);
+    assert.equal(await page.locator('.team-gain').count(), 3);
+  });
+
+  await check('Imagens novas: topo, cliente mandando áudio e equipe separando', async () => {
+    for (const [selector, name] of [['#inicio .hero-art img', 'hero-mercado'], ['#lista img', 'cliente-audio'], ['.team-panel img', 'separacao-pedido']]) {
+      const image = page.locator(selector).first();
+      assert.match(await image.evaluate(img => img.currentSrc), new RegExp(name), selector);
+      assert.ok(await image.evaluate(img => img.complete && img.naturalWidth > 0), `${name} carregou`);
+      assert.ok((await image.getAttribute('alt')).length > 10, `${name} tem texto alternativo`);
+    }
   });
 
   await check('Agente: mascote e três formas de personalizar', async () => {
@@ -148,7 +157,62 @@ try {
     assert.match(await page.locator('.crm-preview .inbox-person.active').innerText(), /Ana Costa/);
   });
 
-  await check('Topo: sem rolagem lateral de 320 a 1920px', () => noOverflow([320, 360, 390, 430, 640, 768, 820, 1024, 1280, 1440, 1920]));
+  await check('FAQ: abrir, ler e recolher com teclado', async () => {
+    assert.equal(await page.locator('#duvidas .faq-item').count(), 5);
+    await page.locator('#faq-question-2').focus();
+    await page.keyboard.press('Enter');
+    assert.equal(await page.locator('#faq-question-2').getAttribute('aria-expanded'), 'true');
+    assert.equal(await page.locator('#faq-answer-2').isVisible(), true);
+    await page.keyboard.press('Space');
+    assert.equal(await page.locator('#faq-answer-2').isVisible(), false);
+  });
+
+  await check('Chamada final: botão branco para o WhatsApp', async () => {
+    assert.equal(await page.locator('#contato .button-white').getAttribute('href').then(href => new URL(href).hostname), 'wa.me');
+  });
+
+  await check('SEO: JSON-LD com organização, produto e perguntas do FAQ', async () => {
+    const graph = JSON.parse(await page.locator('script[type="application/ld+json"]').textContent())['@graph'];
+    const types = graph.map(item => item['@type']);
+    for (const type of ['Organization', 'WebSite', 'WebPage', 'SoftwareApplication', 'FAQPage']) assert.ok(types.includes(type), type);
+    assert.ok(graph.every(item => !item.review && !item.aggregateRating), 'Sem avaliações inventadas');
+    const faqQuestions = graph.find(item => item['@type'] === 'FAQPage').mainEntity.map(entity => entity.name);
+    assert.deepEqual(faqQuestions, await page.locator('#duvidas .faq-item h3 button').evaluateAll(buttons => buttons.map(button => button.textContent.trim())));
+  });
+
+  await check('Responsividade: 11 larguras de 320 a 1920px', async () => {
+    await noOverflow([320, 360, 390, 430, 640, 768, 820, 1024, 1280, 1440, 1920]);
+    await page.setViewportSize({ width: 390, height: 844 });
+    assert.equal(await page.locator('.header-contact').isVisible(), true);
+    assert.equal(await page.locator('#mobile-toggle').isVisible(), true);
+    await page.setViewportSize({ width: 1440, height: 1000 });
+  });
+
+  await check('Mobile: menu, foco e navegação', async () => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.locator('#mobile-toggle').click();
+    assert.equal(await page.locator('#mobile-menu .button-primary').isVisible(), true);
+    await page.locator('#mobile-menu a').first().focus();
+    await page.keyboard.press('Escape');
+    assert.equal(await page.evaluate(() => document.activeElement.id), 'mobile-toggle');
+    await page.locator('#mobile-toggle').click();
+    await page.locator('#mobile-menu').getByRole('link', { name: 'Dúvidas', exact: true }).click();
+    assert.equal(await page.locator('#mobile-menu').count(), 0);
+    assert.equal(new URL(page.url()).hash, '#duvidas');
+    await accessibility('Página mobile');
+  });
+
+  await check('Mobile paisagem: menu com rolagem própria', async () => {
+    await page.setViewportSize({ width: 667, height: 375 });
+    await page.locator('#mobile-toggle').click();
+    const metrics = await page.locator('#mobile-menu').evaluate(menu => ({ bottom: menu.getBoundingClientRect().bottom, viewport: innerHeight, overflow: getComputedStyle(menu).overflowY }));
+    assert.ok(metrics.bottom <= metrics.viewport + 1);
+    assert.equal(metrics.overflow, 'auto');
+    await page.locator('#mobile-menu .button-primary').scrollIntoViewIfNeeded();
+    const cta = await page.locator('#mobile-menu .button-primary').boundingBox();
+    assert.ok(cta.y + cta.height <= 376);
+    await page.keyboard.press('Escape');
+  });
 
   assert.deepEqual(errors, [], 'Erros JavaScript no navegador');
   await mkdir('docs', { recursive: true });
