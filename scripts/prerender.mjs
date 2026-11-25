@@ -27,8 +27,8 @@ if (!template.includes(placeholder)) throw new Error('Expected empty root in the
 const stylesheetLinks = [...template.matchAll(/<link\b[^>]*rel="stylesheet"[^>]*>/g)];
 for (const [link] of stylesheetLinks) {
   const href = link.match(/href="([^"]+)"/)?.[1];
-  if (!href?.startsWith('/assets/')) throw new Error('Unexpected stylesheet URL.');
-  const css = await fs.readFile(path.resolve('dist', href.slice(1)), 'utf8');
+  if (!href || !/\/assets\/[^/]+\.css$/.test(href)) throw new Error('Unexpected stylesheet URL.');
+  const css = await fs.readFile(path.resolve('dist', 'assets', path.basename(href)), 'utf8');
   template = template.replace(link, `<style>${css}</style>`);
 }
 await fs.writeFile(htmlPath, template.replace(placeholder, `<div id="root">${render()}</div>`));

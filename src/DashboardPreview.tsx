@@ -1,4 +1,5 @@
 import { BarChart3, MessagesSquare, MoreHorizontal, Receipt, ShoppingBag } from './icons';
+import { BASE } from './base';
 import { dashboardDemo } from './content';
 
 const kpiIcons = { chart: BarChart3, receipt: Receipt, bag: ShoppingBag, messages: MessagesSquare } as const;
@@ -10,7 +11,7 @@ export function DashboardPreview() {
   const highest = Math.max(...byDay.map(day => day.value));
   const topAgent = Math.max(...byAgent.map(agent => agent.sales));
   return <div className="dashboard-preview" role="img" aria-label="Ilustração do painel do SIA Markets com o total vendido pelo WhatsApp, vendas registradas, ticket médio, atendimentos finalizados, vendas por dia e por atendente">
-    <div className="dashboard-top"><img src="/brand/icon.svg" width="24" height="24" alt="" /><strong>Vendas pelo WhatsApp</strong><span className="dashboard-period">{period}</span><MoreHorizontal size={18} /></div>
+    <div className="dashboard-top"><img src={`${BASE}brand/icon.svg`} width="24" height="24" alt="" /><strong>Vendas pelo WhatsApp</strong><span className="dashboard-period">{period}</span><MoreHorizontal size={18} /></div>
     <div className="kpi-grid">{kpis.map(kpi => { const Icon = kpiIcons[kpi.icon as keyof typeof kpiIcons]; return <div className="kpi" key={kpi.label}><span className="kpi-icon"><Icon size={17} /></span><span className="kpi-label">{kpi.label}</span><strong className="kpi-value">{kpi.value}</strong></div>; })}</div>
     <div className="dashboard-lower">
       <div className="dashboard-card"><span className="dashboard-card-title">Vendas por dia</span><div className="day-bars">{byDay.map(day => <span className="day-bar" key={day.day}><span className="day-bar-fill" style={{ height: `${Math.round(day.value / highest * 100)}%` }} /><small>{day.day}</small></span>)}</div></div>

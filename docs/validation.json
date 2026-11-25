@@ -1,8 +1,9 @@
 {
-  "date": "2026-11-25T21:21:55.037Z",
-  "url": "http://127.0.0.1:4175",
+  "date": "2026-11-25T21:40:25.964Z",
+  "url": "http://127.0.0.1:4175/markets/",
   "browser": "Chromium",
   "checks": [
+    "Endereço: tudo carrega de dentro da subpasta do site",
     "Página: idioma, título, fonte, imagens, âncoras e WhatsApp",
     "Palavras proibidas: nenhum arquivo publicado as contém",
     "Botão principal: sempre \"Fale com a gente\"",

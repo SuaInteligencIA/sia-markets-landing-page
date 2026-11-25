@@ -4,7 +4,7 @@ Site do **SIA Markets**, produto da Sua InteligêncIA para supermercados de pequ
 atendimentos do WhatsApp e agente de IA que monta a lista de compras. Mesma base e mesma identidade do SIA Reserve
 (API React 19 com Preact compat, Vite 6 e TypeScript, HTML pré-renderizado, Space Grotesk e azul `#2d5ffe`).
 
-Ainda não publicado.
+Endereço: **https://suainteligenc.ia.br/markets/** (subpasta do site da Sua InteligêncIA). Ainda não publicado.
 
 ## Executar
 
@@ -27,9 +27,15 @@ prévia do `dist/` sozinho (porta 4175) e roda as verificações em Chromium: ac
 menu no celular, sem rolagem lateral de 320 a 1920 px, links de WhatsApp e a **trava de palavras proibidas**, que lê
 todos os arquivos publicados.
 
-Para publicar, envie o conteúdo de `dist/` a uma hospedagem de sites estáticos.
+Para publicar, envie o conteúdo de `dist/` para a pasta `public_html/markets/` da hospedagem da Sua InteligêncIA
+(a mesma do site principal). O deploy do site principal só apaga o que ele mesmo enviou, então não mexe nessa pasta.
+Todos os caminhos já saem com `/markets/` na frente; a subpasta vem do `SITE_URL`.
 
-Para medir desempenho: `npx vite preview --port 4175` em um terminal e `npm run lighthouse entrega` em outro.
+O `robots.txt` só vale na raiz do domínio, então este site não gera um. Para o Google achar a página, inclua
+`https://suainteligenc.ia.br/markets/` no `sitemap.xml` do site principal (ou aponte o `robots.txt` de lá também para
+`https://suainteligenc.ia.br/markets/sitemap.xml`).
+
+Para medir desempenho: `npm run preview` em um terminal e `npm run lighthouse entrega` em outro.
 Última medição (25/11/2026, já com as ilustrações): celular 98 / 100 / 100 / 100 e computador 100 / 100 / 100 / 100
 (desempenho, acessibilidade, boas práticas, SEO). Resumo em `docs/lighthouse/entrega-summary.json`.
 
@@ -42,12 +48,11 @@ Para medir desempenho: `npx vite preview --port 4175` em um terminal e `npm run 
 - Botão principal sempre **"Fale com a gente"**.
 - Sem depoimentos, preços ou números de resultado. Os números do painel são fictícios e marcados como ilustrativos.
 
-## Provisório
+## Endereço e contato
 
-| O quê | Onde | Valor atual |
-| --- | --- | --- |
-| WhatsApp comercial | `WHATSAPP_NUMBER` em `src/content.ts` | o mesmo do SIA Reserve |
-| Domínio | `SITE_URL` em `src/content.ts` (o `index.html`, o `robots.txt` e o `sitemap.xml` usam essa constante) | `siamarkets.com.br` |
+Ficam só em `src/content.ts`: `WHATSAPP_NUMBER` (o mesmo do SIA Reserve) e `SITE_URL`
+(`https://suainteligenc.ia.br/markets/`). O `index.html`, o `sitemap.xml`, os caminhos dos arquivos e os dados
+estruturados usam essas constantes.
 
 ## Imagens
 

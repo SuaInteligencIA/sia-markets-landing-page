@@ -1,6 +1,6 @@
-// PROVISÓRIO: confirmar com o Samuel o número comercial e o domínio do SIA Markets.
+// Número comercial (o mesmo do SIA Reserve) e endereço do site, numa subpasta do site da Sua InteligêncIA.
 export const WHATSAPP_NUMBER = '5531995342318';
-export const SITE_URL = 'https://siamarkets.com.br/';
+export const SITE_URL = 'https://suainteligenc.ia.br/markets/';
 
 export function whatsappUrl(message = 'Olá! Quero conhecer o SIA Markets para o meu supermercado.'): string {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;

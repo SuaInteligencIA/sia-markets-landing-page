@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import { ArrowDown, ArrowUpRight, AudioLines, BarChart3, Book, Bot, Check, CheckCheck, ChevronDown, ChevronRight, Customize, Globe2, Instagram, Linkedin, ListCheck, Menu, MessagesSquare, Mic, MoreHorizontal, Plus, Receipt, Send, ShoppingBag, Sparkles, Timer, Truck, Users, WhatsApp, X } from './icons';
+import { BASE } from './base';
 import { agentPersonalization, benefits, chatDemo, company, contact, crmHighlights, dashboardHighlights, faqs, heroImage, nav, problems, socials, steps, teamGains, whatsappUrl } from './content';
 import { structuredData } from './structuredData';
 import { DashboardPreview } from './DashboardPreview';
@@ -25,11 +26,11 @@ function TalkButton({ className = 'button button-primary', href = talkUrl }: { c
 function HeroArt() {
   if (heroImage.kind === 'scene') {
     const { name, alt } = heroImage;
-    return <div className="hero-art"><picture><source type="image/avif" srcSet={`/images/${name}-768.avif 768w, /images/${name}-1024.avif 1024w, /images/${name}-1536.avif 1536w`} sizes="(max-width:950px) 73vw, (max-width:1180px) 66vw, 64vw" /><img src={`/images/${name}.webp`} alt={alt} width="1536" height="1024" fetchPriority="high" /></picture></div>;
+    return <div className="hero-art"><picture><source type="image/avif" srcSet={`${BASE}images/${name}-768.avif 768w, ${BASE}images/${name}-1024.avif 1024w, ${BASE}images/${name}-1536.avif 1536w`} sizes="(max-width:950px) 73vw, (max-width:1180px) 66vw, 64vw" /><img src={`${BASE}images/${name}.webp`} alt={alt} width="1536" height="1024" fetchPriority="high" /></picture></div>;
   }
   return <div className="hero-art hero-art--mascot">
     <div className="hero-mascot-glow" aria-hidden="true" />
-    <img className="hero-mascot" src="/brand/sia-agente.webp" srcSet="/brand/sia-agente-400.webp 400w, /brand/sia-agente.webp 500w" sizes="(max-width:760px) 260px, 420px" width="500" height="889" alt="SIA, a agente de IA do SIA Markets, de uniforme azul, segurando um celular" fetchPriority="high" />
+    <img className="hero-mascot" src={`${BASE}brand/sia-agente.webp`} srcSet={`${BASE}brand/sia-agente-400.webp 400w, ${BASE}brand/sia-agente.webp 500w`} sizes="(max-width:760px) 260px, 420px" width="500" height="889" alt="SIA, a agente de IA do SIA Markets, de uniforme azul, segurando um celular" fetchPriority="high" />
     <div className="hero-float hero-float--list" aria-hidden="true"><ListCheck size={18} /><span>Lista pronta para separar</span></div>
     <div className="hero-float hero-float--sales" aria-hidden="true"><BarChart3 size={18} /><span>Venda registrada no painel</span></div>
   </div>;
@@ -58,7 +59,7 @@ function App() {
   return <>
     <a className="skip-link" href="#conteudo">Pular para o conteúdo</a>
     <header className="site-header" ref={headerRef}>
-      <a className="brand" href="#inicio" onClick={closeNav} aria-label="SIA Markets — início"><img src="/brand/logo.svg" width="164" height="35" alt="SIA Markets" /></a>
+      <a className="brand" href="#inicio" onClick={closeNav} aria-label="SIA Markets — início"><img src={`${BASE}brand/logo.svg`} width="164" height="35" alt="SIA Markets" /></a>
       <nav className="desktop-nav" aria-label="Navegação principal">{nav.filter(item => item.href !== '#duvidas').map(item => <a key={item.href} className="nav-link" href={item.href} onClick={closeNav}>{item.label}</a>)}</nav>
       <div className="header-right">{nav.some(item => item.href === '#duvidas') && <a className="nav-link help-link" href="#duvidas" onClick={closeNav}>Dúvidas</a>}<TalkButton className="button button-small button-primary header-contact" /></div>
       <button id="mobile-toggle" className="menu-toggle icon-button" onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? 'Fechar menu' : 'Abrir menu'} aria-expanded={menuOpen} aria-controls="mobile-menu">{menuOpen ? <X /> : <Menu />}</button>
@@ -107,7 +108,7 @@ function App() {
       </section>
 
       <section className="list-banner page-inset" id="lista" aria-labelledby="list-title">
-        <div className="list-banner-art"><picture><source type="image/avif" srcSet="/images/cliente-audio-640.avif 640w, /images/cliente-audio-768.avif 768w, /images/cliente-audio-1024.avif 1024w" sizes="(max-width:760px) 100vw, 1024px" /><img src="/images/cliente-audio.webp" width="1024" height="682" alt="Cliente na cozinha de casa mandando um áudio pelo celular, olhando a geladeira aberta e uma fruteira" loading="lazy" decoding="async" /></picture></div>
+        <div className="list-banner-art"><picture><source type="image/avif" srcSet={`${BASE}images/cliente-audio-640.avif 640w, ${BASE}images/cliente-audio-768.avif 768w, ${BASE}images/cliente-audio-1024.avif 1024w`} sizes="(max-width:760px) 100vw, 1024px" /><img src={`${BASE}images/cliente-audio.webp`} width="1024" height="682" alt="Cliente na cozinha de casa mandando um áudio pelo celular, olhando a geladeira aberta e uma fruteira" loading="lazy" decoding="async" /></picture></div>
         <div className="list-banner-copy">
           <p className="eyebrow">LISTA DE COMPRAS SEM ESFORÇO</p>
           <h2 id="list-title">A lista sai pronta.<br /><span className="accent">A fila anda.</span></h2>
@@ -126,7 +127,7 @@ function App() {
           </div>
         </div>
         <div className="team-panel">
-          <div className="team-art"><picture><source type="image/avif" srcSet="/images/separacao-pedido-640.avif 640w, /images/separacao-pedido-768.avif 768w, /images/separacao-pedido-1024.avif 1024w" sizes="(max-width:950px) calc(100vw - 40px), 46vw" /><img src="/images/separacao-pedido.webp" width="1024" height="682" alt="Atendente de avental azul embalando um pedido em sacolas de papel, com a lista confirmada no celular sobre o balcão" loading="lazy" decoding="async" /></picture></div>
+          <div className="team-art"><picture><source type="image/avif" srcSet={`${BASE}images/separacao-pedido-640.avif 640w, ${BASE}images/separacao-pedido-768.avif 768w, ${BASE}images/separacao-pedido-1024.avif 1024w`} sizes="(max-width:950px) calc(100vw - 40px), 46vw" /><img src={`${BASE}images/separacao-pedido.webp`} width="1024" height="682" alt="Atendente de avental azul embalando um pedido em sacolas de papel, com a lista confirmada no celular sobre o balcão" loading="lazy" decoding="async" /></picture></div>
           <h3 className="team-title">Sua equipe recebe tudo pronto.</h3>
           <div className="team-gains">{teamGains.map(gain => <div className="team-gain" key={gain.title}><span className="team-gain-icon"><FeatureIcon name={gain.icon} size={22} /></span><div><h4>{gain.title}</h4><p>{gain.description}</p></div></div>)}</div>
         </div>
@@ -136,7 +137,7 @@ function App() {
         <div className="agent-portrait">
           <div className="agent-orbit" aria-hidden="true" />
           <div className="agent-intro-badge"><span className="status-dot" /> SUA NOVA PARCEIRA DE ATENDIMENTO</div>
-          <img className="agent-mascot" src="/brand/sia-agente.webp" srcSet="/brand/sia-agente-320.webp 320w, /brand/sia-agente-400.webp 400w, /brand/sia-agente.webp 500w" sizes="(max-width:760px) 55vw, (max-width:1180px) 42vw, 500px" width="500" height="889" alt="SIA, a agente de IA de cabelos escuros com mechas azuis e uniforme azul, segurando um celular" loading="lazy" decoding="async" />
+          <img className="agent-mascot" src={`${BASE}brand/sia-agente.webp`} srcSet={`${BASE}brand/sia-agente-320.webp 320w, ${BASE}brand/sia-agente-400.webp 400w, ${BASE}brand/sia-agente.webp 500w`} sizes="(max-width:760px) 55vw, (max-width:1180px) 42vw, 500px" width="500" height="889" alt="SIA, a agente de IA de cabelos escuros com mechas azuis e uniforme azul, segurando um celular" loading="lazy" decoding="async" />
         </div>
         <div className="agent-copy">
           <p className="eyebrow">UMA AGENTE ÚNICA. COMO O SEU SUPERMERCADO.</p>
@@ -162,13 +163,13 @@ function App() {
       <section className="contact-banner page-inset" id="contato" aria-labelledby="contact-title"><div className="contact-halo" /><div className="contact-content"><p className="eyebrow">O PRÓXIMO PASSO É UMA CONVERSA</p><h2 id="contact-title">Venda pelo WhatsApp.<br />Saiba quanto.</h2><p>Conheça o SIA Markets e veja como o painel e a agente SIA<br className="desktop-break" /> funcionam no seu supermercado.</p><TalkButton className="button button-white" /><span className="contact-note">Uma conversa com o nosso time, sem compromisso.</span></div><div className="contact-spark spark-one" aria-hidden="true">✳</div><div className="contact-spark spark-two" aria-hidden="true">✳</div></section>
     </main>
 
-    <footer className="site-footer"><div className="footer-main"><div className="footer-brand"><a href="#inicio" aria-label="SIA Markets — voltar ao início"><img src="/brand/logo.svg" alt="SIA Markets" width="178" height="38" /></a><p>Suas vendas pelo WhatsApp,<br />na palma da mão.</p><div className="social-links">{socials.map(social => <ExternalLink key={social.name} href={social.href} className="icon-button" aria-label={social.label}><FeatureIcon name={social.icon} size={19} /></ExternalLink>)}</div><PoweredBadge href={company.website} /></div><div className="footer-column"><h3>Explore</h3><a href="#inicio">Início</a>{nav.map(item => <a key={item.href} href={item.href}>{item.label}</a>)}</div><div className="footer-column"><h3>Vamos conversar</h3><ExternalLink href={talkUrl}>Fale com a gente</ExternalLink><a href={contact.phoneHref}>{contact.phone}</a></div><div className="footer-column"><h3>Sobre a gente</h3><ExternalLink href={company.website}>SIA Markets é um produto Sua InteligêncIA <ArrowUpRight size={12} /></ExternalLink><ExternalLink href={company.privacyUrl}>Privacidade</ExternalLink><span className="footer-company">{company.legalName}<br />CNPJ {company.cnpj}</span></div></div><div className="footer-bottom"><span>{company.copyright}</span><span><Globe2 size={14} /> Brasil · Português</span><a href="#inicio">Voltar ao topo <ArrowUpRight size={14} /></a></div></footer>
+    <footer className="site-footer"><div className="footer-main"><div className="footer-brand"><a href="#inicio" aria-label="SIA Markets — voltar ao início"><img src={`${BASE}brand/logo.svg`} alt="SIA Markets" width="178" height="38" /></a><p>Suas vendas pelo WhatsApp,<br />na palma da mão.</p><div className="social-links">{socials.map(social => <ExternalLink key={social.name} href={social.href} className="icon-button" aria-label={social.label}><FeatureIcon name={social.icon} size={19} /></ExternalLink>)}</div><PoweredBadge href={company.website} /></div><div className="footer-column"><h3>Explore</h3><a href="#inicio">Início</a>{nav.map(item => <a key={item.href} href={item.href}>{item.label}</a>)}</div><div className="footer-column"><h3>Vamos conversar</h3><ExternalLink href={talkUrl}>Fale com a gente</ExternalLink><a href={contact.phoneHref}>{contact.phone}</a></div><div className="footer-column"><h3>Sobre a gente</h3><ExternalLink href={company.website}>SIA Markets é um produto Sua InteligêncIA <ArrowUpRight size={12} /></ExternalLink><ExternalLink href={company.privacyUrl}>Privacidade</ExternalLink><span className="footer-company">{company.legalName}<br />CNPJ {company.cnpj}</span></div></div><div className="footer-bottom"><span>{company.copyright}</span><span><Globe2 size={14} /> Brasil · Português</span><a href="#inicio">Voltar ao topo <ArrowUpRight size={14} /></a></div></footer>
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
   </>;
 }
 
 function AgentAvatar({ className = '' }: { className?: string }) {
-  return <span className={`agent-avatar ${className}`}><img src="/brand/sia-agente-avatar.webp" width="160" height="284" alt="SIA, agente de IA do supermercado" /></span>;
+  return <span className={`agent-avatar ${className}`}><img src={`${BASE}brand/sia-agente-avatar.webp`} width="160" height="284" alt="SIA, agente de IA do supermercado" /></span>;
 }
 
 function ChatHeader() {
@@ -178,9 +179,9 @@ function ChatHeader() {
 function CrmPreview() {
   const people = [['ana-costa', 'Ana Costa', 'Pode mandar a lista!', 'Agora'], ['rafael-lima', 'Rafael Lima', 'Chegou certinho, obrigado!', '14:32'], ['julia-martins', 'Julia Martins', 'Vocês entregam no Centro?', '14:25']];
   return <div className="crm-preview" role="img" aria-label="Ilustração do CRM com as conversas de Ana Costa, Rafael Lima e Julia Martins no mesmo WhatsApp do supermercado">
-    <div className="crm-sidebar"><img src="/brand/icon.svg" alt="" width="24" height="24" /><span className="selected"><MessagesSquare size={18} /></span><Users size={18} /><BarChart3 size={18} /><Receipt size={18} /><span className="sidebar-avatar">S</span></div>
-    <div className="crm-inbox"><div className="crm-topline"><strong>Conversas</strong><Plus size={16} /></div><div className="inbox-filter">Todas as conversas <ChevronDown size={11} /></div>{people.map(([portrait, name, text, time], index) => <div key={name} className={`inbox-person ${index === 0 ? 'active' : ''}`}><span className="person-avatar"><img src={`/images/people/${portrait}.webp`} width="27" height="27" alt="" loading="lazy" decoding="async" /></span><div><strong>{name}</strong><span>{text}</span></div><small>{time}</small></div>)}<span className="crm-connected"><span className="status-dot" /> WhatsApp conectado</span></div>
-    <div className="crm-chat"><div className="chat-topline"><span className="person-avatar"><img src="/images/people/ana-costa.webp" width="27" height="27" alt="" loading="lazy" decoding="async" /></span><div><strong>Ana Costa</strong><small>WhatsApp · SIA atendendo</small></div><MoreHorizontal size={16} /></div><div className="crm-message received">Oi! Queria fazer um pedido para entrega.</div><div className="crm-message sent">Claro, Ana! Pode mandar a lista do jeito que preferir. <CheckCheck size={12} /></div><div className="crm-message received"><AudioLines size={12} /> Áudio · 0:21</div><div className="crm-confirm"><Check size={13} /> Lista confirmada. Pronta para separar.</div><div className="crm-input">Escreva uma mensagem… <Send size={13} /></div></div>
+    <div className="crm-sidebar"><img src={`${BASE}brand/icon.svg`} alt="" width="24" height="24" /><span className="selected"><MessagesSquare size={18} /></span><Users size={18} /><BarChart3 size={18} /><Receipt size={18} /><span className="sidebar-avatar">S</span></div>
+    <div className="crm-inbox"><div className="crm-topline"><strong>Conversas</strong><Plus size={16} /></div><div className="inbox-filter">Todas as conversas <ChevronDown size={11} /></div>{people.map(([portrait, name, text, time], index) => <div key={name} className={`inbox-person ${index === 0 ? 'active' : ''}`}><span className="person-avatar"><img src={`${BASE}images/people/${portrait}.webp`} width="27" height="27" alt="" loading="lazy" decoding="async" /></span><div><strong>{name}</strong><span>{text}</span></div><small>{time}</small></div>)}<span className="crm-connected"><span className="status-dot" /> WhatsApp conectado</span></div>
+    <div className="crm-chat"><div className="chat-topline"><span className="person-avatar"><img src={`${BASE}images/people/ana-costa.webp`} width="27" height="27" alt="" loading="lazy" decoding="async" /></span><div><strong>Ana Costa</strong><small>WhatsApp · SIA atendendo</small></div><MoreHorizontal size={16} /></div><div className="crm-message received">Oi! Queria fazer um pedido para entrega.</div><div className="crm-message sent">Claro, Ana! Pode mandar a lista do jeito que preferir. <CheckCheck size={12} /></div><div className="crm-message received"><AudioLines size={12} /> Áudio · 0:21</div><div className="crm-confirm"><Check size={13} /> Lista confirmada. Pronta para separar.</div><div className="crm-input">Escreva uma mensagem… <Send size={13} /></div></div>
     <div className="crm-preview-caption">Visualização ilustrativa</div>
   </div>;
 }
@@ -189,7 +190,7 @@ function StepVisual({ step }: { step: number }) {
   if (step === 0) return <div className="step-conversation"><ChatHeader /><p className="bubble guest-bubble">Oi! Queria fazer um pedido para entrega.</p><p className="bubble guest-bubble"><Mic size={14} aria-hidden="true" /> Áudio · 0:14</p><p className="bubble agent-bubble">Oi, Ana! Claro. Pode mandar tudo o que precisa, do jeito que for mais fácil.</p><span className="preview-label">Exemplo ilustrativo de atendimento</span></div>;
   if (step === 1) return <div className="step-conversation"><ChatHeader /><div className="bubble agent-bubble step-list-bubble"><strong>Sua lista ficou assim:</strong><ul><li>Arroz 5 kg</li><li>Feijão carioca 1 kg</li><li>Leite integral (6 unidades)</li><li>Pão francês (10 unidades)</li><li>Banana prata (1 dúzia)</li></ul>Está tudo certo? <CheckCheck size={13} aria-hidden="true" /></div><p className="bubble guest-bubble">Tudo certo!</p><span className="preview-label">Exemplo ilustrativo de atendimento</span></div>;
   if (step === 2) return <div className="order-preview"><div className="order-top"><ShoppingBag size={20} aria-hidden="true" /><div><strong>Pedido de Ana Costa</strong><small>Lista confirmada pela SIA · 5 itens</small></div></div><ul className="order-items">{['Arroz 5 kg', 'Feijão carioca 1 kg', 'Leite integral (6 unidades)', 'Pão francês (10 unidades)', 'Banana prata (1 dúzia)'].map((item, index) => <li key={item} className={index < 3 ? 'done' : ''}><Check size={17} aria-hidden="true" />{item}</li>)}</ul><div className="order-status"><Truck size={17} aria-hidden="true" /> Separando para entrega</div><span className="preview-label">Visualização ilustrativa</span></div>;
-  return <div className="insights-preview"><div className="insights-top"><img src="/brand/icon.svg" width="26" height="26" alt="" /><span>Vendas pelo WhatsApp</span><MoreHorizontal size={18} /></div><p>Venda registrada.</p><strong>Direto no seu painel.</strong><div className="chart-bars" aria-hidden="true">{[36, 53, 44, 65, 57, 79, 72, 93].map((h, i) => <span key={i} style={{ height: `${h}%` }} />)}</div><div className="insights-foot"><span><BarChart3 /> Vendas</span><span><MessagesSquare /> Atendimentos</span><span><Users /> Equipe</span></div><span className="preview-label">Visualização ilustrativa</span></div>;
+  return <div className="insights-preview"><div className="insights-top"><img src={`${BASE}brand/icon.svg`} width="26" height="26" alt="" /><span>Vendas pelo WhatsApp</span><MoreHorizontal size={18} /></div><p>Venda registrada.</p><strong>Direto no seu painel.</strong><div className="chart-bars" aria-hidden="true">{[36, 53, 44, 65, 57, 79, 72, 93].map((h, i) => <span key={i} style={{ height: `${h}%` }} />)}</div><div className="insights-foot"><span><BarChart3 /> Vendas</span><span><MessagesSquare /> Atendimentos</span><span><Users /> Equipe</span></div><span className="preview-label">Visualização ilustrativa</span></div>;
 }
 
 export default App;

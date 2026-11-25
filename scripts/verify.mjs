@@ -21,7 +21,10 @@ assert.ok(WHATSAPP_NUMBER, 'WHATSAPP_NUMBER em src/content.ts');
 
 // Sem SITE_URL, o teste sobe sozinho a prévia do build em dist/.
 const server = process.env.SITE_URL ? null : await preview({ preview: { host: '127.0.0.1', port: 4175, strictPort: true }, logLevel: 'error' });
-const baseUrl = process.env.SITE_URL || 'http://127.0.0.1:4175';
+// O site é publicado numa subpasta (ex.: suainteligenc.ia.br/markets/); a prévia usa o mesmo caminho.
+const SITE_URL_CONST = content.match(/SITE_URL = '([^']+)'/)[1];
+const BASE_PATH = new URL(SITE_URL_CONST).pathname;
+const baseUrl = process.env.SITE_URL || `http://127.0.0.1:4175${BASE_PATH}`;
 const executablePath = [process.env.CHROME_PATH, 'C:/Program Files/Google/Chrome/Application/chrome.exe', 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe', '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', '/usr/bin/google-chrome', '/usr/bin/chromium'].find(file => file && existsSync(file));
 const browser = await chromium.launch({ headless: true, ...(executablePath ? { executablePath } : {}) });
 const context = await browser.newContext({ viewport: { width: 1440, height: 1000 }, reducedMotion: 'reduce' });
@@ -30,6 +33,7 @@ const errors = [];
 const checks = [];
 page.on('pageerror', error => errors.push(error.message));
 page.on('console', message => { if (message.type() === 'error') errors.push(message.text()); });
+page.on('response', response => { if (response.status() >= 400) errors.push(`${response.status()} ${response.url()}`); });
 
 async function check(name, fn) {
   await fn();
@@ -60,6 +64,17 @@ async function noOverflow(widths) {
 try {
   await page.goto(baseUrl, { waitUntil: 'networkidle' });
   await page.evaluate(() => document.fonts.ready);
+
+  await check('Endereço: tudo carrega de dentro da subpasta do site', async () => {
+    const urls = await page.evaluate(() => [
+      ...[...document.querySelectorAll('img, script[src]')].map(element => element.currentSrc || element.src),
+      ...[...document.querySelectorAll('link[href]')].map(link => link.href),
+      ...[...document.querySelectorAll('source[srcset], img[srcset], link[imagesrcset]')].flatMap(element => (element.getAttribute('srcset') || element.getAttribute('imagesrcset')).split(',').map(part => new URL(part.trim().split(' ')[0], location.href).href)),
+    ]);
+    const local = urls.filter(url => new URL(url).origin === new URL(baseUrl).origin);
+    assert.ok(local.length > 10);
+    assert.deepEqual(local.filter(url => !new URL(url).pathname.startsWith(BASE_PATH)), []);
+  });
 
   await check('Página: idioma, título, fonte, imagens, âncoras e WhatsApp', async () => {
     assert.equal(await page.locator('html').getAttribute('lang'), 'pt-BR');
@@ -154,7 +169,7 @@ try {
   });
 
   await check('CRM: retratos e conversa selecionada', async () => {
-    assert.deepEqual(await page.locator('.crm-preview .person-avatar img').evaluateAll(images => [...new Set(images.map(image => image.getAttribute('src')))].sort()), ['/images/people/ana-costa.webp', '/images/people/julia-martins.webp', '/images/people/rafael-lima.webp']);
+    assert.deepEqual(await page.locator('.crm-preview .person-avatar img').evaluateAll(images => [...new Set(images.map(image => image.getAttribute('src')))].sort()), ['ana-costa', 'julia-martins', 'rafael-lima'].map(name => `${BASE_PATH}images/people/${name}.webp`));
     assert.match(await page.locator('.crm-preview .chat-topline strong').innerText(), /Ana Costa/);
     assert.match(await page.locator('.crm-preview .inbox-person.active').innerText(), /Ana Costa/);
   });
@@ -176,7 +191,6 @@ try {
     assert.equal(await page.locator('link[rel="canonical"]').getAttribute('href'), SITE_URL);
     assert.equal(await page.locator('meta[property="og:url"]').getAttribute('content'), SITE_URL);
     assert.ok((await page.locator('meta[property="og:image"]').getAttribute('content')).startsWith(SITE_URL));
-    assert.ok((await readFile('dist/robots.txt', 'utf8')).includes(`${SITE_URL}sitemap.xml`));
     assert.ok((await readFile('dist/sitemap.xml', 'utf8')).includes(`<loc>${SITE_URL}</loc>`));
     // Nenhum arquivo-fonte repete o domínio ou o número: trocar a constante troca tudo.
     for (const file of ['index.html', 'src/App.tsx', 'src/structuredData.ts']) assert.doesNotMatch(await readFile(file, 'utf8'), new RegExp(`${new URL(SITE_URL).hostname.replaceAll('.', '\\.')}|${WHATSAPP_NUMBER.slice(4)}`), file);
