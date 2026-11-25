@@ -31,6 +31,7 @@ export const company = {
 // Cada item entra quando a seção correspondente existe na página.
 export const nav: { label: string; href: string }[] = [
   { label: 'Como funciona', href: '#como-funciona' },
+  { label: 'Painel', href: '#painel' },
 ];
 
 // Troque por { kind: 'scene', name: 'hero-mercado', alt: '...' } quando a imagem nova chegar
@@ -87,4 +88,31 @@ export const steps = [
     title: 'A venda vai para o painel',
     description: 'Ao finalizar o atendimento, a equipe registra a venda. Ela entra no painel, e você acompanha quanto o supermercado vendeu pelo WhatsApp.',
   },
+];
+
+// Valores fictícios do painel ilustrativo (412 vendas × R$ 117 ≈ R$ 48.200).
+export const dashboardDemo = {
+  period: 'Últimos 7 dias',
+  kpis: [
+    { label: 'Vendido pelo WhatsApp', value: 'R$ 48.200', icon: 'chart' },
+    { label: 'Vendas registradas', value: '412', icon: 'receipt' },
+    { label: 'Ticket médio', value: 'R$ 117', icon: 'bag' },
+    { label: 'Atendimentos finalizados', value: '538', icon: 'messages' },
+  ],
+  byDay: [
+    { day: 'Seg', value: 46 }, { day: 'Ter', value: 52 }, { day: 'Qua', value: 49 }, { day: 'Qui', value: 58 },
+    { day: 'Sex', value: 81 }, { day: 'Sáb', value: 77 }, { day: 'Dom', value: 49 },
+  ],
+  byAgent: [
+    { name: 'Camila', sales: 152 },
+    { name: 'Diego', sales: 138 },
+    { name: 'Larissa', sales: 122 },
+  ],
+};
+
+export const dashboardHighlights = [
+  'Total vendido pelo WhatsApp no período',
+  'Quantidade de vendas e ticket médio',
+  'Atendimentos finalizados',
+  'Vendas de cada atendente, dia a dia',
 ];

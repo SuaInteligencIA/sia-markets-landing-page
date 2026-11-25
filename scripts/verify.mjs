@@ -117,6 +117,18 @@ try {
     assert.equal(await page.locator('#step-tab-0').getAttribute('aria-selected'), 'true');
   });
 
+  await check('Painel: ilustração acessível, quatro indicadores e sem rolagem lateral', async () => {
+    const illustration = page.locator('#painel [role="img"]');
+    assert.equal(await illustration.count(), 1);
+    assert.match(await illustration.getAttribute('aria-label'), /ilustra/i);
+    assert.match(await page.locator('#painel').innerText(), /Imagem ilustrativa/);
+    for (const label of ['Vendido pelo WhatsApp', 'Vendas registradas', 'Ticket médio', 'Atendimentos finalizados']) {
+      assert.equal(await page.locator('#painel .kpi').filter({ hasText: label }).count(), 1, label);
+    }
+    assert.equal(await page.locator('#painel .agent-row').count(), 3);
+    await noOverflow([320, 375, 768]);
+  });
+
   await check('Topo: sem rolagem lateral de 320 a 1920px', () => noOverflow([320, 360, 390, 430, 640, 768, 820, 1024, 1280, 1440, 1920]));
 
   assert.deepEqual(errors, [], 'Erros JavaScript no navegador');

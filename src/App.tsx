@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import { ArrowDown, ArrowUpRight, BarChart3, Bot, Check, CheckCheck, ChevronRight, Globe2, Instagram, Linkedin, ListCheck, Menu, MessagesSquare, Mic, MoreHorizontal, ShoppingBag, Sparkles, Timer, Truck, Users, WhatsApp, X } from './icons';
-import { benefits, company, contact, heroImage, nav, problems, socials, steps, whatsappUrl } from './content';
+import { benefits, company, contact, dashboardHighlights, heroImage, nav, problems, socials, steps, whatsappUrl } from './content';
+import { DashboardPreview } from './DashboardPreview';
 import { PoweredBadge } from './PoweredBadge';
 
 const talkUrl = whatsappUrl('Olá! Quero conhecer o SIA Markets e ver como ele funciona no meu supermercado.');
@@ -85,6 +86,18 @@ function App() {
           <div className="workflow-orbit orbit-one" /><div className="workflow-orbit orbit-two" />
           <StepVisual step={activeStep} />
         </div>
+      </section>
+
+      <section className="dashboard-section page-inset" id="painel" aria-labelledby="dashboard-title">
+        <div className="dashboard-halo" aria-hidden="true" />
+        <div className="dashboard-copy">
+          <p className="eyebrow">SEU PAINEL</p>
+          <h2 id="dashboard-title">Seu WhatsApp vendendo.<br /><span className="accent">Você vendo quanto.</span></h2>
+          <p>Ao finalizar cada atendimento, sua equipe registra a venda. Ela entra no <strong>painel na hora</strong>, e você acompanha quanto o WhatsApp do seu supermercado vende, <strong>de onde estiver</strong>.</p>
+          <ul className="dashboard-highlights">{dashboardHighlights.map(item => <li key={item}><Check size={19} aria-hidden="true" />{item}</li>)}</ul>
+          <TalkButton className="button button-white" />
+        </div>
+        <div className="dashboard-visual"><DashboardPreview /><span className="dashboard-note">Imagem ilustrativa. Valores fictícios.</span></div>
       </section>
     </main>
 
