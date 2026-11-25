@@ -1,0 +1,44 @@
+name: Publicar em suainteligenc.ia.br/markets
+
+# A cada envio para a main: instala, gera o site, roda as verificações (inclusive a trava de
+# palavras proibidas) e só então publica dist/ em public_html/markets/ pelo FTP do cPanel.
+# Sem as senhas de FTP cadastradas no repositório, o site é gerado e testado, mas não é publicado.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-markets
+  cancel-in-progress: false
+
+jobs:
+  build-test-deploy:
+    runs-on: ubuntu-latest
+    env:
+      FTP_SERVER: ${{ secrets.FTP_SERVER }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - run: npm test
+      - name: Aviso quando faltam as senhas de FTP
+        if: env.FTP_SERVER == ''
+        run: echo "::warning::Senhas de FTP não cadastradas (FTP_SERVER, FTP_USERNAME, FTP_PASSWORD). O site foi gerado e testado, mas não publicado."
+      - name: Publicar em public_html/markets/
+        if: env.FTP_SERVER != ''
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./dist/
+          server-dir: public_html/markets/
