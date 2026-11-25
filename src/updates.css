@@ -1,0 +1,191 @@
+@import './experience.css';
+
+/* The SIA agent and a more vivid brand palette. */
+.hero-art > picture,
+.product-art > picture,
+.hospitality-art > picture { display: contents; }
+
+.crm-art,
+.workflow-visual {
+  background:
+    radial-gradient(ellipse at 85% 0%, #72c8ff70, transparent 65%),
+    linear-gradient(135deg, #1b3cb7, #2d5ffe 55%, #224dcc);
+}
+
+.crm-preview { box-shadow: 0 25px 50px #0a20584d; }
+.workflow-orbit { border-color: #ffffff30; }
+.connection-status,
+.connection-status svg { color: #fff; }
+
+.agent-section {
+  display: grid;
+  grid-template-columns: 45% 55%;
+  position: relative;
+  isolation: isolate;
+  margin-top: 96px;
+  background: #0b1532;
+  color: #fff;
+}
+
+.agent-portrait {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  min-width: 0;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 50% 70%, #1b42a2 0%, #11254f 45%, #0b1532 75%);
+}
+
+.agent-mascot {
+  position: relative;
+  z-index: 1;
+  width: auto;
+  height: 605px;
+  max-width: 94%;
+  object-fit: contain;
+  object-position: center bottom;
+}
+
+.agent-orbit {
+  position: absolute;
+  width: 410px;
+  height: 410px;
+  top: 47%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid #a0bcff26;
+  border-radius: 50%;
+  box-shadow: 0 0 0 65px #9cb5ff06, 0 0 0 130px #9cb5ff04;
+}
+
+.agent-intro-badge {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  top: 45px;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 15px;
+  border-radius: 100px;
+  background: #193265;
+  border: 1px solid #ffffff20;
+  font-size: 8px;
+  letter-spacing: 1.15px;
+  white-space: nowrap;
+}
+
+.agent-intro-badge .status-dot { background: #95b6ff; }
+
+.agent-copy { padding: 55px 12% 58px 6%; }
+.agent-copy .eyebrow { color: #b5c9f6; font-size: 9px; margin-bottom: 15px; }
+.agent-copy h2 { font-size: 49px; line-height: 1.05; letter-spacing: -2px; }
+.agent-copy h2 span { color: #98baff; }
+.agent-description { max-width: 450px; margin-top: 20px; font-size: 14px; line-height: 1.75; color: #d1dbef; }
+.agent-features { display: grid; gap: 21px; margin: 28px 0 29px; }
+.agent-feature { display: flex; align-items: flex-start; gap: 14px; }
+.agent-feature-icon { display: flex; align-items: center; justify-content: center; flex-shrink: 0; width: 39px; height: 39px; border-radius: 11px; color: #b1caff; background: #24385f; }
+.agent-feature h3 { font-size: 14px; line-height: 1.5; margin: 1px 0 5px; }
+.agent-feature p { max-width: 380px; font-size: 12px; line-height: 1.65; color: #c3cfe5; }
+.agent-copy .button { font-size: 12px; }
+.agent-section a:focus-visible { outline-color: white; }
+
+.agent-avatar {
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  flex: 0 0 40px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #dce7ff;
+  border: 1px solid #c7d6f5;
+}
+
+.agent-avatar img {
+  position: absolute;
+  width: 180%;
+  max-width: none;
+  height: auto;
+  left: -40%;
+  top: -30%;
+}
+
+.demo-agent-avatar { display: block; width: 74px; height: 74px; margin-bottom: 24px; }
+.testimonial-section { background: var(--blue); color: #fff; }
+.testimonial-section .eyebrow, .testimonial-section .quote-author span, .testimonial-section .muted { color: #fff; }
+.testimonial-decoration { color: #ffffff45; }
+.testimonial-section .icon-button { color: #fff; border-color: #ffffff80; }
+.testimonial-section .icon-button:hover { color: #1744c5; background: #fff; border-color: #fff; }
+.testimonial-section .icon-button:focus-visible { outline-color: white; }
+
+@media (min-width: 1600px) {
+  .agent-section { margin-top: 105px; }
+  .agent-mascot { height: 640px; }
+}
+
+@media (max-width: 1180px) {
+  .agent-section { grid-template-columns: 43% 57%; }
+  .agent-copy { padding: 50px 8% 50px 4%; }
+  .agent-copy h2 { font-size: 44px; }
+  .agent-description { font-size: 13px; }
+  .agent-mascot { height: 590px; max-width: 100%; }
+  .agent-feature p { font-size: 12px; }
+  .agent-intro-badge { font-size: 7px; padding-inline: 12px; }
+  }
+
+@media (max-width: 950px) {
+  .agent-section { margin-top: 85px; }
+  .agent-copy { padding: 43px 7% 45px 3%; }
+  .agent-copy h2 { font-size: 39px; }
+  .agent-copy .eyebrow { font-size: 8px; }
+  .agent-description { font-size: 12px; }
+  .agent-feature { gap: 11px; }
+  .agent-feature-icon { width: 34px; height: 34px; border-radius: 9px; }
+  .agent-feature-icon svg { width: 19px; height: 19px; }
+  .agent-feature h3 { font-size: 13px; }
+  .agent-feature p { font-size: 11px; }
+  .agent-copy .button { font-size: 10px; padding-inline: 17px; }
+  .agent-mascot { height: 565px; max-width: 110%; }
+  .agent-intro-badge { font-size: 6px; gap: 6px; }
+  .chat-header .agent-avatar { flex-basis: 34px; width: 34px; height: 34px; }
+}
+
+@media (max-width: 760px) {
+  .agent-section { grid-template-columns: 1fr; margin-top: 68px; }
+  .agent-copy { grid-row: 1; padding: 38px 30px 28px; }
+  .agent-copy h2 { font-size: 41px; }
+  .agent-copy .eyebrow { font-size: 8px; letter-spacing: 1px; max-width: 330px; }
+  .agent-description { font-size: 14px; line-height: 1.75; max-width: 520px; margin-top: 17px; }
+  .agent-features { gap: 21px; margin-block: 26px; }
+  .agent-feature h3 { font-size: 14px; }
+  .agent-feature p { font-size: 13px; max-width: 480px; }
+  .agent-feature-icon { width: 37px; height: 37px; }
+  .agent-feature-icon svg { width: 21px; height: 21px; }
+  .agent-copy .button { font-size: 11px; min-height: 47px; }
+  .agent-portrait { min-height: 430px; padding-top: 15px; }
+  .agent-mascot { height: 430px; max-width: 100%; }
+  .agent-orbit { width: 320px; height: 320px; top: 55%; }
+  .agent-intro-badge { top: 14px; font-size: 7px; }
+  .chat-header .agent-avatar { flex-basis: 38px; width: 38px; height: 38px; }
+}
+
+@media (max-width: 450px) {
+  .agent-copy { padding: 34px 25px 24px; }
+  .agent-copy h2 { font-size: 38px; }
+  .agent-description { font-size: 13px; }
+  .agent-feature { gap: 11px; }
+  .agent-feature h3 { font-size: 13px; }
+  .agent-feature p { font-size: 12px; }
+  .agent-feature-icon { width: 34px; height: 34px; }
+  .agent-copy .button { width: 100%; font-size: 10px; }
+  .agent-portrait { min-height: 390px; }
+  .agent-mascot { height: 390px; }
+  .chat-header .agent-avatar { flex-basis: 34px; width: 34px; height: 34px; }
+}
+
+/* Webchat Helena (WTS): o widget cria o próprio botão flutuante; só a cor segue a marca.
+   O script aplica a cor do CRM como estilo inline, por isso o !important. */
+.h-widget-float-library { background: var(--blue) !important; }

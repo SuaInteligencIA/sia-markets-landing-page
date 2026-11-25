@@ -1,0 +1,25 @@
+/* SIA Markets: o que é próprio deste site, sobre a base visual do SIA Reserve. */
+
+/* Topo com a mascote (provisório até a imagem nova do mercado chegar). */
+.hero-art--mascot{inset:0 0 0 46%;-webkit-mask-image:none;mask-image:none;display:flex;align-items:flex-end;justify-content:center}
+.hero-art--mascot+.hero-shade{display:none}
+.hero-mascot-glow{position:absolute;left:50%;bottom:-8%;width:min(620px,78%);aspect-ratio:1;translate:-50% 0;border-radius:50%;background:radial-gradient(circle,rgba(45,95,254,.42) 0%,rgba(45,95,254,.18) 42%,transparent 70%);filter:blur(10px)}
+.hero-art--mascot img.hero-mascot{position:relative;height:92%;width:auto;max-width:none;object-fit:contain;object-position:bottom;filter:drop-shadow(0 30px 50px rgba(6,18,64,.18))}
+.hero-float{position:absolute;display:flex;align-items:center;gap:9px;padding:12px 16px;border-radius:100px;background:rgba(255,255,255,.78);border:1.5px solid #fff;box-shadow:0 24px 60px rgba(6,18,64,.14);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);font-size:13px;font-weight:500;color:var(--ink);white-space:nowrap}
+.hero-float svg{color:var(--blue);flex:none}
+.hero-float--list{top:22%;left:4%}
+.hero-float--sales{bottom:16%;right:6%}
+.hero-description strong{font-weight:500;color:var(--ink)}
+
+@media(max-width:1180px){.hero-art--mascot{left:44%}.hero-float{font-size:12px;padding:10px 13px}.hero-float--list{left:0}}
+@media(max-width:950px){.hero-art--mascot{left:48%}.hero-float--list{top:14%}.hero-float--sales{right:2%}}
+@media(max-width:760px){
+  .hero-art--mascot{inset:auto 0 0;height:380px}
+  .hero-art--mascot img.hero-mascot{height:100%}
+  .hero-mascot-glow{width:420px;bottom:-30%}
+  .hero-float{font-size:11px;padding:9px 12px;gap:7px}
+  .hero-float svg{width:15px;height:15px}
+  .hero-float--list{top:18%;left:5%}
+  .hero-float--sales{bottom:12%;right:5%}
+}
+@media(max-width:450px){.hero-art--mascot{height:340px}.hero-float--list{left:3%;top:12%}.hero-float--sales{right:3%}}
