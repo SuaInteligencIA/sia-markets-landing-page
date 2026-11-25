@@ -1,5 +1,6 @@
 import { defineConfig, type Plugin } from 'vite';
 import react from '@vitejs/plugin-react';
+import { SITE_URL } from './src/content';
 
 // This site exclusively uses Iconsax's Linear collection. Its pinned package
 // bundles all six variants inside each icon; choosing Linear during the build
@@ -18,8 +19,31 @@ function iconsaxLinear(): Plugin {
   };
 }
 
+// O domínio mora só em src/content.ts: o index.html usa %SITE_URL% e o robots.txt e o sitemap.xml
+// são gerados no build a partir da mesma constante.
+function siteUrl(): Plugin {
+  return {
+    name: 'site-url',
+    transformIndexHtml: html => html.replaceAll('%SITE_URL%', SITE_URL),
+    generateBundle() {
+      this.emitFile({ type: 'asset', fileName: 'robots.txt', source: `User-agent: *
+Allow: /
+
+Sitemap: ${SITE_URL}sitemap.xml
+` });
+      this.emitFile({ type: 'asset', fileName: 'sitemap.xml', source: `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>${SITE_URL}</loc>
+  </url>
+</urlset>
+` });
+    },
+  };
+}
+
 export default defineConfig({
-  plugins: [react(), iconsaxLinear()],
+  plugins: [react(), iconsaxLinear(), siteUrl()],
   // Preact's compatibility layer preserves the React API used by the site
   // while shipping a much smaller hydration runtime for this static page.
   resolve: {

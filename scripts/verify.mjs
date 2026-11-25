@@ -11,7 +11,9 @@ import { preview } from 'vite';
 const FORBIDDEN = [/helena/i, /white.?label/i, /estoque/i, /\bsku/i, /cat[aá]logo/i, /prateleira/i, /invent[aá]rio/i,
   /h[oó]spede/i, /\breservas?\b/i, /pousada/i, /\bhote(l|is)\b/i, /hostel/i, /estadia/i, /\bOTA\b/, /\bPMS\b/,
   // Pedido do Samuel: sempre "supermercado", nunca "mercado" sozinho.
-  /(?<![a-zà-ú-])mercados?\b/i];
+  /(?<![a-zà-ú-])mercados?\b/i,
+  // Nome de exemplo não pode lembrar rede real (Bompreço).
+  /bom ?pre[cç]o/i];
 
 const content = await readFile('src/content.ts', 'utf8');
 const WHATSAPP_NUMBER = content.match(/WHATSAPP_NUMBER = '(\d+)'/)?.[1];
@@ -155,6 +157,32 @@ try {
     assert.deepEqual(await page.locator('.crm-preview .person-avatar img').evaluateAll(images => [...new Set(images.map(image => image.getAttribute('src')))].sort()), ['/images/people/ana-costa.webp', '/images/people/julia-martins.webp', '/images/people/rafael-lima.webp']);
     assert.match(await page.locator('.crm-preview .chat-topline strong').innerText(), /Ana Costa/);
     assert.match(await page.locator('.crm-preview .inbox-person.active').innerText(), /Ana Costa/);
+  });
+
+  await check('CRM: ilustração inteira visível no celular', async () => {
+    for (const width of [320, 360, 375, 430]) {
+      await page.setViewportSize({ width, height: 900 });
+      const boxes = await page.locator('#crm .product-card').evaluate(card => {
+        const frame = card.getBoundingClientRect();
+        return [...card.querySelectorAll('.crm-chat, .crm-preview-caption, .image-label')].map(element => { const box = element.getBoundingClientRect(); return { name: element.className, inside: box.left >= frame.left - 1 && box.right <= frame.right + 1 }; });
+      });
+      assert.deepEqual(boxes.filter(box => !box.inside).map(box => box.name), [], `Recortado em ${width}px`);
+    }
+    await page.setViewportSize({ width: 1440, height: 1000 });
+  });
+
+  await check('Configuração: domínio e telefone vêm de content.ts', async () => {
+    const SITE_URL = content.match(/SITE_URL = '([^']+)'/)[1];
+    assert.equal(await page.locator('link[rel="canonical"]').getAttribute('href'), SITE_URL);
+    assert.equal(await page.locator('meta[property="og:url"]').getAttribute('content'), SITE_URL);
+    assert.ok((await page.locator('meta[property="og:image"]').getAttribute('content')).startsWith(SITE_URL));
+    assert.ok((await readFile('dist/robots.txt', 'utf8')).includes(`${SITE_URL}sitemap.xml`));
+    assert.ok((await readFile('dist/sitemap.xml', 'utf8')).includes(`<loc>${SITE_URL}</loc>`));
+    // Nenhum arquivo-fonte repete o domínio ou o número: trocar a constante troca tudo.
+    for (const file of ['index.html', 'src/App.tsx', 'src/structuredData.ts']) assert.doesNotMatch(await readFile(file, 'utf8'), new RegExp(`${new URL(SITE_URL).hostname.replaceAll('.', '\\.')}|${WHATSAPP_NUMBER.slice(4)}`), file);
+    assert.equal((content.match(new RegExp(WHATSAPP_NUMBER.slice(4), 'g')) || []).length, 1, 'Número escrito uma vez só em content.ts');
+    const graph = JSON.parse(await page.locator('script[type="application/ld+json"]').textContent())['@graph'];
+    assert.equal(graph[0].contactPoint.telephone, `+${WHATSAPP_NUMBER.slice(0, 2)}-${WHATSAPP_NUMBER.slice(2, 4)}-${WHATSAPP_NUMBER.slice(4, -4)}-${WHATSAPP_NUMBER.slice(-4)}`);
   });
 
   await check('FAQ: abrir, ler e recolher com teclado', async () => {

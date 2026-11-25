@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://siamarkets.com.br/sitemap.xml

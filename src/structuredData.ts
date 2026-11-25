@@ -1,4 +1,4 @@
-import { company, contact, faqs, SITE_URL, socials, WHATSAPP_NUMBER } from './content';
+import { company, faqs, formatPhone, SITE_URL, socials, WHATSAPP_NUMBER } from './content';
 
 const title = 'SIA Markets | Saiba quanto seu supermercado vende pelo WhatsApp';
 const description = 'Painel de vendas e atendimentos do WhatsApp para supermercados, com agente de IA que atende seus clientes e monta a lista de compras para a sua equipe.';
@@ -16,7 +16,7 @@ export const structuredData = {
       taxID: company.cnpj,
       url: company.website,
       logo: `${SITE_URL}brand/icon.svg`,
-      contactPoint: { '@type': 'ContactPoint', telephone: contact.phone.replace(/\s/g, '-').replace('-', ''), contactType: 'sales', availableLanguage: 'pt-BR', url: `https://wa.me/${WHATSAPP_NUMBER}` },
+      contactPoint: { '@type': 'ContactPoint', telephone: formatPhone(WHATSAPP_NUMBER, '-'), contactType: 'sales', availableLanguage: 'pt-BR', url: `https://wa.me/${WHATSAPP_NUMBER}` },
       sameAs: socials.filter(social => social.name !== 'WhatsApp').map(social => social.href),
     },
     { '@type': 'WebSite', '@id': `${SITE_URL}#website`, url: SITE_URL, name: company.name, inLanguage: 'pt-BR', publisher: { '@id': `${SITE_URL}#organization` } },

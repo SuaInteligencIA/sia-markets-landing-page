@@ -172,7 +172,7 @@ function AgentAvatar({ className = '' }: { className?: string }) {
 }
 
 function ChatHeader() {
-  return <div className="chat-header"><AgentAvatar /><div><strong>SIA · Supermercado Bom Preço</strong><small>Atendendo pelo WhatsApp</small></div><Sparkles size={19} /></div>;
+  return <div className="chat-header"><AgentAvatar /><div><strong>SIA · Supermercado do Bairro</strong><small>Atendendo pelo WhatsApp</small></div><Sparkles size={19} /></div>;
 }
 
 function CrmPreview() {

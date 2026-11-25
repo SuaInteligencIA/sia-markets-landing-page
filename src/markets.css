@@ -135,3 +135,9 @@ h2 .accent{color:var(--blue)}
 /* Topo com a cena do supermercado: a mascote fica a 64% da largura da imagem. */
 .hero-art:not(.hero-art--mascot) img{object-position:62% 50%}
 @media(max-width:760px){.hero-art:not(.hero-art--mascot) img{object-position:70% 70%}}
+
+/* CRM no celular: a ilustração encolhe e centraliza para não ser cortada pelo cartão. */
+@media(max-width:760px){.crm-section .crm-preview,.crm-section .crm-product:hover .crm-preview{position:relative;left:auto;top:auto;translate:none;transform:rotate(-4deg);scale:1;zoom:.85}}
+@media(max-width:600px){.crm-section .crm-preview,.crm-section .crm-product:hover .crm-preview{zoom:.7}}
+@media(max-width:450px){.crm-section .crm-preview,.crm-section .crm-product:hover .crm-preview{zoom:.46}}
+@media(max-width:950px){.crm-section .crm-art{min-height:0;width:100%}}

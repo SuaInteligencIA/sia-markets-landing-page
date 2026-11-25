@@ -6,8 +6,13 @@ export function whatsappUrl(message = 'Olá! Quero conhecer o SIA Markets para o
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 }
 
+// Ex.: '55' '31' '99999' '0000' → '+55 31 99999-0000' (ou com outro separador, como '-' para dados estruturados).
+export function formatPhone(number: string, separator = ' '): string {
+  return `+${number.slice(0, 2)}${separator}${number.slice(2, 4)}${separator}${number.slice(4, -4)}-${number.slice(-4)}`;
+}
+
 export const contact = {
-  phone: '+55 31 99534-2318',
+  phone: formatPhone(WHATSAPP_NUMBER),
   phoneHref: `tel:+${WHATSAPP_NUMBER}`,
   whatsapp: whatsappUrl(),
 };
@@ -121,7 +126,7 @@ export const dashboardHighlights = [
   'Total vendido pelo WhatsApp no período',
   'Quantidade de vendas e ticket médio',
   'Atendimentos finalizados',
-  'Vendas de cada atendente, dia a dia',
+  'Vendas de cada atendente e de cada dia',
 ];
 
 // Conversa ilustrativa: itens comuns, sem preço, marca ou disponibilidade.

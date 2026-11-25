@@ -1,5 +1,5 @@
 {
-  "date": "2026-11-25T21:12:30.954Z",
+  "date": "2026-11-25T21:20:30.094Z",
   "url": "http://127.0.0.1:4175",
   "browser": "Chromium",
   "checks": [
@@ -14,6 +14,8 @@
     "Imagens novas: topo, cliente mandando áudio e equipe separando",
     "Agente: mascote e três formas de personalizar",
     "CRM: retratos e conversa selecionada",
+    "CRM: ilustração inteira visível no celular",
+    "Configuração: domínio e telefone vêm de content.ts",
     "FAQ: abrir, ler e recolher com teclado",
     "Chamada final: botão branco para o WhatsApp",
     "SEO: JSON-LD com organização, produto e perguntas do FAQ",

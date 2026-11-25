@@ -30,7 +30,7 @@ todos os arquivos publicados.
 Para publicar, envie o conteúdo de `dist/` a uma hospedagem de sites estáticos.
 
 Para medir desempenho: `npx vite preview --port 4175` em um terminal e `npm run lighthouse entrega` em outro.
-Última medição (25/11/2026): celular 95 / 100 / 100 / 100 e computador 100 / 100 / 100 / 100
+Última medição (25/11/2026, já com as ilustrações): celular 98 / 100 / 100 / 100 e computador 100 / 100 / 100 / 100
 (desempenho, acessibilidade, boas práticas, SEO). Resumo em `docs/lighthouse/entrega-summary.json`.
 
 ## Regras de texto (a trava de `scripts/verify.mjs` reprova o build se forem quebradas)
@@ -47,7 +47,7 @@ Para medir desempenho: `npx vite preview --port 4175` em um terminal e `npm run 
 | O quê | Onde | Valor atual |
 | --- | --- | --- |
 | WhatsApp comercial | `WHATSAPP_NUMBER` em `src/content.ts` | o mesmo do SIA Reserve |
-| Domínio | `SITE_URL` em `src/content.ts`, `index.html`, `public/robots.txt`, `public/sitemap.xml` | `siamarkets.com.br` |
+| Domínio | `SITE_URL` em `src/content.ts` (o `index.html`, o `robots.txt` e o `sitemap.xml` usam essa constante) | `siamarkets.com.br` |
 
 ## Imagens
 
