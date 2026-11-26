@@ -180,7 +180,7 @@ export const crmHighlights = [
 // Atendimento na hora: a IA responde sem fila. A promessa é do atendimento; separar e entregar segue o horário da equipe.
 export const waitPoints = [
   { title: 'Resposta na hora', description: 'Do primeiro "oi" à lista confirmada, sem fila de espera no WhatsApp.', icon: 'messages' },
-  { title: 'Mesmo no pico', description: 'Dez clientes chamando ao mesmo tempo na sexta à tarde? Todos são atendidos na hora.', icon: 'users' },
+  { title: 'Mesmo no pico', description: 'Dez clientes chamando ao mesmo tempo na sexta à tarde?\nTodos são atendidos na hora.', icon: 'users' },
   { title: 'Fora do horário também', description: 'O cliente manda a lista à noite, e a equipe começa o dia com o pedido organizado.', icon: 'timer' },
 ];
 
