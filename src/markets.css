@@ -402,3 +402,54 @@ h2 .accent{color:var(--blue)}
 .insights-stat-value{font-size:16px;font-weight:600;letter-spacing:-.3px;color:var(--ink)}
 @media(max-width:450px){.insights-stats{gap:6px}.insights-stat{flex-direction:column;align-items:flex-start;gap:6px;padding:8px}.insights-stat-icon{width:26px;height:26px}}
 .hero-sparks{flex:none;color:var(--blue)}
+
+/* ===== Movimento mais suave (curva "ease-out" longa, sem pulo de altura) ===== */
+:root{--ease-soft:cubic-bezier(.22,1,.36,1)}
+@keyframes chat-pop{from{opacity:0;transform:translateY(12px) scale(.96)}to{opacity:1;transform:none}}
+.is-animated .chat-body>*:not(.chat-day){animation:chat-pop .6s var(--ease-soft) both}
+.reveal{transition:opacity .7s var(--ease-soft),transform .7s var(--ease-soft),visibility .7s}
+
+/* Troca de cartão: altura comum (sem pulo), saída curta e entrada que cruza com ela. */
+.step-stage{min-height:530px}
+.stage-item{align-items:center;will-change:transform,opacity}
+.stage-item.is-entering{animation:stage-in .9s var(--ease-soft) .08s both}
+.stage-item.is-leaving{animation:stage-out .6s cubic-bezier(.4,0,.2,1) both}
+@keyframes stage-in{from{opacity:0;transform:translateY(32px) scale(.98)}to{opacity:1;transform:none}}
+@keyframes stage-out{from{opacity:1;transform:none}to{opacity:0;transform:translateY(-24px) scale(.98)}}
+@media(max-width:760px){.step-stage{min-height:492px}}
+
+/* Itens do pedido: o check "estala" de leve ao ser marcado; o selo muda de cor devagar. */
+.order-items li{transition:color .5s var(--ease-soft)}
+.order-items li svg{transition:color .5s var(--ease-soft)}
+.is-animated .order-items li.done svg{animation:check-pop .55s cubic-bezier(.34,1.56,.64,1) both}
+@keyframes check-pop{0%{transform:scale(.6);opacity:.4}60%{transform:scale(1.18);opacity:1}100%{transform:scale(1.06)}}
+.order-status{transition:background-color .6s var(--ease-soft),color .6s var(--ease-soft),box-shadow .6s var(--ease-soft)}
+.order-status.shipped{box-shadow:0 8px 20px rgba(43,92,255,.3)}
+
+/* Painel: barras sobem uma depois da outra; selo e indicadores entram em sequência. */
+.insights-preview .chart-bars span{transition:height 1.3s var(--ease-soft)}
+.is-animated .sale-registered{animation:chat-pop .7s var(--ease-soft) both}
+.is-animated .insights-stat{animation:chat-pop .7s var(--ease-soft) both}
+.is-animated .insights-stat:nth-child(1){animation-delay:2.4s}
+.is-animated .insights-stat:nth-child(2){animation-delay:2.6s}
+.is-animated .insights-stat:nth-child(3){animation-delay:2.8s}
+
+/* Entrega e listas */
+.is-animated .delivery-pill{animation:chat-pop .7s var(--ease-soft) both}
+.is-animated.delivery-preview img{animation:delivery-in 1.4s var(--ease-soft) both}
+.is-animated .list-card li,.reveal.is-shown .list-card li{animation-duration:.6s;animation-timing-function:var(--ease-soft)}
+.audio-message.is-playing .audio-wave span{animation-timing-function:var(--ease-soft)}
+
+/* Gradiente animado (o mesmo do topo do site da Sua InteligêncIA) no fundo do cartão do celular. */
+.animated-gradient{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;background:radial-gradient(ellipse at 70% 30%,#245bdf 0%,#173e99 38%,transparent 72%),linear-gradient(135deg,#07142e,#112a63)}
+.animated-gradient canvas{display:block;width:100%;height:100%;opacity:0;transition:opacity .7s ease}
+.animated-gradient[data-ready='true'] canvas{opacity:1}
+.list-stage{position:relative;isolation:isolate;overflow:hidden;background:#091735}
+.list-stage .phone-wrap{position:static}
+.list-stage .phone,.list-stage .preview-label{position:relative;z-index:1}
+.list-stage .phone{box-shadow:0 0 0 2px rgba(201,212,234,.55),0 40px 80px rgba(2,8,24,.5)}
+.list-stage .preview-label{color:rgba(255,255,255,.85)}
+@media(prefers-reduced-motion:reduce){.animated-gradient canvas{transition:none}}
+/* CRM: o mesmo gradiente animado no fundo do cartão. */
+.crm-section .crm-art{position:relative;isolation:isolate;background:#091735}
+.crm-section .crm-preview{z-index:1}

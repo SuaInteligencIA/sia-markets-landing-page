@@ -3,6 +3,7 @@ import { AiListening, AiUnderstood, AudioMessage, ChatBody, ChatHeader, ChatComp
 import { chatDemo } from './content';
 import { bottomOfVisible, glide } from './glide';
 import { usePlayOnce } from './usePlayOnce';
+import { AnimatedGradient } from './gradient/AnimatedGradient';
 
 // Conversa da seção "Lista de compras": acontece uma vez, na primeira vez que o visitante chega nela.
 // Momentos (ms): três mensagens do cliente, SIA ouvindo o áudio, SIA entendeu, lista, pergunta,
@@ -34,6 +35,7 @@ export function ListChat() {
 
   // Celular minimalista feito só com formas (moldura, ilha, barra de status, botões e barra inferior).
   return <div className="phone-wrap">
+    <AnimatedGradient className="list-stage-gradient" />
     <div className="phone">
       <span className="phone-btn phone-btn--action" aria-hidden="true" /><span className="phone-btn phone-btn--up" aria-hidden="true" /><span className="phone-btn phone-btn--down" aria-hidden="true" /><span className="phone-btn phone-btn--power" aria-hidden="true" />
       <div className="phone-screen list-chat" ref={chatRef}>

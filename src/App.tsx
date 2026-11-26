@@ -8,6 +8,7 @@ import { DashboardPreview } from './DashboardPreview';
 import { CrmPreview } from './CrmPreview';
 import { HowItWorks } from './HowItWorks';
 import { ListChat } from './ListChat';
+import { AnimatedGradient } from './gradient/AnimatedGradient';
 import { PoweredBadge } from './PoweredBadge';
 
 const talkUrl = whatsappUrl('Olá! Quero conhecer o SIA Markets e ver como ele funciona no meu supermercado.');
@@ -138,7 +139,7 @@ function App() {
       </section>
 
       <section className="section crm-section" id="crm" aria-labelledby="crm-title">
-        <article className="product-card crm-product"><div className="product-art crm-art"><CrmPreview /><span className="image-label crm-label"><span className="label-icon"><WhatsAppFilled size={17} /></span><span className="label-text">Um número para toda a equipe</span><span className="label-avatars" aria-hidden="true">{['ana-costa', 'rafael-lima', 'julia-martins'].map(name => <img key={name} src={`${BASE}images/people/${name}.webp`} width="24" height="24" alt="" loading="lazy" decoding="async" />)}</span></span></div></article>
+        <article className="product-card crm-product"><div className="product-art crm-art"><AnimatedGradient className="crm-gradient" /><CrmPreview /><span className="image-label crm-label"><span className="label-icon"><WhatsAppFilled size={17} /></span><span className="label-text">Um número para toda a equipe</span><span className="label-avatars" aria-hidden="true">{['ana-costa', 'rafael-lima', 'julia-martins'].map(name => <img key={name} src={`${BASE}images/people/${name}.webp`} width="24" height="24" alt="" loading="lazy" decoding="async" />)}</span></span></div></article>
         <div className="crm-copy">
           <p className="eyebrow">CRM DA SIA</p>
           <h2 id="crm-title">Toda a equipe<br /><span className="accent">no mesmo WhatsApp.</span></h2>

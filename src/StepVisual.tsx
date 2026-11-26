@@ -67,7 +67,7 @@ export function StepVisual({ step, beat }: { step: number; beat: number }) {
   return <div className={`insights-preview ${className}`}><div className="insights-top"><img src={`${BASE}brand/icon.svg`} width="26" height="26" alt="" /><span>Vendas pelo WhatsApp</span><MoreHorizontal size={18} /></div>
     <p>Venda registrada.</p><strong>Direto no seu painel.</strong>
     {(!animated || beat >= 1) && <span className="sale-registered"><Check size={14} aria-hidden="true" /> Marina Souza · venda registrada</span>}
-    <div className="chart-bars" aria-hidden="true">{bars.map((height, index) => <span key={index} style={{ height: `${!animated || beat >= 2 ? height : 6}%` }} />)}</div>
+    <div className="chart-bars" aria-hidden="true">{bars.map((height, index) => <span key={index} style={{ height: `${!animated || beat >= 2 ? height : 6}%`, transitionDelay: animated ? `${index * 90}ms` : undefined }} />)}</div>
     <div className="insights-stats">{([[BarChart3, 'Vendas', '412'], [MessagesSquare, 'Atendimentos', '538'], [Users, 'Equipe online', '3']] as const).map(([Icon, label, value]) => <div className="insights-stat" key={label}><span className="insights-stat-icon"><Icon size={16} /></span><span className="insights-stat-text"><small>{label}</small><strong className="insights-stat-value">{value}</strong></span></div>)}</div>
     <span className="preview-label">Visualização ilustrativa</span></div>;
 }
