@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
-import { ArrowDown, ArrowUpRight, AudioLines, BarChart3, Book, Bot, Check, CheckCheck, ChevronDown, ChevronRight, Customize, Globe2, Instagram, Linkedin, ListCheck, Menu, MessagesSquare, Mic, MoreHorizontal, Plus, Receipt, Send, ShoppingBag, Sparkles, Timer, Truck, Users, WhatsApp, X } from './icons';
+import { ArrowDown, ArrowUpRight, BarChart3, Book, Bot, Check, ChevronRight, Customize, Globe2, Instagram, Linkedin, ListCheck, Menu, MessagesSquare, Mic, MoreHorizontal, Plus, ShoppingBag, Sparkles, Timer, Truck, Users, WhatsApp, X } from './icons';
 import { BASE } from './base';
 import { agentPersonalization, benefits, chatDemo, company, contact, crmHighlights, dashboardHighlights, faqs, heroImage, nav, problems, socials, steps, teamGains, whatsappUrl } from './content';
 import { structuredData } from './structuredData';
 import { DashboardPreview } from './DashboardPreview';
+import { CrmPreview } from './CrmPreview';
 import { AudioMessage, ChatBody, ChatComposer, ChatHeader, ListCard, Message, SystemPill, TypingBubble } from './ChatDemo';
 import { PoweredBadge } from './PoweredBadge';
 
@@ -142,7 +143,6 @@ function App() {
       <section className="agent-section page-inset" id="sua-agente" aria-labelledby="agent-title">
         <div className="agent-portrait">
           <div className="agent-orbit" aria-hidden="true" />
-          <div className="agent-intro-badge"><span className="status-dot" /> SUA NOVA PARCEIRA DE ATENDIMENTO</div>
           <img className="agent-mascot" src={`${BASE}brand/sia-agente.webp`} srcSet={`${BASE}brand/sia-agente-320.webp 320w, ${BASE}brand/sia-agente-400.webp 400w, ${BASE}brand/sia-agente.webp 500w`} sizes="(max-width:760px) 55vw, (max-width:1180px) 42vw, 500px" width="500" height="889" alt="SIA, a agente de IA de cabelos escuros com mechas azuis e uniforme azul, segurando um celular" loading="lazy" decoding="async" />
         </div>
         <div className="agent-copy">
@@ -172,17 +172,6 @@ function App() {
     <footer className="site-footer"><div className="footer-main"><div className="footer-brand"><a href="#inicio" aria-label="SIA Markets — voltar ao início"><img src={`${BASE}brand/logo.svg`} alt="SIA Markets" width="178" height="38" /></a><p>Suas vendas pelo WhatsApp,<br />na palma da mão.</p><div className="social-links">{socials.map(social => <ExternalLink key={social.name} href={social.href} className="icon-button" aria-label={social.label}><FeatureIcon name={social.icon} size={19} /></ExternalLink>)}</div><PoweredBadge href={company.website} /></div><div className="footer-column"><h3>Explore</h3><a href="#inicio">Início</a>{nav.map(item => <a key={item.href} href={item.href}>{item.label}</a>)}</div><div className="footer-column"><h3>Vamos conversar</h3><ExternalLink href={talkUrl}>Fale com a gente</ExternalLink><a href={contact.phoneHref}>{contact.phone}</a></div><div className="footer-column"><h3>Sobre a gente</h3><ExternalLink href={company.website}>SIA Markets é um produto Sua InteligêncIA <ArrowUpRight size={12} /></ExternalLink><ExternalLink href={company.privacyUrl}>Privacidade</ExternalLink><span className="footer-company">{company.legalName}<br />CNPJ {company.cnpj}</span></div></div><div className="footer-bottom"><span>{company.copyright}</span><span><Globe2 size={14} /> Brasil · Português</span><a href="#inicio">Voltar ao topo <ArrowUpRight size={14} /></a></div></footer>
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
   </>;
-}
-
-function CrmPreview() {
-  // Clientes fictícios com iniciais; os retratos ficam com os atendentes, no painel.
-  const people = [['MS', 'Marina Souza', 'Pode mandar a lista!', 'Agora'], ['PM', 'Paulo Mendes', 'Chegou certinho, obrigado!', '14:32'], ['SR', 'Sônia Ribeiro', 'Vocês entregam no Centro?', '14:25']];
-  return <div className="crm-preview" role="img" aria-label="Ilustração do CRM com as conversas de Marina Souza, Paulo Mendes e Sônia Ribeiro no mesmo WhatsApp do supermercado">
-    <div className="crm-sidebar"><img src={`${BASE}brand/icon.svg`} alt="" width="24" height="24" /><span className="selected"><MessagesSquare size={18} /></span><Users size={18} /><BarChart3 size={18} /><Receipt size={18} /><span className="sidebar-avatar">S</span></div>
-    <div className="crm-inbox"><div className="crm-topline"><strong>Conversas</strong><Plus size={16} /></div><div className="inbox-filter">Todas as conversas <ChevronDown size={11} /></div>{people.map(([initials, name, text, time], index) => <div key={name} className={`inbox-person ${index === 0 ? 'active' : ''}`}><span className="person-avatar person-initials">{initials}</span><div><strong>{name}</strong><span>{text}</span></div><small>{time}</small></div>)}<span className="crm-connected"><span className="status-dot" /> WhatsApp conectado</span></div>
-    <div className="crm-chat"><div className="chat-topline"><span className="person-avatar person-initials">MS</span><div><strong>Marina Souza</strong><small>WhatsApp · SIA atendendo</small></div><MoreHorizontal size={16} /></div><div className="crm-message received">Oi! Queria fazer um pedido para entrega.</div><div className="crm-message sent">Claro, Marina! Pode mandar a lista do jeito que preferir. <CheckCheck size={12} /></div><div className="crm-message received"><AudioLines size={12} /> Áudio · 0:21</div><div className="crm-confirm"><Check size={13} /> Lista confirmada. Pronta para separar.</div><div className="crm-input">Escreva uma mensagem… <Send size={13} /></div></div>
-    <div className="crm-preview-caption">Visualização ilustrativa</div>
-  </div>;
 }
 
 function StepVisual({ step }: { step: number }) {

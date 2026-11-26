@@ -187,13 +187,22 @@ try {
     assert.ok(await page.locator('#sua-agente .agent-mascot').evaluate(image => image.complete && image.naturalWidth > 0));
   });
 
-  await check('CRM: clientes com iniciais e conversa selecionada', async () => {
-    // Os retratos são dos atendentes (painel); os clientes do CRM usam iniciais, para o mesmo rosto não ter dois papéis.
-    assert.equal(await page.locator('.crm-preview .person-avatar img').count(), 0);
-    assert.equal(await page.locator('.crm-preview .inbox-person').count(), 3);
-    assert.match(await page.locator('.crm-preview .chat-topline strong').innerText(), /Marina Souza/);
-    assert.match(await page.locator('.crm-preview .inbox-person.active').innerText(), /Marina Souza/);
-    assert.doesNotMatch(await page.locator('main').innerText(), /Ana Costa|Oi, Ana/, 'Ana Costa agora é atendente, não cliente');
+  await check('CRM: equipe com fotos, clientes com iniciais e conversa legível', async () => {
+    // Os retratos são da equipe (painel e CRM); os clientes usam iniciais, para o mesmo rosto não ter dois papéis.
+    const crm = page.locator('.crm-preview');
+    assert.equal(await crm.locator('.person-avatar img').count(), 0, 'Clientes sem foto');
+    assert.equal(await crm.locator('.inbox-person').count(), 3);
+    assert.deepEqual(await crm.locator('.crm-team img').evaluateAll(images => images.map(image => new URL(image.src).pathname.split('/').pop()).sort()), ['ana-costa.webp', 'julia-martins.webp', 'rafael-lima.webp'], 'Equipe com fotos na barra lateral');
+    assert.equal(await crm.locator('.inbox-person .assignee img').count(), 3, 'Cada conversa mostra a foto de quem atende');
+    assert.match(await crm.locator('.chat-topline strong').innerText(), /Marina Souza/);
+    assert.match(await crm.locator('.inbox-person.active').innerText(), /Marina Souza/);
+    assert.equal(await crm.locator('.crm-register').count(), 1, 'Botão de registrar a venda');
+    assert.doesNotMatch(await page.locator('main').innerText(), /Ana Costa|Oi, Ana/, 'Ana Costa é atendente, não cliente');
+    // Legível: a tela não fica inclinada demais e o texto das mensagens tem tamanho de leitura no computador.
+    const angle = await crm.evaluate(element => { const m = new DOMMatrix(getComputedStyle(element).transform); return Math.abs(Math.atan2(m.b, m.a) * 180 / Math.PI); });
+    assert.ok(angle <= 2.5, `Inclinação de ${angle.toFixed(1)}°`);
+    const fontSize = await crm.locator('.chat-body .bubble').first().evaluate(bubble => parseFloat(getComputedStyle(bubble).fontSize));
+    assert.ok(fontSize >= 11, `Mensagens com ${fontSize}px`);
   });
 
   await check('Foto de perfil: mascote 3D recortada no rosto', async () => {

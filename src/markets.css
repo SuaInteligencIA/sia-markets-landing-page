@@ -113,7 +113,6 @@ h2 .accent{color:var(--blue)}
 /* CRM */
 .crm-section{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center}
 .crm-section .product-card{border-radius:32px}
-.crm-section .crm-art{height:420px}
 .crm-copy>p:not(.eyebrow){margin-top:20px;font-size:16px;line-height:1.7;color:#46506b}
 .crm-highlights{list-style:none;padding:0;display:grid;gap:12px;margin-top:24px}
 .crm-highlights li{display:flex;align-items:center;gap:10px;font-size:15px}
@@ -127,11 +126,6 @@ h2 .accent{color:var(--blue)}
 .hero-art:not(.hero-art--mascot) img{object-position:62% 50%}
 @media(max-width:760px){.hero-art:not(.hero-art--mascot) img{object-position:70% 70%}}
 
-/* CRM no celular: a ilustração encolhe e centraliza para não ser cortada pelo cartão. */
-@media(max-width:760px){.crm-section .crm-preview,.crm-section .crm-product:hover .crm-preview{position:relative;left:auto;top:auto;translate:none;transform:rotate(-4deg);scale:1;zoom:.85}}
-@media(max-width:600px){.crm-section .crm-preview,.crm-section .crm-product:hover .crm-preview{zoom:.7}}
-@media(max-width:450px){.crm-section .crm-preview,.crm-section .crm-product:hover .crm-preview{zoom:.46}}
-@media(max-width:950px){.crm-section .crm-art{min-height:0;width:100%}}
 
 /* Clientes do CRM com iniciais */
 .person-initials{display:flex;align-items:center;justify-content:center;background:#dfe7ff;color:#173785;font-size:9px;font-weight:600;letter-spacing:.3px}
@@ -183,3 +177,70 @@ h2 .accent{color:var(--blue)}
 .composer-mic{flex:none;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--blue);color:#fff;box-shadow:0 6px 14px rgba(43,92,255,.3)}
 .step-conversation .chat-body{margin-bottom:4px}
 @media(max-width:760px){.chat-body{padding:12px 8px}.chat-body .bubble{font-size:12.5px;max-width:86%}.audio-message{min-width:180px}.list-card li{font-size:12px}}
+
+/* CRM ilustrativo: maior, quase reto e legível; equipe com fotos, clientes com iniciais */
+.crm-section .crm-art{height:540px}
+.crm-section .crm-preview,.crm-section .crm-product:hover .crm-preview{position:relative;left:auto;top:auto;translate:none;scale:1;width:640px;height:430px;flex:none;display:grid;grid-template-columns:52px 200px 1fr;border-radius:18px;border:1px solid rgba(255,255,255,.8);background:#fff;box-shadow:0 40px 80px rgba(6,18,64,.28);overflow:hidden;transform:rotate(-1.5deg);transition:transform .4s ease}
+.crm-section .crm-product:hover .crm-preview{transform:rotate(-.5deg) translateY(-4px)}
+.crm-section .crm-sidebar{display:flex;flex-direction:column;align-items:center;gap:10px;padding:14px 0;background:#f3f6fd;border-right:1px solid #e6ebf5}
+.crm-section .crm-sidebar>img{margin-bottom:6px}
+.crm-nav{width:32px;height:32px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#7b88a0}
+.crm-nav.selected{background:#dbe5ff;color:var(--blue)}
+.crm-team{margin-top:auto;display:flex;flex-direction:column;gap:7px}
+.crm-team-member{position:relative;width:30px;height:30px}
+.crm-team-member img{width:30px;height:30px;border-radius:50%;object-fit:cover;border:2px solid #fff;box-shadow:0 2px 6px rgba(16,32,80,.15)}
+.crm-team-member .online{position:absolute;right:-1px;bottom:-1px;width:9px;height:9px;border-radius:50%;background:var(--blue);border:2px solid #f3f6fd}
+.crm-section .crm-inbox{display:flex;flex-direction:column;gap:4px;padding:14px 10px;border-right:1px solid #edf0f6;min-width:0}
+.crm-section .crm-topline{display:flex;align-items:center;gap:8px;padding:0 4px;font-size:15px}
+.crm-section .crm-topline strong{font-weight:500}
+.crm-count{font-size:10px;font-weight:600;color:#fff;background:var(--blue);border-radius:100px;padding:1px 7px}
+.crm-filters{display:flex;gap:4px;margin:6px 0 6px}
+.crm-filters span{font-size:10px;color:#46506b;background:#f3f5fa;border-radius:100px;padding:4px 8px}
+.crm-filters span.active{background:#dbe5ff;color:#173785;font-weight:500}
+.crm-section .inbox-person{display:grid;grid-template-columns:30px 1fr auto;gap:8px;align-items:start;padding:9px 8px;border-radius:12px;background:none;box-shadow:none}
+.crm-section .inbox-person.active{background:#eef3ff}
+.crm-section .person-avatar{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:none;font-size:10px;font-weight:600;color:#173785;background:#dbe5ff}
+.crm-section .inbox-person:nth-of-type(2) .person-avatar{background:#e5ecfb;color:#2f4a8a}
+.crm-section .inbox-person:nth-of-type(3) .person-avatar{background:#d4e2ff;color:#173785}
+.inbox-text{min-width:0;display:flex;flex-direction:column;gap:2px}
+.inbox-text strong{font-size:12px;font-weight:500}
+.inbox-text span{font-size:10.5px;color:#5a6480;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.inbox-tag{align-self:flex-start;margin-top:3px;font-style:normal;font-size:9px;font-weight:500;color:#173785;background:#fff;border:1px solid #dbe5ff;border-radius:100px;padding:1px 6px}
+.inbox-side{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+.inbox-side small{font-size:9.5px;color:#5a6480}
+.inbox-badges{display:flex;align-items:center;gap:4px}
+.unread{min-width:16px;height:16px;border-radius:100px;background:var(--blue);color:#fff;font-size:9px;font-weight:600;display:flex;align-items:center;justify-content:center;padding:0 4px}
+.assignee img{display:block;width:18px;height:18px;border-radius:50%;object-fit:cover;border:1.5px solid #fff;box-shadow:0 1px 3px rgba(16,32,80,.2)}
+.crm-section .crm-chat{display:flex;flex-direction:column;min-width:0;padding:12px 12px 12px}
+.crm-section .chat-topline{display:flex;align-items:center;gap:9px;padding:0 2px 10px;border-bottom:1px solid #edf0f6;margin-bottom:10px}
+.crm-section .chat-topline>div{flex:1;min-width:0}
+.crm-section .chat-topline strong{display:block;font-size:13px;font-weight:500}
+.crm-section .chat-topline small{display:flex;align-items:center;gap:4px;font-size:10px;color:#5a6480;margin-top:2px}
+.topline-agent{display:inline-flex;align-items:center;gap:4px;color:var(--ink);font-weight:500}
+.topline-agent img{width:16px;height:16px;border-radius:50%;object-fit:cover}
+.crm-register{flex:none;display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:500;color:#fff;background:var(--blue);border-radius:100px;padding:7px 11px;box-shadow:0 6px 14px rgba(43,92,255,.3)}
+.crm-section .crm-chat .chat-body{flex:1;padding:10px;gap:5px;overflow:hidden}
+.crm-section .crm-chat .chat-day{display:none}
+.crm-section .crm-chat .bubble{font-size:11px;padding:6px 9px 5px;max-width:86%}
+.crm-section .crm-chat .msg-meta{font-size:9px;margin-top:5px}
+.crm-section .crm-chat .audio-message{min-width:170px}
+.crm-section .crm-chat .audio-play{width:26px;height:26px}
+.crm-section .crm-chat .audio-play:after{left:10px;top:8px;border-left-width:8px;border-top-width:5px;border-bottom-width:5px}
+.crm-section .crm-chat .audio-wave{height:16px}
+.crm-section .crm-chat .list-card{padding:7px 9px 2px;margin:6px 0}
+.crm-section .crm-chat .list-card li{font-size:10.5px;padding:4px 0}
+.crm-section .crm-chat .agent-bubble:has(.list-card){max-width:88%}
+.crm-section .crm-preview-caption{position:absolute;right:12px;bottom:6px;font-size:9px;color:#5a6480;transform:none}
+/* Mesma tela em todas as larguras: só a escala muda, para caber no cartão sem cortar. */
+@media(max-width:1360px){.crm-section .crm-preview{zoom:.82}.crm-section .crm-art{height:460px}}
+@media(max-width:1180px){.crm-section .crm-preview{zoom:.66}.crm-section .crm-art{height:360px}}
+@media(max-width:950px){.crm-section .crm-art{height:auto;aspect-ratio:1.55;min-height:0;width:100%}.crm-section .crm-preview{zoom:1}}
+@media(max-width:760px){.crm-section .crm-preview{zoom:.8}}
+@media(max-width:600px){.crm-section .crm-preview{zoom:.58}}
+@media(max-width:450px){.crm-section .crm-preview{zoom:.5}}
+@media(max-width:390px){.crm-section .crm-preview{zoom:.46}}
+@media(max-width:360px){.crm-section .crm-preview{zoom:.4}}
+.crm-section .crm-art{padding-top:44px;box-sizing:border-box}
+.crm-section .crm-chat{padding-bottom:22px}
+@media(max-width:950px){.crm-section .crm-art{aspect-ratio:1.35;padding-top:40px}}
+@media(max-width:450px){.crm-section .crm-art{aspect-ratio:1.2;padding-top:44px}}
