@@ -485,3 +485,9 @@ h2 .accent{color:var(--blue)}
   .autoplay-toggle .pause-icon{width:9px;height:11px}
   .autoplay-toggle .play-icon{margin-left:0;border-left-width:9px;border-top-width:6px;border-bottom-width:6px}
 }
+/* Celular: todos os cartões das etapas com a mesma margem lateral, e a pílula na mesma largura do cartão. */
+@media(max-width:760px){
+  #step-panel .stage-item>*{width:calc(100% - 32px);max-width:none;margin-left:16px;margin-right:16px}
+  .autoplay-toggle{left:16px;right:16px;transform:none;justify-content:space-between;padding:0 18px}
+  .autoplay-label{order:-1}
+}
