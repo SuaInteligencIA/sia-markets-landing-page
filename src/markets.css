@@ -368,3 +368,6 @@ h2 .accent{color:var(--blue)}
 @media(max-width:760px){.phone{padding:8px;border-radius:48px}.phone .phone-screen.list-chat{border-radius:40px;padding:0 8px 6px}.phone-status{height:44px;padding:2px 18px 0 24px;font-size:13px}.phone-island{top:10px;width:92px;height:27px}.phone-btn--action{top:100px}.phone-btn--up{top:142px;height:46px}.phone-btn--down{top:198px;height:46px}.phone-btn--power{top:160px;height:72px}}
 /* Selo "venda registrada" em linha própria, abaixo do título, com respiro. */
 .insights-preview .sale-registered{display:flex;width:fit-content;margin:14px 0 4px}
+/* Sem a linha entre o cabeçalho e a área da conversa, em todos os chats. */
+.chat-header{border-bottom:0;padding-bottom:10px}
+.crm-section .chat-topline{border-bottom:0;padding-bottom:4px}
