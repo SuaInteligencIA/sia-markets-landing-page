@@ -1,4 +1,6 @@
+import { useEffect, useRef } from 'react';
 import { BASE } from './base';
+import { bottomOfVisible, glide } from './glide';
 import { AiListening, AiUnderstood, AudioMessage, ChatBody, ChatHeader, ListCard, Message, TypingBubble } from './ChatDemo';
 import { BarChart3, Check, MessagesSquare, MoreHorizontal, ShoppingBag, Truck, Users } from './icons';
 import type { StepTimeline } from './useStepAutoplay';
@@ -18,23 +20,35 @@ const listenMs = stepTimelines[0].beats[3] - stepTimelines[0].beats[2];
 const list = [['Mercearia', 'Arroz 5 kg'], ['Mercearia', 'Feijão carioca 1 kg'], ['Laticínios', 'Leite integral (6 unidades)'], ['Padaria', 'Pão francês (10 unidades)'], ['Hortifrúti', 'Banana prata (1 dúzia)']];
 const bars = [36, 53, 44, 65, 57, 79, 72, 93];
 
+/** As cenas que são a mesma tela: etapas 1 e 2 são uma só conversa, que continua. */
+export const sceneOf = (step: number) => (step <= 1 ? 0 : step);
+
+// Etapas 1 e 2: a mesma conversa. Na etapa 2 ela continua (a SIA manda a lista) e a área rola
+// devagar para baixo, sem trocar de tela.
+function ConversationScene({ step, beat, className }: { step: number; beat: number; className: string }) {
+  const bodyRef = useRef<HTMLDivElement>(null);
+  const first = step === 0 ? beat : Infinity; // a parte da etapa 1 já terminou quando estamos na 2
+  const second = step === 1 ? beat : -1;
+  useEffect(() => {
+    const body = bodyRef.current;
+    return body ? glide(body, bottomOfVisible(body)) : undefined;
+  }, [step, beat]);
+  return <div className={`step-conversation ${className}`}><ChatHeader /><ChatBody scrollRef={bodyRef} label="Conversa de exemplo">
+    {first >= 1 && <Message from="cliente" time="09:41">Oi! Queria fazer um pedido para entrega.</Message>}
+    {first >= 2 && <Message from="cliente" time="09:41"><AudioMessage duration="0:14" state={first === 2 ? 'idle' : first === 3 ? 'playing' : 'heard'} listenMs={listenMs} /></Message>}
+    {first === 3 && <AiListening />}
+    {first >= 4 && <AiUnderstood text="arroz, feijão, leite, pão e banana" />}
+    {((step === 0 && first >= 5 && first !== Infinity) || (step === 0 && first === Infinity) || (step === 1 && second >= 0 && second < 2)) && <TypingBubble />}
+    {second >= 2 && <Message from="sia" time="09:42">Oi, Marina! Sua lista ficou assim:<ListCard title="Lista de compras" items={list.map(([group, item]) => ({ group, item }))} />Está tudo certo?</Message>}
+    {second >= 3 && <Message from="cliente" time="09:42">Tudo certo!</Message>}
+  </ChatBody><span className="preview-label">Exemplo ilustrativo de atendimento</span></div>;
+}
+
 export function StepVisual({ step, beat }: { step: number; beat: number }) {
   const animated = beat !== Infinity;
   const className = animated ? 'is-animated' : 'is-static';
 
-  if (step === 0) return <div className={`step-conversation ${className}`}><ChatHeader /><ChatBody>
-    {beat >= 1 && <Message from="cliente" time="09:41">Oi! Queria fazer um pedido para entrega.</Message>}
-    {beat >= 2 && <Message from="cliente" time="09:41"><AudioMessage duration="0:14" state={beat === 2 ? 'idle' : beat === 3 ? 'playing' : 'heard'} listenMs={listenMs} /></Message>}
-    {beat === 3 && <AiListening />}
-    {beat >= 4 && <AiUnderstood text="arroz, feijão, leite, pão e banana" />}
-    {beat >= 5 && <TypingBubble />}
-  </ChatBody><span className="preview-label">Exemplo ilustrativo de atendimento</span></div>;
-
-  if (step === 1) return <div className={`step-conversation ${className}`}><ChatHeader /><ChatBody>
-    {beat === 1 && <TypingBubble />}
-    {beat >= 2 && <Message from="sia" time="09:42">Oi, Marina! Sua lista ficou assim:<ListCard title="Lista de compras" items={list.map(([group, item]) => ({ group, item }))} />Está tudo certo?</Message>}
-    {beat >= 3 && <Message from="cliente" time="09:42">Tudo certo!</Message>}
-  </ChatBody><span className="preview-label">Exemplo ilustrativo de atendimento</span></div>;
+  if (step <= 1) return <ConversationScene step={step} beat={beat} className={className} />;
 
   if (step === 2) {
     const done = animated ? Math.min(beat, list.length) : 3;
@@ -54,6 +68,6 @@ export function StepVisual({ step, beat }: { step: number; beat: number }) {
     <p>Venda registrada.</p><strong>Direto no seu painel.</strong>
     {(!animated || beat >= 1) && <span className="sale-registered"><Check size={14} aria-hidden="true" /> Marina Souza · venda registrada</span>}
     <div className="chart-bars" aria-hidden="true">{bars.map((height, index) => <span key={index} style={{ height: `${!animated || beat >= 2 ? height : 6}%` }} />)}</div>
-    <div className="insights-foot"><span><BarChart3 /> Vendas</span><span><MessagesSquare /> Atendimentos</span><span><Users /> Equipe</span></div>
+    <div className="insights-stats">{([[BarChart3, 'Vendas', '412'], [MessagesSquare, 'Atendimentos', '538'], [Users, 'Equipe online', '3']] as const).map(([Icon, label, value]) => <div className="insights-stat" key={label}><span className="insights-stat-icon"><Icon size={16} /></span><span className="insights-stat-text"><small>{label}</small><strong className="insights-stat-value">{value}</strong></span></div>)}</div>
     <span className="preview-label">Visualização ilustrativa</span></div>;
 }

@@ -371,3 +371,34 @@ h2 .accent{color:var(--blue)}
 /* Sem a linha entre o cabeçalho e a área da conversa, em todos os chats. */
 .chat-header{border-bottom:0;padding-bottom:10px}
 .crm-section .chat-topline{border-bottom:0;padding-bottom:4px}
+/* Doodles bem sutis no fundo das conversas, como no WhatsApp (supermercado e conversa, traço fino). */
+.chat-body{background:url(/images/chat-doodles.svg) 0 0/260px 260px repeat,#eef3fd}
+
+/* Celular em proporção real (9:19,5): cabeçalho e barra fixos, mensagens rolando dentro da tela. */
+.phone{width:min(100%,360px);aspect-ratio:9/19.5;display:flex}
+.phone .phone-screen.list-chat{display:flex;flex-direction:column;height:100%;min-height:0;padding:0 10px 6px}
+.phone .chat-body.is-scrollable{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none}
+.phone .chat-body.is-scrollable::-webkit-scrollbar{display:none}
+.phone .chat-body.is-scrollable>*{flex-shrink:0}
+.phone .chat-body.is-scrollable:focus-visible{outline:2px solid var(--blue);outline-offset:-2px}
+.phone .chat-body .bubble{font-size:12.5px}
+.phone .chat-composer{margin-top:8px}
+.phone .phone-home{margin-top:10px}
+@media(max-width:760px){.phone{width:min(100%,330px)}}
+.phone{min-height:0;height:auto}
+
+/* Conversa de "Como funciona": área de altura fixa que rola devagar conforme a conversa continua. */
+.step-conversation .chat-body.is-scrollable{height:370px;min-height:0;overflow-y:hidden;scrollbar-width:none}
+.step-conversation .chat-body.is-scrollable>*{flex-shrink:0}
+.step-conversation .chat-body.is-scrollable:focus-visible{outline:2px solid var(--blue);outline-offset:-2px}
+@media(max-width:760px){.step-conversation .chat-body.is-scrollable{height:350px}}
+
+/* Painel: indicadores em mini cartões, com ícone, rótulo e número */
+.insights-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
+.insights-stat{display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:14px;background:#f3f6fd;border:1px solid #e6ecf8;min-width:0}
+.insights-stat-icon{flex:none;width:30px;height:30px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;background:linear-gradient(135deg,#2b5cff,#0052e6);box-shadow:0 4px 10px rgba(43,92,255,.25)}
+.insights-stat-text{display:flex;flex-direction:column;min-width:0}
+.insights-stat-text small{font-size:10.5px;color:#46506b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.insights-stat-value{font-size:16px;font-weight:600;letter-spacing:-.3px;color:var(--ink)}
+@media(max-width:450px){.insights-stats{gap:6px}.insights-stat{flex-direction:column;align-items:flex-start;gap:6px;padding:8px}.insights-stat-icon{width:26px;height:26px}}
+.hero-sparks{flex:none;color:var(--blue)}

@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { ReactNode, RefObject } from 'react';
 import { BASE } from './base';
 import { Check } from './icons';
 
@@ -13,8 +13,9 @@ export function ChatHeader() {
   return <div className="chat-header"><AgentAvatar /><div><strong>SIA · Supermercado Boa Compra</strong><small><span className="online-dot" aria-hidden="true" /> online</small></div></div>;
 }
 
-export function ChatBody({ children }: { children: ReactNode }) {
-  return <div className="chat-body"><span className="chat-day">Hoje</span>{children}</div>;
+/** Área das mensagens. `scrollRef` + `label` transformam-na numa tela que rola (celular). */
+export function ChatBody({ children, scrollRef, label }: { children: ReactNode; scrollRef?: RefObject<HTMLDivElement | null>; label?: string }) {
+  return <div className={`chat-body ${scrollRef ? 'is-scrollable' : ''}`} ref={scrollRef} tabIndex={scrollRef ? 0 : undefined} role={scrollRef ? 'region' : undefined} aria-label={label}><span className="chat-day">Hoje</span>{children}</div>;
 }
 
 export function ChatComposer() {

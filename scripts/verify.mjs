@@ -134,6 +134,12 @@ try {
     assert.deepEqual(await page.locator('[role="tab"]').evaluateAll(tabs => tabs.filter(tab => !document.getElementById(tab.getAttribute('aria-controls'))).map(tab => tab.id)), []);
     await page.keyboard.press('Home');
     assert.equal(await page.locator('#step-tab-0').getAttribute('aria-selected'), 'true');
+    // Etapa do painel: três indicadores legíveis, cada um com ícone, rótulo e número.
+    await page.locator('#step-tab-3').click();
+    const stats = page.locator('#step-panel .insights-stat');
+    assert.equal(await stats.count(), 3);
+    assert.deepEqual(await stats.evaluateAll(items => items.map(item => [item.querySelector('svg') !== null, item.querySelector('.insights-stat-value')?.textContent.trim()])), [[true, '412'], [true, '538'], [true, '3']]);
+    await page.locator('#step-tab-0').click();
   });
 
   await check('Painel: ilustração acessível, quatro indicadores e sem rolagem lateral', async () => {
@@ -361,12 +367,20 @@ try {
     const heightBefore = await listChat.evaluate(element => element.getBoundingClientRect().height);
     await listChat.scrollIntoViewIfNeeded();
     await live.waitForFunction(() => document.querySelectorAll('.list-chat .reveal.is-shown').length > 0);
-    await live.clock.runFor(4200);
+    // Celular em proporção real (9:19,5): a conversa rola dentro da tela, sem esticar o aparelho.
+    const phoneBox = await live.locator('.phone').boundingBox();
+    assert.ok(Math.abs(phoneBox.height / phoneBox.width - 19.5 / 9) < 0.06, `Proporção do celular ${(phoneBox.height / phoneBox.width).toFixed(2)}`);
+    const chatScroll = listChat.locator('.chat-body');
+    const scrollStart = await chatScroll.evaluate(element => element.scrollTop);
+    await live.clock.runFor(5600);
     assert.equal(await listChat.locator('.audio-message.is-playing').count(), 1, 'SIA ouvindo o áudio da lista');
     assert.equal(await listChat.locator('.ai-listening.is-shown').count(), 1);
     assert.equal(Math.round(await listChat.evaluate(element => element.getBoundingClientRect().height)), Math.round(heightBefore), 'A conversa não muda de altura enquanto anima');
-    await live.clock.runFor(14000);
+    await live.clock.runFor(17000);
     assert.equal(await pending(), 0, 'No fim, tudo visível');
+    const scroll = await chatScroll.evaluate(element => ({ top: element.scrollTop, max: element.scrollHeight - element.clientHeight }));
+    assert.ok(scroll.max > 0 && scroll.top > scrollStart, 'A tela rolou junto com as mensagens');
+    assert.ok(scroll.max - scroll.top < 4, 'Termina mostrando a última mensagem');
     assert.equal(await listChat.locator('.reveal').count(), 0, 'Fica no estado completo');
     assert.match(await listChat.locator('.ai-understood').innerText(), /p[aã]o franc[eê]s.*banana/i);
     await live.locator('#inicio').scrollIntoViewIfNeeded();

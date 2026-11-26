@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="260" height="260" viewBox="0 0 260 260" fill="none" stroke="#2b5cff" stroke-opacity=".11" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Doodles do fundo das conversas: supermercado e conversa, em traço fino e quase transparente. -->
+  <!-- carrinho -->
+  <g transform="translate(14 16) rotate(-8 14 12)"><path d="M2 3h4l3.5 13h14l3-9H8"/><circle cx="11" cy="21" r="1.8"/><circle cx="21" cy="21" r="1.8"/></g>
+  <!-- maçã -->
+  <g transform="translate(92 10) rotate(10 12 12)"><path d="M12 7c-2-2-7-1.5-7 4.5S9 22 12 20c3 2 7-2.5 7-8.5S14 5 12 7Z"/><path d="M12 7c0-2 1-3.5 3-4"/></g>
+  <!-- balão de conversa -->
+  <g transform="translate(168 18) rotate(-6 14 11)"><path d="M3 5a4 4 0 0 1 4-4h14a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4H11l-5 4v-4H7a4 4 0 0 1-4-4Z"/><path d="M9 9h.01M14 9h.01M19 9h.01"/></g>
+  <!-- folha -->
+  <g transform="translate(226 70) rotate(25 10 10)"><path d="M3 17C3 8 9 3 18 3c0 9-5 14-14 14Z"/><path d="M3 17 12 8"/></g>
+  <!-- cenoura -->
+  <g transform="translate(40 72) rotate(-30 12 12)"><path d="M6 20 17 9l-3-3L4 18Z"/><path d="M17 9c2-1 3-3 3-5M17 9c1.5.5 3.5 0 5-1.5M14 6c-.5-1.5 0-3.5 1.5-5"/></g>
+  <!-- pão -->
+  <g transform="translate(118 72) rotate(-12 14 9)"><path d="M3 12c0-6 5-9 11-9s11 3 11 9v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/><path d="M10 7l-1 4M15 6l-1 5M20 7l-1 4"/></g>
+  <!-- coração -->
+  <g transform="translate(186 92) rotate(12 10 9)"><path d="M10 17S2 12 2 6.5A4.5 4.5 0 0 1 10 4a4.5 4.5 0 0 1 8 2.5C18 12 10 17 10 17Z"/></g>
+  <!-- leite -->
+  <g transform="translate(12 140) rotate(8 9 13)"><path d="M4 8 7 3h6l3 5v14a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1Z"/><path d="M4 8h12M7 3l2 5"/></g>
+  <!-- sacola -->
+  <g transform="translate(76 136) rotate(-10 12 12)"><path d="M4 8h16l-1.5 13h-13Z"/><path d="M8.5 8V6a3.5 3.5 0 0 1 7 0v2"/></g>
+  <!-- banana -->
+  <g transform="translate(146 146) rotate(18 13 10)"><path d="M3 6c1 8 9 13 19 9-2-1-3-2-4-4-6 2-11-1-13-6Z"/><path d="M3 6 2 4"/></g>
+  <!-- brilho -->
+  <g transform="translate(216 150)"><path d="M10 1v6M10 13v6M1 10h6M13 10h6"/></g>
+  <!-- ovo -->
+  <g transform="translate(36 206) rotate(-14 8 11)"><path d="M8 2c-4 0-7 6-7 11a7 7 0 0 0 14 0C15 8 12 2 8 2Z"/></g>
+  <!-- lista (check) -->
+  <g transform="translate(104 204) rotate(6 12 12)"><rect x="3" y="2" width="18" height="21" rx="3"/><path d="M7 9l2 2 4-4M7 16h10"/></g>
+  <!-- onda de áudio -->
+  <g transform="translate(176 212)"><path d="M2 10v2M6 6v10M10 3v16M14 7v8M18 5v12M22 9v4"/></g>
+  <!-- ponto e estrela pequenos para preencher -->
+  <circle cx="236" cy="236" r="1.6"/>
+  <circle cx="70" cy="110" r="1.4"/>
+  <circle cx="160" cy="124" r="1.4"/>
+  <g transform="translate(240 6)"><path d="M6 0v4M6 8v4M0 6h4M8 6h4"/></g>
+</svg>

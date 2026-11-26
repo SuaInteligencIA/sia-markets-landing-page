@@ -2,7 +2,7 @@ import { useLayoutEffect, useRef, useState } from 'react';
 import type { KeyboardEvent } from 'react';
 import { steps, whatsappUrl } from './content';
 import { ArrowUpRight, ChevronRight, Play } from './icons';
-import { StepVisual, stepTimelines } from './StepVisual';
+import { sceneOf, StepVisual, stepTimelines } from './StepVisual';
 import { useStepAutoplay } from './useStepAutoplay';
 
 const talkUrl = whatsappUrl('Olá! Quero conhecer o SIA Markets e ver como ele funciona no meu supermercado.');
@@ -24,7 +24,7 @@ export function HowItWorks() {
     if (shownStep.current === activeStep) return;
     const previous = shownStep.current;
     shownStep.current = activeStep;
-    if (!motionAllowed) return;
+    if (!motionAllowed || sceneOf(previous) === sceneOf(activeStep)) return; // mesma conversa: só rola
     setLeaving({ step: previous, id: performance.now() });
     const timer = setTimeout(() => setLeaving(null), 650);
     return () => clearTimeout(timer);
@@ -58,7 +58,7 @@ export function HowItWorks() {
       <div className="workflow-orbit orbit-one" /><div className="workflow-orbit orbit-two" />
       <div className="step-stage">
         {leaving && <div key={`saindo-${leaving.id}`} className="stage-item is-leaving" aria-hidden="true"><StepVisual step={leaving.step} beat={Infinity} /></div>}
-        <div key={`etapa-${activeStep}`} className={`stage-item ${motionAllowed && (leaving || shownStep.current !== activeStep) ? 'is-entering' : ''}`}><StepVisual step={activeStep} beat={beat} /></div>
+        <div key={`cena-${sceneOf(activeStep)}`} className={`stage-item ${motionAllowed && (leaving || sceneOf(shownStep.current) !== sceneOf(activeStep)) ? 'is-entering' : ''}`}><StepVisual step={activeStep} beat={beat} /></div>
       </div>
       {motionAllowed && <button type="button" className={`autoplay-toggle ${autoplayOn ? '' : 'is-off'}`} onClick={togglePause} aria-label={autoplayOn ? 'Pausar animação' : 'Retomar animação'}>{autoplayOn ? <span className="pause-icon" aria-hidden="true" /> : <Play size={14} aria-hidden="true" />}</button>}
     </div>

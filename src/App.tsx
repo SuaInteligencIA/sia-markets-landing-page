@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
-import { ArrowDown, ArrowUpRight, BarChart3, Book, Bot, Check, Customize, Globe2, Instagram, Linkedin, ListCheck, Menu, MessagesSquare, Mic, Plus, Sparkles, Timer, Users, WhatsApp, X } from './icons';
+import { ArrowDown, ArrowUpRight, BarChart3, Book, Bot, Check, Customize, Globe2, Instagram, Linkedin, ListCheck, Menu, MessagesSquare, Mic, Plus, Sparkles, Timer, Users, WhatsApp, X, Sparks, WhatsAppFilled } from './icons';
 import { BASE } from './base';
 import { agentPersonalization, benefits, company, contact, crmHighlights, dashboardHighlights, faqs, heroImage, nav, problems, socials, teamGains, whatsappUrl } from './content';
 import { structuredData } from './structuredData';
@@ -73,7 +73,7 @@ function App() {
         <HeroArt />
         <div className="hero-shade" />
         <div className="hero-copy">
-          <p className="eyebrow hero-eyebrow"><span className="tiny-mark"><Sparkles size={14} /></span> IA PARA SUPERMERCADOS NO WHATSAPP</p>
+          <p className="eyebrow hero-eyebrow"><Sparks size={20} className="hero-sparks" /> IA PARA SUPERMERCADOS NO WHATSAPP</p>
           <h1 id="hero-title">Quanto o seu supermercado <br /><span>vende pelo WhatsApp?</span></h1>
           <p className="hero-description">Com o SIA Markets, cada venda feita pelo WhatsApp vai para um <strong>painel</strong> que você acompanha. E um <strong>agente de IA</strong> atende seus clientes e monta a lista de compras para a sua equipe.</p>
           <div className="button-row"><TalkButton /><a className="button button-light" href="#como-funciona">Veja como funciona</a></div>
@@ -138,7 +138,7 @@ function App() {
       </section>
 
       <section className="section crm-section" id="crm" aria-labelledby="crm-title">
-        <article className="product-card crm-product"><div className="product-art crm-art"><CrmPreview /><span className="image-label crm-label"><span className="label-icon"><WhatsApp size={16} aria-hidden="true" /></span><span className="label-text">Um número para toda a equipe</span><span className="label-avatars" aria-hidden="true">{['ana-costa', 'rafael-lima', 'julia-martins'].map(name => <img key={name} src={`${BASE}images/people/${name}.webp`} width="24" height="24" alt="" loading="lazy" decoding="async" />)}</span></span></div></article>
+        <article className="product-card crm-product"><div className="product-art crm-art"><CrmPreview /><span className="image-label crm-label"><span className="label-icon"><WhatsAppFilled size={17} /></span><span className="label-text">Um número para toda a equipe</span><span className="label-avatars" aria-hidden="true">{['ana-costa', 'rafael-lima', 'julia-martins'].map(name => <img key={name} src={`${BASE}images/people/${name}.webp`} width="24" height="24" alt="" loading="lazy" decoding="async" />)}</span></span></div></article>
         <div className="crm-copy">
           <p className="eyebrow">CRM DA SIA</p>
           <h2 id="crm-title">Toda a equipe<br /><span className="accent">no mesmo WhatsApp.</span></h2>
