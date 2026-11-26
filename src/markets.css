@@ -536,3 +536,10 @@ h2 .accent{color:var(--blue)}
 @media(max-width:950px){.wait-section{grid-template-columns:1fr;gap:36px}}
 @media(max-width:760px){.wait-answer{font-size:15px}.wait-visual{border-radius:24px;padding:24px 14px}.wait-chat{padding:0 10px 10px}}
 .nowrap{white-space:nowrap}
+/* Atendimento na hora: ilustração da cliente sendo atendida, com selo de vidro. */
+.wait-art{position:relative;padding:0;overflow:hidden;background:#fbf6ee;box-shadow:0 30px 60px rgba(6,18,64,.12)}
+.wait-art picture,.wait-art img{display:block;width:100%}
+.wait-art img{height:100%;aspect-ratio:1820/1696;object-fit:cover}
+.wait-pill{position:absolute;left:20px;bottom:20px;display:inline-flex;align-items:center;gap:7px;padding:10px 15px;border-radius:100px;background:rgba(255,255,255,.92);border:1.5px solid #fff;box-shadow:0 12px 30px rgba(6,18,64,.18);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);font-size:14px;font-weight:500;color:var(--ink)}
+.wait-pill svg{color:var(--blue)}
+@media(max-width:760px){.wait-art{padding:0}.wait-pill{left:12px;bottom:12px;font-size:12px;padding:8px 12px}}

@@ -34,7 +34,7 @@ for (const [name, widths] of images) {
 // computador); no celular o texto vai abaixo da imagem, então a faixa sai.
 // A entrega também: no quadro de "Como funciona" entra só a cena, sem a faixa vazia da esquerda.
 // Último campo: gera também o WebP de reserva (só quem é usado como <img src> precisa dele).
-const crops = [['cliente-audio', 'cliente-audio-recorte', 0.345, [640, 768, 1024], false], ['entrega-cliente', 'entrega-cliente', 0.3, [640, 960, 1280], true]];
+const crops = [['cliente-audio', 'cliente-audio-recorte', 0.345, [640, 768, 1024], false], ['entrega-cliente', 'entrega-cliente', 0.3, [640, 960, 1280], true], ['cliente-atendido', 'cliente-atendido', 0.28, [640, 960, 1280], true]];
 for (const [name, outputName, leftFraction, widths, withWebp] of crops) {
   const source = [`${sourceDirectory}/${name}.png`, `${sourceDirectory}/${name}.jpg`].find(existsSync);
   if (!source) continue;

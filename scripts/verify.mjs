@@ -120,8 +120,11 @@ try {
     assert.match(await section.locator('h2').innerText(), /Quanto tempo o seu cliente espera/i);
     assert.match(await section.innerText(), /na hora/i);
     assert.equal(await section.locator('.wait-point').count(), 3);
-    const times = await section.locator('.chat-body .msg-meta time').allInnerTexts();
-    assert.ok(times.length >= 2 && new Set(times).size === 1, 'Pergunta e resposta no mesmo minuto');
+    // Ilustração: a cliente enviando a mensagem e a SIA já respondendo (notificação com os três pontinhos).
+    const art = section.locator('.wait-art img');
+    assert.match(await art.evaluate(image => { image.loading = 'eager'; return image.decode().then(() => image.currentSrc); }), /cliente-atendido/);
+    assert.ok((await art.getAttribute('alt')).length > 20);
+    assert.match(await section.locator('.wait-pill').innerText(), /na hora/i);
     assert.match(await page.locator('.hero-description').innerText(), /na hora/i, 'Topo fala de atender na hora');
     assert.match(await page.locator('.benefit-strip').innerText(), /Atendimento na hora/);
     assert.ok((await page.locator('#duvidas .faq-item h3 button').allInnerTexts()).some(question => /esperar/i.test(question)), 'FAQ sobre espera');
@@ -398,7 +401,8 @@ try {
     // Painel (etapa 4): o selo da venda aparece sem mudar o tamanho do cartão.
     await live.locator('#step-tab-0').click();
     await live.locator('#como-funciona .autoplay-toggle').click(); // retoma o autoplay a partir da etapa 1
-    await live.clock.runFor(9500 + 9000 + 8000 + 300);
+    // Avança em passos curtos até a etapa do painel começar (sem depender de cair num milissegundo exato).
+    for (let waited = 0; (await selected()) !== 'step-tab-3' && waited < 40000; waited += 100) await live.clock.runFor(100);
     assert.equal(await selected(), 'step-tab-3', 'Chegou ao painel');
     const panelCard = live.locator('#step-panel .insights-preview').last();
     // Altura de layout (offsetHeight), que não muda com a animação de entrada do cartão (escala).
