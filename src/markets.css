@@ -468,6 +468,6 @@ h2 .accent{color:var(--blue)}
 .order-main{display:flex;flex-direction:column;justify-content:space-between;min-width:0}
 .order-art{border-radius:16px;overflow:hidden;min-height:180px;background:#f6efe4}
 .order-art picture,.order-art img{display:block;width:100%;height:100%}
-.order-art img{object-fit:cover;object-position:58% 45%}
+.order-art img{object-fit:cover;object-position:62% 50%}
 .is-animated .order-art img{animation:delivery-in 1.2s var(--ease-soft) both}
 @media(max-width:560px){.order-body{grid-template-columns:1fr}.order-art{order:-1;height:150px;min-height:0}}

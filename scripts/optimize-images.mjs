@@ -16,6 +16,7 @@ const images = [
   ['hero-mercado', [768, 1024, 1536, 2048]],
   ['separacao-pedido', [640, 768, 1024, 1536]],
   ['cliente-audio', [768, 1024, 1536, 2048]],
+  ['separacao-etapa', [640, 768, 1024]],
 ];
 for (const [name, widths] of images) {
   const source = [`${sourceDirectory}/${name}.png`, `${sourceDirectory}/${name}.jpg`].find(existsSync) || `${sourceDirectory}/${name}.png`;

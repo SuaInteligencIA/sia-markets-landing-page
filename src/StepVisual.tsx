@@ -59,7 +59,7 @@ export function StepVisual({ step, beat }: { step: number; beat: number }) {
           <ul className="order-items">{list.map(([, item], index) => <li key={item} className={index < done ? 'done' : ''}><Check size={17} aria-hidden="true" />{item}</li>)}</ul>
           <div className={`order-status ${shipped ? 'shipped' : ''}`}><Truck size={17} aria-hidden="true" /> {shipped ? 'Saiu para entrega' : 'Separando para entrega'}</div>
         </div>
-        <div className="order-art"><picture><source type="image/avif" srcSet={`${BASE}images/separacao-pedido-640.avif 640w, ${BASE}images/separacao-pedido-768.avif 768w, ${BASE}images/separacao-pedido-1024.avif 1024w`} sizes="(max-width:760px) calc(100vw - 80px), 280px" /><img src={`${BASE}images/separacao-pedido.webp`} width="1536" height="1024" alt="Atendente de avental azul embalando o pedido em sacolas de papel no balcão" loading="lazy" decoding="async" /></picture></div>
+        <div className="order-art"><picture><source type="image/avif" srcSet={`${BASE}images/separacao-etapa-640.avif 640w, ${BASE}images/separacao-etapa-768.avif 768w, ${BASE}images/separacao-etapa-1024.avif 1024w`} sizes="(max-width:760px) calc(100vw - 80px), 280px" /><img src={`${BASE}images/separacao-etapa.webp`} width="1536" height="1024" alt="Atendente de cabelo cacheado e avental azul embalando o pedido em sacolas de papel, com a lista confirmada no celular" loading="lazy" decoding="async" /></picture></div>
       </div></div>;
   }
 
