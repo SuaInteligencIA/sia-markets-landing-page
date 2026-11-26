@@ -87,9 +87,13 @@ done
 cp -f index.html "$DOCROOT/.index.html.novo"
 mv -f "$DOCROOT/.index.html.novo" "$DOCROOT/index.html"
 cd "$DOCROOT"
-comm -23 <(echo "$ANTIGOS") <(echo "$NOVOS") | while IFS= read -r f; do
-  [ -n "$f" ] && rm -f "$f"
+# Arquivos temporários em vez de <(...): o CageFS do servidor não tem /dev/fd.
+echo "$ANTIGOS" > "$BASE/.antigos"
+echo "$NOVOS" > "$BASE/.novos"
+comm -23 "$BASE/.antigos" "$BASE/.novos" | while IFS= read -r f; do
+  if [ -n "$f" ]; then rm -f "$f"; fi
 done
+rm -f "$BASE/.antigos" "$BASE/.novos"
 find . -mindepth 1 -type d -empty ! -path './cgi-bin*' ! -path './.well-known*' -delete
 
 echo "$NOVO" > "$BASE/publicado-sha"
