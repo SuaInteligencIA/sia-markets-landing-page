@@ -48,3 +48,17 @@ for (const [name, outputName, leftFraction, widths] of crops) {
   const fallback = `public/images/${outputName}.webp`;
   await sharp(source).extract({ left, top: 0, width: width - left, height }).resize({ width: 960 }).webp({ quality: 82, effort: 6 }).toFile(fallback);
 }
+
+// Recortes com enquadramento próprio (caixa em px da imagem original).
+// separacao-etapa-zoom: mais fechado na atendente, nos sacos e no balão, para a etapa de separação.
+const boxes = [['separacao-etapa', 'separacao-etapa-zoom', { left: 1010, top: 200, width: 1460, height: 1496 }, [480, 720, 960]]];
+for (const [name, outputName, box, widths] of boxes) {
+  const source = [`${sourceDirectory}/${name}.png`, `${sourceDirectory}/${name}.jpg`].find(existsSync);
+  if (!source) continue;
+  for (const size of widths) {
+    const output = `public/images/${outputName}-${size}.avif`;
+    const info = await sharp(source).extract(box).resize({ width: size }).avif({ quality, effort: 6 }).toFile(output);
+    console.log(output, info.size);
+  }
+  await sharp(source).extract(box).resize({ width: 720 }).webp({ quality: 82, effort: 6 }).toFile(`public/images/${outputName}.webp`);
+}

@@ -416,7 +416,7 @@ h2 .accent{color:var(--blue)}
 .stage-item.is-leaving{animation:stage-out .6s cubic-bezier(.4,0,.2,1) both}
 @keyframes stage-in{from{opacity:0;transform:translateY(32px) scale(.98)}to{opacity:1;transform:none}}
 @keyframes stage-out{from{opacity:1;transform:none}to{opacity:0;transform:translateY(-24px) scale(.98)}}
-@media(max-width:760px){.step-stage{min-height:492px}}
+@media(max-width:760px){.step-stage{min-height:496px}}
 
 /* Itens do pedido: o check "estala" de leve ao ser marcado; o selo muda de cor devagar. */
 .order-items li{transition:color .5s var(--ease-soft)}
@@ -471,3 +471,8 @@ h2 .accent{color:var(--blue)}
 .order-art img{object-fit:cover;object-position:62% 50%}
 .is-animated .order-art img{animation:delivery-in 1.2s var(--ease-soft) both}
 @media(max-width:560px){.order-body{grid-template-columns:1fr}.order-art{order:-1;height:150px;min-height:0}}
+/* Separação: quadro quase quadrado, no formato do recorte, para caber a atendente e o balão inteiros. */
+.order-body{align-items:center}
+.order-art{aspect-ratio:1/1.02;min-height:0}
+.order-art img{object-position:50% 0}
+@media(max-width:560px){.order-art{height:auto;aspect-ratio:16/9}}

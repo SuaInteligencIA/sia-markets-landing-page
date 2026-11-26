@@ -138,7 +138,7 @@ try {
     await page.locator('#step-tab-2').click();
     const orderArt = page.locator('#step-panel .order-art img');
     assert.equal(await orderArt.count(), 1);
-    assert.match(await orderArt.evaluate(image => { image.loading = 'eager'; return image.decode().then(() => image.currentSrc); }), /separacao-etapa/, 'Atendente diferente da do bloco da equipe');
+    assert.match(await orderArt.evaluate(image => { image.loading = 'eager'; return image.decode().then(() => image.currentSrc); }), /separacao-etapa-zoom/, 'Atendente diferente da do bloco da equipe');
     // Etapa do painel: três indicadores legíveis, cada um com ícone, rótulo e número.
     await page.locator('#step-tab-3').click();
     const stats = page.locator('#step-panel .insights-stat');
