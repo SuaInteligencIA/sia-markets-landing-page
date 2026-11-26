@@ -27,10 +27,13 @@ prévia do `dist/` sozinho (porta 4175) e roda as verificações em Chromium: ac
 menu no celular, sem rolagem lateral de 320 a 1920 px, links de WhatsApp e a **trava de palavras proibidas**, que lê
 todos os arquivos publicados.
 
-Para publicar, envie o conteúdo de `dist/` (inclusive o `.htaccess`) para a pasta
-`public_html/markets.suainteligenc.ia.br/` da hospedagem da Sua InteligêncIA (cPanel, a mesma conta do site principal):
-compacte o `dist/`, envie pelo Gerenciador de Arquivos e extraia lá, sobrescrevendo. O certificado HTTPS vem do AutoSSL
-do cPanel e se renova sozinho.
+**A publicação é automática.** A cada 5 minutos o cron do cPanel roda
+[`deploy/atualizar-markets.sh`](deploy/atualizar-markets.sh) (cópia no servidor em `~/sia-markets-deploy/`): se o `main`
+do GitHub mudou, ele compila com Node 22 e copia o `dist/` para `public_html/markets.suainteligenc.ia.br/`. Um commit
+no `main` aparece no site em até uns 5 minutos. Se a compilação falhar, o site anterior continua no ar e o erro fica em
+`~/sia-markets-deploy/deploy.log`. O servidor não tem Chromium, então o `npm test` não roda lá: rode antes do push.
+Depois de alterar o script, envie a cópia nova para o servidor como upload (o editor do cPanel troca as quebras de
+linha para CRLF e o bash para de funcionar). O certificado HTTPS vem do AutoSSL do cPanel e se renova sozinho.
 
 O `.htaccess` força HTTPS, manda para o subdomínio quem chega pelo caminho da pasta dentro do site principal e define o
 cache (pasta `assets/` com hash: 1 ano; fontes e imagens: 30 dias; HTML: sempre revalidado). O endereço antigo
