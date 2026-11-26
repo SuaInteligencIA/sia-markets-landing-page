@@ -47,7 +47,7 @@ export const nav: { label: string; href: string }[] = [
 export const heroImage: { kind: 'mascot' } | { kind: 'scene'; name: string; alt: string } = {
   kind: 'scene',
   name: 'hero-mercado',
-  alt: 'SIA, a agente de IA de uniforme azul, olhando o celular em um supermercado, ao lado de caixas de frutas e verduras, com um balão de lista confirmada',
+  alt: 'SIA, a agente de IA de uniforme azul, olhando o celular em um supermercado, ao lado de caixas de frutas e verduras, com um balão de lista confirmada e uma sacola de papel flutuando',
 };
 
 export const benefits = [

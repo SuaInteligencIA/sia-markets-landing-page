@@ -129,7 +129,7 @@ h2 .accent{color:var(--blue)}
 .crm-highlights svg{flex:none;color:var(--blue)}
 
 @media(max-width:1180px){.list-section,.crm-section{gap:40px}.list-stage{padding:32px 22px}.list-banner-copy{width:44%}}
-@media(max-width:950px){.list-section,.crm-section{grid-template-columns:1fr}.list-banner{flex-direction:column;align-items:stretch;min-height:0;background:#fff8ee}.list-banner-art{position:relative;inset:auto;height:340px}.list-banner-art img{object-position:72% center}.list-banner-copy{width:auto;margin:0;padding:32px 28px 40px}.crm-section .crm-art{height:auto;aspect-ratio:1.55;min-height:250px}}
+@media(max-width:950px){.list-section,.crm-section{grid-template-columns:1fr}.list-banner{flex-direction:column;align-items:stretch;min-height:0;background:#fff8ee}.list-banner-art{position:relative;inset:auto;height:340px}.list-banner-art img{object-position:50% 30%}.list-banner-copy{width:auto;margin:0;padding:32px 28px 40px}.crm-section .crm-art{height:auto;aspect-ratio:1.55;min-height:250px}}
 @media(max-width:760px){.list-banner{margin-top:16px}.list-banner-art{height:260px}.list-banner-copy{padding:28px 22px 34px}.list-banner-copy>p:not(.eyebrow),.crm-copy>p:not(.eyebrow),.crm-highlights li{font-size:14px}.list-stage{border-radius:24px;padding:24px 12px}.list-chat{padding:0 12px 12px;border-radius:18px}.team-art{border-radius:20px}.team-title{font-size:22px}.list-chat .bubble{font-size:12px}.team-gain h4{font-size:16px}.crm-section .product-card{border-radius:20px}}
 
 /* Topo com a cena do supermercado: a mascote fica a 64% da largura da imagem. */
@@ -144,3 +144,8 @@ h2 .accent{color:var(--blue)}
 
 /* Clientes do CRM com iniciais */
 .person-initials{display:flex;align-items:center;justify-content:center;background:#dfe7ff;color:#173785;font-size:9px;font-weight:600;letter-spacing:.3px}
+
+/* Faixa da lista: funde a borda reta da ilustração com o painel claro à esquerda, onde fica o texto. */
+.list-banner{background:linear-gradient(180deg,#f8f0e5 0%,#f8f4e8 50%,#e4f1f9 100%)}
+.list-banner-art:after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,#f8f0e5 0%,#f8f4e8 50%,#e4f1f9 100%);-webkit-mask-image:linear-gradient(90deg,#000 0%,#000 40%,rgba(0,0,0,.7) 46%,transparent 58%);mask-image:linear-gradient(90deg,#000 0%,#000 40%,rgba(0,0,0,.7) 46%,transparent 58%)}
+@media(max-width:950px){.list-banner{background:#f8f4e8}.list-banner-art:after{display:none}}

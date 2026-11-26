@@ -108,7 +108,7 @@ function App() {
       </section>
 
       <section className="list-banner page-inset" id="lista" aria-labelledby="list-title">
-        <div className="list-banner-art"><picture><source type="image/avif" srcSet={`${BASE}images/cliente-audio-640.avif 640w, ${BASE}images/cliente-audio-768.avif 768w, ${BASE}images/cliente-audio-1024.avif 1024w`} sizes="(max-width:760px) 100vw, 1024px" /><img src={`${BASE}images/cliente-audio.webp`} width="1024" height="682" alt="Cliente na cozinha de casa mandando um áudio pelo celular, olhando a geladeira aberta e uma fruteira" loading="lazy" decoding="async" /></picture></div>
+        <div className="list-banner-art"><picture><source media="(max-width:950px)" type="image/avif" srcSet={`${BASE}images/cliente-audio-recorte-640.avif 640w, ${BASE}images/cliente-audio-recorte-768.avif 768w`} sizes="100vw" /><source type="image/avif" srcSet={`${BASE}images/cliente-audio-640.avif 640w, ${BASE}images/cliente-audio-768.avif 768w, ${BASE}images/cliente-audio-1024.avif 1024w`} sizes="(max-width:760px) 100vw, 1024px" /><img src={`${BASE}images/cliente-audio.webp`} width="1024" height="682" alt="Cliente na cozinha de casa mandando um áudio pelo celular, olhando a geladeira aberta e uma fruteira" loading="lazy" decoding="async" /></picture></div>
         <div className="list-banner-copy">
           <p className="eyebrow">LISTA DE COMPRAS SEM ESFORÇO</p>
           <h2 id="list-title">A lista sai pronta.<br /><span className="accent">A fila anda.</span></h2>
