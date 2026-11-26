@@ -1,5 +1,5 @@
 {
-  "date": "2026-11-26T16:32:39.310Z",
+  "date": "2026-11-26T16:40:35.111Z",
   "url": "http://127.0.0.1:4175/markets/",
   "browser": "Chromium",
   "checks": [
@@ -24,7 +24,8 @@
     "SEO: JSON-LD com organização, produto e perguntas do FAQ",
     "Responsividade: 11 larguras de 320 a 1920px",
     "Mobile: menu, foco e navegação",
-    "Mobile paisagem: menu com rolagem própria"
+    "Mobile paisagem: menu com rolagem própria",
+    "Etapas: autoplay com a conversa, clique vira slide, volta após inatividade, pausa e movimento reduzido"
   ],
   "javascriptErrors": [],
   "status": "passed"

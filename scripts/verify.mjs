@@ -295,6 +295,64 @@ try {
     await page.keyboard.press('Escape');
   });
 
+  await check('Etapas: autoplay com a conversa, clique vira slide, volta após inatividade, pausa e movimento reduzido', async () => {
+    // Página à parte, com movimento permitido e relógio controlado, para medir os tempos sem esperar de verdade.
+    const motion = await browser.newContext({ viewport: { width: 1440, height: 1000 }, reducedMotion: 'no-preference' });
+    const live = await motion.newPage();
+    live.on('pageerror', error => errors.push(error.message));
+    await live.clock.install();
+    await live.goto(baseUrl, { waitUntil: 'networkidle' });
+    const selected = () => live.locator('#como-funciona [role="tab"][aria-selected="true"]').getAttribute('id');
+    const bubbles = () => live.locator('#step-panel .chat-body > *').count();
+
+    // Fora da tela, nada anda.
+    await live.clock.runFor(12000);
+    assert.equal(await selected(), 'step-tab-0', 'Parado enquanto a seção não aparece');
+
+    await live.locator('#como-funciona').scrollIntoViewIfNeeded();
+    await live.waitForFunction(() => document.querySelector('#como-funciona .step-progress:not(.is-paused)'));
+    await live.clock.runFor(400);
+    const early = await bubbles();
+    await live.clock.runFor(2600);
+    assert.ok(await bubbles() > early, 'A conversa vai aparecendo aos poucos');
+    await live.clock.runFor(3000);
+    assert.equal(await selected(), 'step-tab-1', 'Passa sozinho para a etapa 2');
+    await live.clock.runFor(6000);
+    assert.equal(await selected(), 'step-tab-2', 'E para a etapa 3');
+
+    // Clique: vira slide, parado e completo.
+    await live.locator('#step-tab-3').click();
+    assert.equal(await selected(), 'step-tab-3');
+    assert.equal(await live.locator('#como-funciona .step-progress').count(), 0, 'Sem barra de progresso no modo slide');
+    await live.clock.runFor(8000);
+    assert.equal(await selected(), 'step-tab-3', 'Continua na etapa escolhida');
+    // Inatividade: a animação volta e segue da última para a primeira.
+    await live.clock.runFor(3000);
+    assert.equal(await live.locator('#como-funciona .step-progress').count(), 1, 'Autoplay volta após 10 s parado');
+    await live.clock.runFor(6000);
+    assert.equal(await selected(), 'step-tab-0', 'Da última volta à primeira');
+
+    // Pausa pelo botão: nada anda, nem depois do tempo de inatividade.
+    const toggle = live.locator('#como-funciona .autoplay-toggle');
+    assert.equal(await toggle.getAttribute('aria-label'), 'Pausar animação');
+    await toggle.click();
+    assert.equal(await toggle.getAttribute('aria-label'), 'Retomar animação');
+    const pausedAt = await selected();
+    await live.clock.runFor(20000);
+    assert.equal(await selected(), pausedAt, 'Pausado continua pausado');
+    await toggle.click();
+    await live.clock.runFor(6000);
+    assert.notEqual(await selected(), pausedAt, 'Retomar volta a andar');
+    await motion.close();
+
+    // Movimento reduzido (a página principal deste teste): nada anda e não há botão de pausa.
+    await page.setViewportSize({ width: 1440, height: 1000 });
+    await page.locator('#step-tab-0').click();
+    await page.locator('#como-funciona').scrollIntoViewIfNeeded();
+    assert.equal(await page.locator('#como-funciona .step-progress').count(), 0);
+    assert.equal(await page.locator('#como-funciona .autoplay-toggle').count(), 0);
+  });
+
   assert.deepEqual(errors, [], 'Erros JavaScript no navegador');
   await mkdir('docs', { recursive: true });
   await writeFile('docs/validation.json', `${JSON.stringify({ date: new Date().toISOString(), url: baseUrl, browser: 'Chromium', checks, javascriptErrors: errors, status: 'passed' }, null, 2)}\n`);

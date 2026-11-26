@@ -244,3 +244,36 @@ h2 .accent{color:var(--blue)}
 .crm-section .crm-chat{padding-bottom:22px}
 @media(max-width:950px){.crm-section .crm-art{aspect-ratio:1.35;padding-top:40px}}
 @media(max-width:450px){.crm-section .crm-art{aspect-ratio:1.2;padding-top:44px}}
+
+/* Como funciona: autoplay */
+.step{position:relative}
+.step-progress{position:absolute;left:0;right:0;bottom:-1px;height:2px;border-radius:2px;background:var(--blue);transform-origin:left center;transform:scaleX(0);animation-name:step-progress;animation-timing-function:linear;animation-fill-mode:forwards}
+.step-progress.is-paused{animation-play-state:paused}
+@keyframes step-progress{to{transform:scaleX(1)}}
+@keyframes chat-pop{from{opacity:0;transform:translateY(8px) scale(.97)}to{opacity:1;transform:none}}
+.step-conversation .chat-body{min-height:370px;justify-content:flex-start}
+.is-animated .chat-body>*:not(.chat-day){animation:chat-pop .42s cubic-bezier(.2,.8,.2,1) both;transform-origin:bottom}
+.is-animated .chat-body>.guest-bubble{transform-origin:bottom right}
+.is-animated .chat-body>.agent-bubble,.is-animated .chat-body>.typing-bubble{transform-origin:bottom left}
+.is-animated .list-card li{animation:chat-pop .35s cubic-bezier(.2,.8,.2,1) both}
+.is-animated .list-card li:nth-child(1){animation-delay:.25s}
+.is-animated .list-card li:nth-child(2){animation-delay:.4s}
+.is-animated .list-card li:nth-child(3){animation-delay:.55s}
+.is-animated .list-card li:nth-child(4){animation-delay:.7s}
+.is-animated .list-card li:nth-child(5){animation-delay:.85s}
+.order-items li,.order-items li svg{transition:color .3s ease,transform .3s ease}
+.order-items li.done svg{transform:scale(1.06)}
+.order-status{transition:background-color .35s ease,color .35s ease}
+.order-status.shipped{background:var(--blue);color:#fff}
+.sale-registered{display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-size:11px;font-weight:500;color:#173785;background:#dbe5ff;border-radius:100px;padding:5px 11px}
+.sale-registered svg{color:var(--blue)}
+.is-animated .sale-registered{animation:chat-pop .42s cubic-bezier(.2,.8,.2,1) both}
+.insights-preview .chart-bars span{transition:height .9s cubic-bezier(.2,.8,.2,1)}
+.autoplay-toggle{position:absolute;right:16px;bottom:16px;z-index:2;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.4);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);cursor:pointer;transition:background-color .2s}
+.autoplay-toggle:hover{background:rgba(255,255,255,.3)}
+.autoplay-toggle:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.pause-icon{width:10px;height:12px;border-left:3px solid currentColor;border-right:3px solid currentColor}
+@media(max-width:760px){.step-conversation .chat-body{min-height:350px}.autoplay-toggle{right:10px;bottom:10px;width:32px;height:32px}}
+/* Espaço fixo para o botão de pausa, abaixo do cartão, sem encostar nele. */
+@media(prefers-reduced-motion:no-preference){.workflow-visual{padding-bottom:64px}}
+@media(prefers-reduced-motion:no-preference) and (max-width:760px){.workflow-visual{padding-bottom:52px}}

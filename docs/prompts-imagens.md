@@ -25,3 +25,27 @@ nomes são substituídos e o site se ajusta sozinho (`node scripts/optimize-imag
 - **Ficou 3D, brilhante ou com cara de render:** acrescente *"Not 3D, not CGI, not glossy: flat soft painted illustration with gouache texture."*
 - **A mascote mudou de cabelo ou roupa:** reforce *"short wavy black bob with vivid cobalt blue streaks and straight bangs, royal blue polo with a small white emblem"*.
 - **Prateleiras ou produtos viraram o destaque:** acrescente *"The shelves are far away, blurred and secondary; the people and the blue bubble are the focus."*
+
+## Retratos dos clientes do CRM (fotos)
+
+São as fotos dos três clientes fictícios do CRM: **Marina Souza, Paulo Mendes e Sônia Ribeiro**. Hoje eles aparecem com
+iniciais, porque os retratos que já temos (Ana, Rafael e Julia) são da equipe. As fotos seguem o padrão desses retratos:
+foto realista, rosto e ombros, sorriso natural e fundo azul-claro liso. **Não seguem o estilo pintado das ilustrações**,
+porque fazem papel de foto de perfil.
+
+Formato: **quadrado 1:1** (1024 × 1024). Nomes ao entregar: `marina-souza.png`, `paulo-mendes.png` e `sonia-ribeiro.png`,
+na pasta `novas imagens`.
+
+### Marina Souza — `marina-souza.png`
+
+> Photorealistic head-and-shoulders profile photo, square 1:1, of a friendly Brazilian woman in her early thirties, warm light-brown skin, long dark wavy hair loose over the shoulders, natural makeup, genuine relaxed smile showing teeth, looking straight at the camera, wearing a simple light beige t-shirt. Soft diffused studio daylight from the front-left, gentle shadows, shallow depth of field. Plain seamless pale cool-blue background (#dfe8f7), no texture. Centered composition, head occupying the middle third, shoulders cut at the bottom edge, room above the head. Natural skin texture, true-to-life colors, high-end editorial portrait. No text, no logos, no jewelry brands, no watermark.
+
+### Paulo Mendes — `paulo-mendes.png`
+
+> Photorealistic head-and-shoulders profile photo, square 1:1, of a friendly Brazilian man around fifty, medium tan skin, short salt-and-pepper hair and a neatly trimmed short grey beard, warm closed-mouth smile with crinkles at the eyes, looking straight at the camera, wearing a light blue button-up shirt with the collar open. Soft diffused studio daylight from the front-left, gentle shadows, shallow depth of field. Plain seamless pale cool-blue background (#dfe8f7), no texture. Centered composition, head occupying the middle third, shoulders cut at the bottom edge, room above the head. Natural skin texture, true-to-life colors, high-end editorial portrait. No text, no logos, no watermark.
+
+### Sônia Ribeiro — `sonia-ribeiro.png`
+
+> Photorealistic head-and-shoulders profile photo, square 1:1, of a friendly Black Brazilian woman in her early sixties, deep brown skin, short natural grey curly hair, small gold stud earrings, kind open smile, looking straight at the camera, wearing a soft white linen blouse. Soft diffused studio daylight from the front-left, gentle shadows, shallow depth of field. Plain seamless pale cool-blue background (#dfe8f7), no texture. Centered composition, head occupying the middle third, shoulders cut at the bottom edge, room above the head. Natural skin texture, true-to-life colors, high-end editorial portrait. No text, no logos, no watermark.
+
+**Se der errado:** se a pessoa sair de lado ou cortada, acrescente *"face fully visible, centered, looking into the lens"*. Se o fundo vier com objetos, acrescente *"completely plain background, nothing behind the person"*.
