@@ -1,5 +1,5 @@
 {
-  "date": "2026-11-26T16:19:23.195Z",
+  "date": "2026-11-26T16:27:00.974Z",
   "url": "http://127.0.0.1:4175/markets/",
   "browser": "Chromium",
   "checks": [
@@ -12,6 +12,7 @@
     "Etapas: quatro passos, teclado e ARIA",
     "Painel: ilustração acessível, quatro indicadores e sem rolagem lateral",
     "Lista: conversa ilustrativa termina em lista organizada, sem preços",
+    "Conversa: interface de chat com hora, áudio tocável, lista em cartão e barra de mensagem",
     "Imagens novas: topo, cliente mandando áudio e equipe separando",
     "Agente: mascote e três formas de personalizar",
     "CRM: clientes com iniciais e conversa selecionada",

@@ -131,12 +131,13 @@ export const dashboardHighlights = [
 ];
 
 // Conversa ilustrativa: itens comuns, sem preço, marca ou disponibilidade.
-export const chatDemo: { from: 'cliente' | 'sia'; text?: string; audio?: string; list?: { group: string; items: string[] }[] }[] = [
-  { from: 'cliente', text: 'Oi! Preciso de arroz, feijão e óleo' },
-  { from: 'cliente', text: 'ah, e 6 caixas de leite' },
-  { from: 'cliente', audio: '0:08' },
+export const chatDemo: { from: 'cliente' | 'sia'; time: string; text?: string; audio?: string; list?: { group: string; items: string[] }[] }[] = [
+  { from: 'cliente', time: '09:41', text: 'Oi! Preciso de arroz, feijão e óleo' },
+  { from: 'cliente', time: '09:41', text: 'ah, e 6 caixas de leite' },
+  { from: 'cliente', time: '09:42', audio: '0:08' },
   {
     from: 'sia',
+    time: '09:42',
     text: 'Entendi o áudio também! Sua lista ficou assim:',
     list: [
       { group: 'Mercearia', items: ['Arroz 5 kg', 'Feijão carioca 1 kg', 'Óleo de soja'] },
@@ -145,8 +146,9 @@ export const chatDemo: { from: 'cliente' | 'sia'; text?: string; audio?: string;
       { group: 'Hortifrúti', items: ['Banana prata (1 dúzia)'] },
     ],
   },
-  { from: 'sia', text: 'É para entrega ou retirada?' },
-  { from: 'cliente', text: 'Entrega, por favor!' },
+  { from: 'sia', time: '09:42', text: 'É para entrega ou retirada?' },
+  { from: 'cliente', time: '09:43', text: 'Entrega, por favor!' },
+  { from: 'sia', time: '09:43', text: 'Perfeito! Já passei sua lista para a equipe separar.' },
 ];
 
 export const teamGains = [

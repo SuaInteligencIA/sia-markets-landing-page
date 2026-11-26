@@ -156,6 +156,23 @@ try {
     assert.equal(await page.locator('.team-gain').count(), 3);
   });
 
+  await check('Conversa: interface de chat com hora, áudio tocável, lista em cartão e barra de mensagem', async () => {
+    const chat = page.locator('.list-chat');
+    const bubbles = chat.locator('.bubble');
+    assert.ok(await bubbles.count() >= 6);
+    assert.equal(await chat.locator('.bubble .msg-meta time').count(), await bubbles.count(), 'Todo balão tem hora');
+    const audio = chat.locator('.audio-message');
+    assert.equal(await audio.locator('.audio-play').count(), 1, 'Botão de play no áudio');
+    assert.ok(await audio.locator('.audio-wave span').count() >= 20, 'Onda sonora em barras');
+    assert.equal(await chat.locator('.agent-bubble .list-card li .list-tag').count(), await chat.locator('.agent-bubble .list-card li').count(), 'Cada item com a seção');
+    assert.equal(await chat.locator('.chat-composer').count(), 1, 'Barra de mensagem');
+    // O balão acompanha o texto: o "Entrega, por favor!" não ocupa a largura toda.
+    const shortBubble = await chat.locator('.guest-bubble').last().evaluate(bubble => bubble.getBoundingClientRect().width / bubble.parentElement.getBoundingClientRect().width);
+    assert.ok(shortBubble < 0.6, `Balão curto ocupa ${Math.round(shortBubble * 100)}%`);
+    await page.locator('#step-tab-0').click();
+    assert.equal(await page.locator('#step-panel .typing-bubble').count(), 1, 'SIA digitando na primeira etapa');
+  });
+
   await check('Imagens novas: topo, cliente mandando áudio e equipe separando', async () => {
     for (const [selector, name] of [['#inicio .hero-art img', 'hero-mercado'], ['#lista img', 'cliente-audio'], ['.team-panel img', 'separacao-pedido']]) {
       const image = page.locator(selector).first();

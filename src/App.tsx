@@ -5,6 +5,7 @@ import { BASE } from './base';
 import { agentPersonalization, benefits, chatDemo, company, contact, crmHighlights, dashboardHighlights, faqs, heroImage, nav, problems, socials, steps, teamGains, whatsappUrl } from './content';
 import { structuredData } from './structuredData';
 import { DashboardPreview } from './DashboardPreview';
+import { AudioMessage, ChatBody, ChatComposer, ChatHeader, ListCard, Message, SystemPill, TypingBubble } from './ChatDemo';
 import { PoweredBadge } from './PoweredBadge';
 
 const talkUrl = whatsappUrl('Olá! Quero conhecer o SIA Markets e ver como ele funciona no meu supermercado.');
@@ -120,9 +121,14 @@ function App() {
         <div className="list-stage">
           <div className="list-chat">
             <ChatHeader />
-            {chatDemo.map((message, index) => message.from === 'cliente'
-              ? <p key={index} className="bubble guest-bubble">{message.audio ? <span className="audio-message"><Mic size={15} aria-hidden="true" /><span className="audio-wave" aria-hidden="true" /> Áudio · {message.audio}</span> : message.text}</p>
-              : <div key={index} className="bubble agent-bubble">{message.text}{message.list && <ul>{message.list.flatMap(group => group.items.map(item => <li key={item}><span>{group.group}</span>{item}</li>))}</ul>}</div>)}
+            <ChatBody>
+              {chatDemo.map((message, index) => <Message key={index} from={message.from} time={message.time}>
+                {message.audio ? <AudioMessage duration={message.audio} /> : message.text}
+                {message.list && <ListCard title="Lista de compras" items={message.list.flatMap(group => group.items.map(item => ({ group: group.group, item })))} />}
+              </Message>)}
+              <SystemPill>Lista enviada para a equipe</SystemPill>
+            </ChatBody>
+            <ChatComposer />
             <span className="preview-label">Exemplo ilustrativo de atendimento</span>
           </div>
         </div>
@@ -168,14 +174,6 @@ function App() {
   </>;
 }
 
-function AgentAvatar({ className = '' }: { className?: string }) {
-  return <span className={`agent-avatar ${className}`}><img src={`${BASE}brand/sia-agente-avatar.webp`} width="240" height="240" alt="SIA, agente de IA do supermercado" /></span>;
-}
-
-function ChatHeader() {
-  return <div className="chat-header"><AgentAvatar /><div><strong>SIA · Supermercado do Bairro</strong><small>Atendendo pelo WhatsApp</small></div><Sparkles size={19} /></div>;
-}
-
 function CrmPreview() {
   // Clientes fictícios com iniciais; os retratos ficam com os atendentes, no painel.
   const people = [['MS', 'Marina Souza', 'Pode mandar a lista!', 'Agora'], ['PM', 'Paulo Mendes', 'Chegou certinho, obrigado!', '14:32'], ['SR', 'Sônia Ribeiro', 'Vocês entregam no Centro?', '14:25']];
@@ -188,8 +186,8 @@ function CrmPreview() {
 }
 
 function StepVisual({ step }: { step: number }) {
-  if (step === 0) return <div className="step-conversation"><ChatHeader /><p className="bubble guest-bubble">Oi! Queria fazer um pedido para entrega.</p><p className="bubble guest-bubble"><Mic size={14} aria-hidden="true" /> Áudio · 0:14</p><p className="bubble agent-bubble">Oi, Marina! Claro. Pode mandar tudo o que precisa, do jeito que for mais fácil.</p><span className="preview-label">Exemplo ilustrativo de atendimento</span></div>;
-  if (step === 1) return <div className="step-conversation"><ChatHeader /><div className="bubble agent-bubble step-list-bubble"><strong>Sua lista ficou assim:</strong><ul><li>Arroz 5 kg</li><li>Feijão carioca 1 kg</li><li>Leite integral (6 unidades)</li><li>Pão francês (10 unidades)</li><li>Banana prata (1 dúzia)</li></ul>Está tudo certo? <CheckCheck size={13} aria-hidden="true" /></div><p className="bubble guest-bubble">Tudo certo!</p><span className="preview-label">Exemplo ilustrativo de atendimento</span></div>;
+  if (step === 0) return <div className="step-conversation"><ChatHeader /><ChatBody><Message from="cliente" time="09:41">Oi! Queria fazer um pedido para entrega.</Message><Message from="cliente" time="09:41"><AudioMessage duration="0:14" /></Message><TypingBubble /></ChatBody><span className="preview-label">Exemplo ilustrativo de atendimento</span></div>;
+  if (step === 1) return <div className="step-conversation"><ChatHeader /><ChatBody><Message from="sia" time="09:42">Oi, Marina! Sua lista ficou assim:<ListCard title="Lista de compras" items={[['Mercearia', 'Arroz 5 kg'], ['Mercearia', 'Feijão carioca 1 kg'], ['Laticínios', 'Leite integral (6 unidades)'], ['Padaria', 'Pão francês (10 unidades)'], ['Hortifrúti', 'Banana prata (1 dúzia)']].map(([group, item]) => ({ group, item }))} />Está tudo certo?</Message><Message from="cliente" time="09:42">Tudo certo!</Message></ChatBody><span className="preview-label">Exemplo ilustrativo de atendimento</span></div>;
   if (step === 2) return <div className="order-preview"><div className="order-top"><ShoppingBag size={20} aria-hidden="true" /><div><strong>Pedido de Marina Souza</strong><small>Lista confirmada pela SIA · 5 itens</small></div></div><ul className="order-items">{['Arroz 5 kg', 'Feijão carioca 1 kg', 'Leite integral (6 unidades)', 'Pão francês (10 unidades)', 'Banana prata (1 dúzia)'].map((item, index) => <li key={item} className={index < 3 ? 'done' : ''}><Check size={17} aria-hidden="true" />{item}</li>)}</ul><div className="order-status"><Truck size={17} aria-hidden="true" /> Separando para entrega</div><span className="preview-label">Visualização ilustrativa</span></div>;
   return <div className="insights-preview"><div className="insights-top"><img src={`${BASE}brand/icon.svg`} width="26" height="26" alt="" /><span>Vendas pelo WhatsApp</span><MoreHorizontal size={18} /></div><p>Venda registrada.</p><strong>Direto no seu painel.</strong><div className="chart-bars" aria-hidden="true">{[36, 53, 44, 65, 57, 79, 72, 93].map((h, i) => <span key={i} style={{ height: `${h}%` }} />)}</div><div className="insights-foot"><span><BarChart3 /> Vendas</span><span><MessagesSquare /> Atendimentos</span><span><Users /> Equipe</span></div><span className="preview-label">Visualização ilustrativa</span></div>;
 }
