@@ -453,3 +453,6 @@ h2 .accent{color:var(--blue)}
 /* CRM: o mesmo gradiente animado no fundo do cartão. */
 .crm-section .crm-art{position:relative;isolation:isolate;background:#091735}
 .crm-section .crm-preview{z-index:1}
+/* Celular sobre o fundo escuro: sem traços claros; borda e botões quase da cor da moldura. */
+.list-stage .phone{box-shadow:0 0 0 1px rgba(255,255,255,.07),0 40px 80px rgba(2,8,24,.5)}
+.list-stage .phone-btn{background:#141b2e;box-shadow:none}

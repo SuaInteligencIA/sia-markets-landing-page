@@ -41,7 +41,7 @@ function ConversationScene({ step, beat, className }: { step: number; beat: numb
     {((step === 0 && first >= 5 && first !== Infinity) || (step === 0 && first === Infinity) || (step === 1 && second >= 0 && second < 2)) && <TypingBubble />}
     {second >= 2 && <Message from="sia" time="09:42">Oi, Marina! Sua lista ficou assim:<ListCard title="Lista de compras" items={list.map(([group, item]) => ({ group, item }))} />Está tudo certo?</Message>}
     {second >= 3 && <Message from="cliente" time="09:42">Tudo certo!</Message>}
-  </ChatBody><span className="preview-label">Exemplo ilustrativo de atendimento</span></div>;
+  </ChatBody></div>;
 }
 
 export function StepVisual({ step, beat }: { step: number; beat: number }) {
@@ -55,8 +55,7 @@ export function StepVisual({ step, beat }: { step: number; beat: number }) {
     const shipped = animated && beat > list.length;
     return <div className={`order-preview ${className}`}><div className="order-top"><ShoppingBag size={20} aria-hidden="true" /><div><strong>Pedido de Marina Souza</strong><small>Lista confirmada pela SIA · {list.length} itens</small></div></div>
       <ul className="order-items">{list.map(([, item], index) => <li key={item} className={index < done ? 'done' : ''}><Check size={17} aria-hidden="true" />{item}</li>)}</ul>
-      <div className={`order-status ${shipped ? 'shipped' : ''}`}><Truck size={17} aria-hidden="true" /> {shipped ? 'Saiu para entrega' : 'Separando para entrega'}</div>
-      <span className="preview-label">Visualização ilustrativa</span></div>;
+      <div className={`order-status ${shipped ? 'shipped' : ''}`}><Truck size={17} aria-hidden="true" /> {shipped ? 'Saiu para entrega' : 'Separando para entrega'}</div></div>;
   }
 
   if (step === 4) return <div className={`delivery-preview ${className}`}>
@@ -68,6 +67,5 @@ export function StepVisual({ step, beat }: { step: number; beat: number }) {
     <p>Venda registrada.</p><strong>Direto no seu painel.</strong>
     {(!animated || beat >= 1) && <span className="sale-registered"><Check size={14} aria-hidden="true" /> Marina Souza · venda registrada</span>}
     <div className="chart-bars" aria-hidden="true">{bars.map((height, index) => <span key={index} style={{ height: `${!animated || beat >= 2 ? height : 6}%`, transitionDelay: animated ? `${index * 90}ms` : undefined }} />)}</div>
-    <div className="insights-stats">{([[BarChart3, 'Vendas', '412'], [MessagesSquare, 'Atendimentos', '538'], [Users, 'Equipe online', '3']] as const).map(([Icon, label, value]) => <div className="insights-stat" key={label}><span className="insights-stat-icon"><Icon size={16} /></span><span className="insights-stat-text"><small>{label}</small><strong className="insights-stat-value">{value}</strong></span></div>)}</div>
-    <span className="preview-label">Visualização ilustrativa</span></div>;
+    <div className="insights-stats">{([[BarChart3, 'Vendas', '412'], [MessagesSquare, 'Atendimentos', '538'], [Users, 'Equipe online', '3']] as const).map(([Icon, label, value]) => <div className="insights-stat" key={label}><span className="insights-stat-icon"><Icon size={16} /></span><span className="insights-stat-text"><small>{label}</small><strong className="insights-stat-value">{value}</strong></span></div>)}</div></div>;
 }

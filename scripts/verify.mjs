@@ -146,7 +146,8 @@ try {
     const illustration = page.locator('#painel [role="img"]');
     assert.equal(await illustration.count(), 1);
     assert.match(await illustration.getAttribute('aria-label'), /ilustra/i);
-    assert.match(await page.locator('#painel').innerText(), /Imagem ilustrativa/);
+    // Sem avisos visíveis de "ilustrativo" (decisão do Samuel); o leitor de tela ainda ouve que é ilustração.
+    assert.doesNotMatch(await page.locator('main').innerText(), /ilustrativ|fict[ií]ci/i);
     for (const label of ['Vendido pelo WhatsApp', 'Vendas registradas', 'Ticket médio', 'Atendimentos finalizados']) {
       assert.equal(await page.locator('#painel .kpi').filter({ hasText: label }).count(), 1, label);
     }

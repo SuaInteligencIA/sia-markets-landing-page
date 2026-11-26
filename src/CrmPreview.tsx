@@ -54,6 +54,5 @@ export function CrmPreview() {
         <Message from="cliente" time="09:43">Entrega, por favor!</Message>
       </ChatBody>
     </div>
-    <div className="crm-preview-caption">Visualização ilustrativa</div>
   </div>;
 }

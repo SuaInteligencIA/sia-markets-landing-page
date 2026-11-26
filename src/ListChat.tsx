@@ -59,6 +59,5 @@ export function ListChat() {
         <span className="phone-home" aria-hidden="true" />
       </div>
     </div>
-    <span className="preview-label">Exemplo ilustrativo de atendimento</span>
   </div>;
 }

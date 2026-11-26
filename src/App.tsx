@@ -101,7 +101,7 @@ function App() {
           <ul className="dashboard-highlights">{dashboardHighlights.map(item => <li key={item}><Check size={19} aria-hidden="true" />{item}</li>)}</ul>
           <TalkButton className="button button-white" />
         </div>
-        <div className="dashboard-visual"><DashboardPreview /><span className="dashboard-note">Imagem ilustrativa. Valores fictícios.</span></div>
+        <div className="dashboard-visual"><DashboardPreview /></div>
       </section>
 
       <section className="list-banner page-inset" id="lista" aria-labelledby="list-title">
