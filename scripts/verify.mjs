@@ -281,6 +281,13 @@ try {
     await page.setViewportSize({ width: 390, height: 844 });
     assert.equal(await page.locator('.header-contact').isVisible(), true);
     assert.equal(await page.locator('#mobile-toggle').isVisible(), true);
+    // Cabeçalho mobile como o do site da Sua InteligêncIA: menu num círculo azul, botão compacto e legível.
+    const toggle = await page.locator('#mobile-toggle').evaluate(button => { const style = getComputedStyle(button); const box = button.getBoundingClientRect(); return { round: Math.abs(box.width - box.height) < 1 && parseFloat(style.borderRadius) >= box.width / 2 - 1, background: style.backgroundColor }; });
+    assert.ok(toggle.round, 'Menu num círculo');
+    assert.equal(toggle.background, 'rgb(45, 95, 254)', 'Menu azul');
+    assert.ok(parseFloat(await page.locator('.header-contact').evaluate(button => getComputedStyle(button).fontSize)) >= 12, 'Texto do botão legível');
+    await page.setViewportSize({ width: 360, height: 800 });
+    assert.equal(await page.locator('.header-contact').isVisible(), false, 'Em telas bem estreitas, o botão fica só no menu');
     await page.setViewportSize({ width: 1440, height: 1000 });
   });
 
