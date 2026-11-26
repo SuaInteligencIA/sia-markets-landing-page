@@ -20,7 +20,12 @@ export function ListChat() {
   const audioState = !animating || beat >= 5 ? 'heard' : beat === 4 ? 'playing' : 'idle';
   const heard = chatDemo[audioIndex]?.heard ?? '';
 
-  return <div className="list-chat" ref={chatRef}>
+  // Celular minimalista feito só com formas (moldura, ilha, barra de status, botões e barra inferior).
+  return <div className="phone-wrap">
+    <div className="phone">
+      <span className="phone-btn phone-btn--action" aria-hidden="true" /><span className="phone-btn phone-btn--up" aria-hidden="true" /><span className="phone-btn phone-btn--down" aria-hidden="true" /><span className="phone-btn phone-btn--power" aria-hidden="true" />
+      <div className="phone-screen list-chat" ref={chatRef}>
+        <div className="phone-status" aria-hidden="true"><time>9:41</time><span className="phone-island" /><span className="phone-icons"><span className="phone-signal"><i /><i /><i /><i /></span><span className="phone-battery" /></span></div>
     <ChatHeader />
     <ChatBody>
       {chatDemo.map((message, index) => <Fragment key={index}>
@@ -37,6 +42,9 @@ export function ListChat() {
       <SystemPill className={reveal(shown(10))}>Lista enviada para a equipe</SystemPill>
     </ChatBody>
     <ChatComposer />
+        <span className="phone-home" aria-hidden="true" />
+      </div>
+    </div>
     <span className="preview-label">Exemplo ilustrativo de atendimento</span>
   </div>;
 }

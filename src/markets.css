@@ -343,3 +343,28 @@ h2 .accent{color:var(--blue)}
 .stage-item.is-leaving{animation:stage-out .55s cubic-bezier(.4,0,.6,1) both;pointer-events:none}
 @keyframes stage-in{from{opacity:0;transform:translateY(56px)}to{opacity:1;transform:none}}
 @keyframes stage-out{from{opacity:1;transform:none}to{opacity:0;transform:translateY(-56px)}}
+
+/* Celular minimalista (só formas) para a conversa da Lista de compras */
+.phone-wrap{display:flex;flex-direction:column;align-items:center;gap:16px;width:100%}
+.phone-wrap .preview-label{margin-top:0}
+.phone{position:relative;width:min(100%,392px);padding:10px;border-radius:58px;background:#0b1020;box-shadow:0 0 0 2px #c9d4ea,0 40px 80px rgba(6,18,64,.3)}
+.phone-btn{position:absolute;width:4px;border-radius:3px;background:#0b1020;box-shadow:0 0 0 1px #c9d4ea}
+.phone-btn--action{left:-5px;top:118px;height:28px}
+.phone-btn--up{left:-5px;top:166px;height:54px}
+.phone-btn--down{left:-5px;top:232px;height:54px}
+.phone-btn--power{right:-5px;top:190px;height:86px}
+.phone .phone-screen.list-chat{position:relative;max-width:none;width:100%;border-radius:48px;overflow:hidden;background:#fff;box-shadow:none;padding:0 12px 8px}
+.phone-status{position:relative;display:flex;align-items:center;justify-content:space-between;height:50px;padding:4px 20px 0 28px;font-size:15px;font-weight:600;letter-spacing:-.2px;color:var(--ink)}
+.phone-island{position:absolute;left:50%;top:12px;width:108px;height:32px;border-radius:20px;background:#0b1020;transform:translateX(-50%)}
+.phone-icons{display:flex;align-items:center;gap:7px}
+.phone-signal{display:flex;align-items:flex-end;gap:2px;height:11px}
+.phone-signal i{width:3px;border-radius:1px;background:var(--ink)}
+.phone-signal i:nth-child(1){height:4px}.phone-signal i:nth-child(2){height:6px}.phone-signal i:nth-child(3){height:8.5px}.phone-signal i:nth-child(4){height:11px}
+.phone-battery{position:relative;width:24px;height:12px;border-radius:4px;border:1.5px solid rgba(11,16,32,.45)}
+.phone-battery:before{content:'';position:absolute;inset:1.5px;right:4px;border-radius:2px;background:var(--ink)}
+.phone-battery:after{content:'';position:absolute;right:-4px;top:3px;width:2px;height:4px;border-radius:0 2px 2px 0;background:rgba(11,16,32,.45)}
+.phone .chat-header{padding-top:6px}
+.phone-home{display:block;width:124px;height:5px;margin:12px auto 2px;border-radius:3px;background:#0b1020}
+@media(max-width:760px){.phone{padding:8px;border-radius:48px}.phone .phone-screen.list-chat{border-radius:40px;padding:0 8px 6px}.phone-status{height:44px;padding:2px 18px 0 24px;font-size:13px}.phone-island{top:10px;width:92px;height:27px}.phone-btn--action{top:100px}.phone-btn--up{top:142px;height:46px}.phone-btn--down{top:198px;height:46px}.phone-btn--power{top:160px;height:72px}}
+/* Selo "venda registrada" em linha própria, abaixo do título, com respiro. */
+.insights-preview .sale-registered{display:flex;width:fit-content;margin:14px 0 4px}
