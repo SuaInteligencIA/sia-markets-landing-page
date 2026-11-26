@@ -505,3 +505,18 @@ h2 .accent{color:var(--blue)}
   .mobile-menu .button{margin-top:20px;justify-content:center}
 }
 @media(max-width:360px){.header-right .button.header-contact{display:none}}
+
+/* Tamanho mínimo legível (a base herdada chegava a 7–8 px no celular). Mesmo desenho, só mais legível. */
+#conteudo .eyebrow,.site-footer .eyebrow{font-size:11px}
+#conteudo .hero-note{font-size:11px}
+#conteudo .button,#conteudo .text-link{font-size:max(12px,1em)}
+#conteudo .button{font-size:13px}
+#conteudo .text-link{font-size:12px}
+.site-footer a,.site-footer button,.site-footer span{font-size:max(11px,1em)}
+@media(max-width:760px){#conteudo .eyebrow{font-size:10px;letter-spacing:1px}#conteudo .button{font-size:12px}}
+.site-header .header-right .button.header-contact{font-size:12px}
+.site-footer .footer-column:last-child>.footer-company{font-size:11px;line-height:1.5}
+
+/* Fonte de reserva com as medidas da Space Grotesk: se a fonte demorar, a troca não move o texto. */
+@font-face{font-family:'Space Grotesk Fallback';src:local('Arial');size-adjust:104%;ascent-override:94%;descent-override:28%;line-gap-override:0%}
+:root{font-family:'Space Grotesk','Space Grotesk Fallback',sans-serif}

@@ -246,6 +246,14 @@ try {
     assert.equal(await page.locator('meta[property="og:url"]').getAttribute('content'), SITE_URL);
     assert.ok((await page.locator('meta[property="og:image"]').getAttribute('content')).startsWith(SITE_URL));
     assert.ok((await readFile('dist/sitemap.xml', 'utf8')).includes(`<loc>${SITE_URL}</loc>`));
+    assert.match(await readFile('dist/sitemap.xml', 'utf8'), /<lastmod>\d{4}-\d{2}-\d{2}<\/lastmod>/, 'Sitemap com data');
+    // Prévia de link (WhatsApp, redes): JPG 1200×630 declarada, com texto alternativo.
+    assert.equal(await page.locator('meta[property="og:image"]').getAttribute('content'), `${SITE_URL}images/social-preview.jpg`);
+    assert.equal(await page.locator('meta[property="og:image:width"]').getAttribute('content'), '1200');
+    assert.equal(await page.locator('meta[property="og:image:height"]').getAttribute('content'), '630');
+    assert.ok(existsSync('dist/images/social-preview.jpg'), 'Imagem de prévia publicada');
+    assert.ok(await page.locator('meta[name="twitter:image:alt"]').count() === 1);
+    assert.ok(existsSync('dist/brand/apple-touch-icon.png'), 'Ícone para a tela inicial do iPhone');
     // Nenhum arquivo-fonte repete o domínio ou o número: trocar a constante troca tudo.
     for (const file of ['index.html', 'src/App.tsx', 'src/structuredData.ts']) assert.doesNotMatch(await readFile(file, 'utf8'), new RegExp(`${new URL(SITE_URL).hostname.replaceAll('.', '\\.')}|${WHATSAPP_NUMBER.slice(4)}`), file);
     assert.equal((content.match(new RegExp(WHATSAPP_NUMBER.slice(4), 'g')) || []).length, 1, 'Número escrito uma vez só em content.ts');

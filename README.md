@@ -36,7 +36,7 @@ O `robots.txt` só vale na raiz do domínio, então este site não gera um. Para
 `https://suainteligenc.ia.br/markets/sitemap.xml`).
 
 Para medir desempenho: `npm run preview` em um terminal e `npm run lighthouse entrega` em outro.
-Última medição (25/11/2026, já com as ilustrações): celular 98 / 100 / 100 / 100 e computador 100 / 100 / 100 / 100
+Última medição (26/11/2026): celular 100 / 100 / 100 / 100 (LCP 1,8 s, CLS 0) e computador 100 / 100 / 100 / 100 (LCP 0,5 s, CLS 0)
 (desempenho, acessibilidade, boas práticas, SEO). Resumo em `docs/lighthouse/entrega-summary.json`.
 
 ## Regras de texto (a trava de `scripts/verify.mjs` reprova o build se forem quebradas)

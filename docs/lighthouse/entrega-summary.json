@@ -1,58 +1,8 @@
 [
   {
     "profile": "mobile",
-    "url": "http://127.0.0.1:4175/",
-    "fetchTime": "2026-11-25T21:20:44.732Z",
-    "lighthouseVersion": "13.6.0",
-    "scores": {
-      "performance": 98,
-      "accessibility": 100,
-      "best-practices": 100,
-      "seo": 100
-    },
-    "metrics": {
-      "first-contentful-paint": 767.26105,
-      "largest-contentful-paint": 1648.152625,
-      "total-blocking-time": 159.9999999999999,
-      "cumulative-layout-shift": 0,
-      "speed-index": 861.8531257576917
-    },
-    "failedAudits": [
-      {
-        "id": "largest-contentful-paint",
-        "title": "Largest Contentful Paint",
-        "score": 0.99,
-        "displayValue": "1.6 s"
-      },
-      {
-        "id": "total-blocking-time",
-        "title": "Total Blocking Time",
-        "score": 0.94,
-        "displayValue": "160 ms"
-      },
-      {
-        "id": "max-potential-fid",
-        "title": "Max Potential First Input Delay",
-        "score": 0.7,
-        "displayValue": "190 ms"
-      },
-      {
-        "id": "image-delivery-insight",
-        "title": "Improve image delivery",
-        "score": 0.5,
-        "displayValue": "Est savings of 10 KiB"
-      },
-      {
-        "id": "network-dependency-tree-insight",
-        "title": "Network dependency tree",
-        "score": 0
-      }
-    ]
-  },
-  {
-    "profile": "desktop",
-    "url": "http://127.0.0.1:4175/",
-    "fetchTime": "2026-11-25T21:21:01.177Z",
+    "url": "http://127.0.0.1:4175/markets/",
+    "fetchTime": "2026-11-26T17:38:09.026Z",
     "lighthouseVersion": "13.6.0",
     "scores": {
       "performance": 100,
@@ -61,23 +11,63 @@
       "seo": 100
     },
     "metrics": {
-      "first-contentful-paint": 202.49405,
-      "largest-contentful-paint": 399.9881,
-      "total-blocking-time": 0,
+      "first-contentful-paint": 833.04105,
+      "largest-contentful-paint": 1771.102625,
+      "total-blocking-time": 13.5,
       "cumulative-layout-shift": 0,
-      "speed-index": 380.079857918346
+      "speed-index": 833.04105
     },
     "failedAudits": [
+      {
+        "id": "largest-contentful-paint",
+        "title": "Largest Contentful Paint",
+        "score": 0.99,
+        "displayValue": "1.8 s"
+      },
+      {
+        "id": "max-potential-fid",
+        "title": "Max Potential First Input Delay",
+        "score": 0.99,
+        "displayValue": "80 ms"
+      },
       {
         "id": "image-delivery-insight",
         "title": "Improve image delivery",
         "score": 0.5,
-        "displayValue": "Est savings of 12 KiB"
+        "displayValue": "Est savings of 10 KiB"
+      }
+    ]
+  },
+  {
+    "profile": "desktop",
+    "url": "http://127.0.0.1:4175/markets/",
+    "fetchTime": "2026-11-26T17:38:18.950Z",
+    "lighthouseVersion": "13.6.0",
+    "scores": {
+      "performance": 100,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100
+    },
+    "metrics": {
+      "first-contentful-paint": 290.6196,
+      "largest-contentful-paint": 477.6196,
+      "total-blocking-time": 0,
+      "cumulative-layout-shift": 0,
+      "speed-index": 405.33718387148247
+    },
+    "failedAudits": [
+      {
+        "id": "unused-css-rules",
+        "title": "Reduce unused CSS",
+        "score": 0.5,
+        "displayValue": "Est savings of 11 KiB"
       },
       {
-        "id": "network-dependency-tree-insight",
-        "title": "Network dependency tree",
-        "score": 0
+        "id": "image-delivery-insight",
+        "title": "Improve image delivery",
+        "score": 0.5,
+        "displayValue": "Est savings of 10 KiB"
       }
     ]
   }
