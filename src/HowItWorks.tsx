@@ -1,7 +1,7 @@
 import { useLayoutEffect, useRef, useState } from 'react';
 import type { KeyboardEvent } from 'react';
 import { steps, whatsappUrl } from './content';
-import { ArrowUpRight, ChevronRight, Play } from './icons';
+import { ArrowUpRight, ChevronRight } from './icons';
 import { sceneOf, StepVisual, stepTimelines } from './StepVisual';
 import { useStepAutoplay } from './useStepAutoplay';
 
@@ -60,7 +60,7 @@ export function HowItWorks() {
         {leaving && <div key={`saindo-${leaving.id}`} className="stage-item is-leaving" aria-hidden="true"><StepVisual step={leaving.step} beat={Infinity} /></div>}
         <div key={`cena-${sceneOf(activeStep)}`} className={`stage-item ${motionAllowed && (leaving || sceneOf(shownStep.current) !== sceneOf(activeStep)) ? 'is-entering' : ''}`}><StepVisual step={activeStep} beat={beat} /></div>
       </div>
-      {motionAllowed && <button type="button" className={`autoplay-toggle ${autoplayOn ? '' : 'is-off'}`} onClick={togglePause} aria-label={autoplayOn ? 'Pausar animação' : 'Retomar animação'}>{autoplayOn ? <span className="pause-icon" aria-hidden="true" /> : <Play size={14} aria-hidden="true" />}</button>}
+      {motionAllowed && <button type="button" className={`autoplay-toggle ${autoplayOn ? '' : 'is-off'}`} onClick={togglePause} aria-label={autoplayOn ? 'Pausar animação' : 'Retomar animação'}>{autoplayOn ? <span className="pause-icon" aria-hidden="true" /> : <span className="play-icon" aria-hidden="true" />}</button>}
     </div>
   </section>;
 }

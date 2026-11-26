@@ -456,3 +456,5 @@ h2 .accent{color:var(--blue)}
 /* Celular sobre o fundo escuro: sem traços claros; borda e botões quase da cor da moldura. */
 .list-stage .phone{box-shadow:0 0 0 1px rgba(255,255,255,.07),0 40px 80px rgba(2,8,24,.5)}
 .list-stage .phone-btn{background:#141b2e;box-shadow:none}
+/* Play preenchido, no mesmo peso do pause. */
+.play-icon{width:0;height:0;margin-left:3px;border-left:11px solid currentColor;border-top:7px solid transparent;border-bottom:7px solid transparent}
