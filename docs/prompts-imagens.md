@@ -1,8 +1,8 @@
 # Prompts das imagens do SIA Markets
 
 Estilo: o mesmo da ilustração principal do SIA Reserve (pousada com piscina, balão azul e chave), descrito em palavras
-(guia completo para criar novos prompts: `docs/GUIA-ESTILO-ILUSTRACOES.md`)
 para **não precisar anexar nenhuma imagem**. Cada prompt é completo e pode ser colado sozinho.
+Para criar prompts novos no mesmo estilo, siga o guia `docs/GUIA-ESTILO-ILUSTRACOES.md`.
 
 Formato: paisagem 3:2 (1536 × 1024 ou maior). Ao entregar, use o nome indicado em cada uma; os arquivos atuais com esses
 nomes são substituídos e o site se ajusta sozinho (`node scripts/optimize-images.mjs`).
