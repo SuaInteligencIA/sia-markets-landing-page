@@ -361,6 +361,20 @@ try {
     await toggle.click();
     await live.clock.runFor(10000);
     assert.notEqual(await selected(), pausedAt, 'Retomar volta a andar');
+    // Painel (etapa 4): o selo da venda aparece sem mudar o tamanho do cartão.
+    await live.locator('#step-tab-0').click();
+    await live.locator('#como-funciona .autoplay-toggle').click(); // retoma o autoplay a partir da etapa 1
+    await live.clock.runFor(9500 + 9000 + 8000 + 300);
+    assert.equal(await selected(), 'step-tab-3', 'Chegou ao painel');
+    const panelCard = live.locator('#step-panel .insights-preview').last();
+    // Altura de layout (offsetHeight), que não muda com a animação de entrada do cartão (escala).
+    const before = await panelCard.evaluate(element => element.offsetHeight);
+    assert.equal(await panelCard.locator('.sale-registered.is-pending').count(), 1, 'Selo reservado antes de aparecer');
+    await live.clock.runFor(1500);
+    await live.waitForTimeout(900);
+    assert.equal(await panelCard.locator('.sale-registered.is-shown').count(), 1, 'Selo aparece');
+    assert.equal(await panelCard.evaluate(element => element.offsetHeight), before, 'O cartão não cresce');
+
     // Conversa da Lista de compras: espera a primeira chegada, toca uma vez e fica completa.
     const listChat = live.locator('.list-chat');
     const pending = () => listChat.locator('.reveal.is-pending').count();

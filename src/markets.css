@@ -458,3 +458,7 @@ h2 .accent{color:var(--blue)}
 .list-stage .phone-btn{background:#141b2e;box-shadow:none}
 /* Play preenchido, no mesmo peso do pause. */
 .play-icon{width:0;height:0;margin-left:3px;border-left:11px solid currentColor;border-top:7px solid transparent;border-bottom:7px solid transparent}
+/* Selo da venda: aparece por opacidade e um leve deslize, sem animação de entrada própria. */
+.is-animated .sale-registered{animation:none}
+.sale-registered.reveal{transition:opacity .8s var(--ease-soft),transform .8s var(--ease-soft),visibility .8s}
+.sale-registered.reveal.is-pending{transform:translateY(6px) scale(.97)}

@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { BASE } from './base';
 import { bottomOfVisible, glide } from './glide';
-import { AiListening, AiUnderstood, AudioMessage, ChatBody, ChatHeader, ListCard, Message, TypingBubble } from './ChatDemo';
+import { AiListening, AiUnderstood, AudioMessage, ChatBody, ChatHeader, ListCard, Message, TypingBubble, reveal } from './ChatDemo';
 import { BarChart3, Check, MessagesSquare, MoreHorizontal, ShoppingBag, Truck, Users } from './icons';
 import type { StepTimeline } from './useStepAutoplay';
 
@@ -65,7 +65,8 @@ export function StepVisual({ step, beat }: { step: number; beat: number }) {
 
   return <div className={`insights-preview ${className}`}><div className="insights-top"><img src={`${BASE}brand/icon.svg`} width="26" height="26" alt="" /><span>Vendas pelo WhatsApp</span><MoreHorizontal size={18} /></div>
     <p>Venda registrada.</p><strong>Direto no seu painel.</strong>
-    {(!animated || beat >= 1) && <span className="sale-registered"><Check size={14} aria-hidden="true" /> Marina Souza · venda registrada</span>}
+    {/* Sempre no lugar (o cartão já nasce no tamanho final); só fica visível na hora dele. */}
+    <span className={`sale-registered ${animated ? reveal(beat >= 1) : ''}`}><Check size={14} aria-hidden="true" /> Marina Souza · venda registrada</span>
     <div className="chart-bars" aria-hidden="true">{bars.map((height, index) => <span key={index} style={{ height: `${!animated || beat >= 2 ? height : 6}%`, transitionDelay: animated ? `${index * 90}ms` : undefined }} />)}</div>
     <div className="insights-stats">{([[BarChart3, 'Vendas', '412'], [MessagesSquare, 'Atendimentos', '538'], [Users, 'Equipe online', '3']] as const).map(([Icon, label, value]) => <div className="insights-stat" key={label}><span className="insights-stat-icon"><Icon size={16} /></span><span className="insights-stat-text"><small>{label}</small><strong className="insights-stat-value">{value}</strong></span></div>)}</div></div>;
 }
