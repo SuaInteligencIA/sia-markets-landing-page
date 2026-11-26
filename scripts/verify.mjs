@@ -357,9 +357,9 @@ try {
 
     // Pausa pelo botão: nada anda, nem depois do tempo de inatividade.
     const toggle = live.locator('#como-funciona .autoplay-toggle');
-    assert.equal(await toggle.getAttribute('aria-label'), 'Pausar animação');
+    assert.equal((await toggle.textContent()).trim(), 'Pausar demonstração');
     await toggle.click();
-    assert.equal(await toggle.getAttribute('aria-label'), 'Retomar animação');
+    assert.equal((await toggle.textContent()).trim(), 'Continuar demonstração');
     const pausedAt = await selected();
     await live.clock.runFor(20000);
     assert.equal(await selected(), pausedAt, 'Pausado continua pausado');
@@ -407,6 +407,14 @@ try {
     await listChat.scrollIntoViewIfNeeded();
     await live.clock.runFor(2000);
     assert.equal(await listChat.locator('.reveal').count(), 0, 'Não repete ao voltar');
+    // Celular: o botão vira pílula com o texto visível.
+    await live.setViewportSize({ width: 390, height: 844 });
+    await live.locator('#como-funciona .autoplay-toggle').scrollIntoViewIfNeeded();
+    const pill = await live.locator('#como-funciona .autoplay-toggle').evaluate(button => ({ width: button.getBoundingClientRect().width, label: getComputedStyle(button.querySelector('.autoplay-label')).position }));
+    assert.ok(pill.width > 120 && pill.label !== 'absolute', 'Pílula com texto no celular');
+    await live.setViewportSize({ width: 1440, height: 1000 });
+    const round = await live.locator('#como-funciona .autoplay-toggle').evaluate(button => button.getBoundingClientRect().width);
+    assert.ok(round < 50, 'Botão redondo no computador');
     await motion.close();
 
     // Movimento reduzido (a página principal deste teste): nada anda e não há botão de pausa.
