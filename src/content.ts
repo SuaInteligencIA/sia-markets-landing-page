@@ -1,6 +1,6 @@
 // Número comercial (o mesmo do SIA Reserve) e endereço do site, numa subpasta do site da Sua InteligêncIA.
 export const WHATSAPP_NUMBER = '5531995342318';
-export const SITE_URL = 'https://suainteligenc.ia.br/markets/';
+export const SITE_URL = 'https://markets.suainteligenc.ia.br/';
 
 export function whatsappUrl(message = 'Olá! Quero conhecer o SIA Markets para o meu supermercado.'): string {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;

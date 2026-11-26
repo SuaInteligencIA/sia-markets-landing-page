@@ -8,7 +8,7 @@ import { chromium } from 'playwright';
 
 const lighthouseRequire = createRequire(import.meta.resolve('lighthouse'));
 const { launch } = await import(pathToFileURL(lighthouseRequire.resolve('chrome-launcher')).href);
-const url = process.env.LIGHTHOUSE_URL || 'http://127.0.0.1:4175/markets/';
+const url = process.env.LIGHTHOUSE_URL || 'http://127.0.0.1:4175/';
 const label = process.argv[2] || 'latest';
 const profiles = process.argv[3] ? [process.argv[3]] : ['mobile', 'desktop'];
 const directory = path.resolve('docs/lighthouse');
