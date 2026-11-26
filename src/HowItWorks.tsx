@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import type { KeyboardEvent } from 'react';
 import { steps, whatsappUrl } from './content';
 import { ArrowUpRight, ChevronRight, Play } from './icons';
@@ -14,6 +14,21 @@ export function HowItWorks() {
   const sectionRef = useRef<HTMLElement>(null);
   const { step: activeStep, beat, cycle, running, mode, userPaused, motionAllowed, select, togglePause } = useStepAutoplay(stepTimelines, sectionRef);
   const autoplayOn = mode === 'auto' && !userPaused;
+
+  // Troca de etapa como uma conversa rolando: a anterior sobe e some enquanto a nova entra por baixo.
+  // A anterior fica na tela só durante a transição (e nunca com "reduzir movimento"). useLayoutEffect
+  // prepara a saída antes da pintura, e a nova etapa já nasce com a animação: nenhum quadro piscando.
+  const [leaving, setLeaving] = useState<{ step: number; id: number } | null>(null);
+  const shownStep = useRef(activeStep);
+  useLayoutEffect(() => {
+    if (shownStep.current === activeStep) return;
+    const previous = shownStep.current;
+    shownStep.current = activeStep;
+    if (!motionAllowed) return;
+    setLeaving({ step: previous, id: performance.now() });
+    const timer = setTimeout(() => setLeaving(null), 650);
+    return () => clearTimeout(timer);
+  }, [activeStep, motionAllowed]);
 
   const onKeyDown = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
     if (!navigationKeys.includes(event.key)) return;
@@ -41,7 +56,10 @@ export function HowItWorks() {
     </div>
     <div className="workflow-visual" role="tabpanel" id="step-panel" aria-labelledby={`step-tab-${activeStep}`} tabIndex={0} aria-live="off">
       <div className="workflow-orbit orbit-one" /><div className="workflow-orbit orbit-two" />
-      <StepVisual step={activeStep} beat={beat} />
+      <div className="step-stage">
+        {leaving && <div key={`saindo-${leaving.id}`} className="stage-item is-leaving" aria-hidden="true"><StepVisual step={leaving.step} beat={Infinity} /></div>}
+        <div key={`etapa-${activeStep}`} className={`stage-item ${motionAllowed && (leaving || shownStep.current !== activeStep) ? 'is-entering' : ''}`}><StepVisual step={activeStep} beat={beat} /></div>
+      </div>
       {motionAllowed && <button type="button" className={`autoplay-toggle ${autoplayOn ? '' : 'is-off'}`} onClick={togglePause} aria-label={autoplayOn ? 'Pausar animação' : 'Retomar animação'}>{autoplayOn ? <span className="pause-icon" aria-hidden="true" /> : <Play size={14} aria-hidden="true" />}</button>}
     </div>
   </section>;

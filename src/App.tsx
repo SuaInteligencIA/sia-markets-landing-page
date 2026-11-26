@@ -2,12 +2,12 @@ import { useEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import { ArrowDown, ArrowUpRight, BarChart3, Book, Bot, Check, Customize, Globe2, Instagram, Linkedin, ListCheck, Menu, MessagesSquare, Mic, Plus, Sparkles, Timer, Users, WhatsApp, X } from './icons';
 import { BASE } from './base';
-import { agentPersonalization, benefits, chatDemo, company, contact, crmHighlights, dashboardHighlights, faqs, heroImage, nav, problems, socials, teamGains, whatsappUrl } from './content';
+import { agentPersonalization, benefits, company, contact, crmHighlights, dashboardHighlights, faqs, heroImage, nav, problems, socials, teamGains, whatsappUrl } from './content';
 import { structuredData } from './structuredData';
 import { DashboardPreview } from './DashboardPreview';
 import { CrmPreview } from './CrmPreview';
 import { HowItWorks } from './HowItWorks';
-import { AudioMessage, ChatBody, ChatComposer, ChatHeader, ListCard, Message, SystemPill } from './ChatDemo';
+import { ListChat } from './ListChat';
 import { PoweredBadge } from './PoweredBadge';
 
 const talkUrl = whatsappUrl('Olá! Quero conhecer o SIA Markets e ver como ele funciona no meu supermercado.');
@@ -114,18 +114,7 @@ function App() {
 
       <section className="section list-section" aria-label="Exemplo de lista montada pela IA e ganhos para a equipe">
         <div className="list-stage">
-          <div className="list-chat">
-            <ChatHeader />
-            <ChatBody>
-              {chatDemo.map((message, index) => <Message key={index} from={message.from} time={message.time}>
-                {message.audio ? <AudioMessage duration={message.audio} /> : message.text}
-                {message.list && <ListCard title="Lista de compras" items={message.list.flatMap(group => group.items.map(item => ({ group: group.group, item })))} />}
-              </Message>)}
-              <SystemPill>Lista enviada para a equipe</SystemPill>
-            </ChatBody>
-            <ChatComposer />
-            <span className="preview-label">Exemplo ilustrativo de atendimento</span>
-          </div>
+          <ListChat />
         </div>
         <div className="team-panel">
           <div className="team-art"><picture><source type="image/avif" srcSet={`${BASE}images/separacao-pedido-640.avif 640w, ${BASE}images/separacao-pedido-768.avif 768w, ${BASE}images/separacao-pedido-1024.avif 1024w, ${BASE}images/separacao-pedido-1536.avif 1536w`} sizes="(max-width:950px) calc(100vw - 40px), 46vw" /><img src={`${BASE}images/separacao-pedido.webp`} width="1024" height="682" alt="Atendente de avental azul embalando um pedido em sacolas de papel, com a lista confirmada no celular sobre o balcão" loading="lazy" decoding="async" /></picture></div>
@@ -149,7 +138,7 @@ function App() {
       </section>
 
       <section className="section crm-section" id="crm" aria-labelledby="crm-title">
-        <article className="product-card crm-product"><div className="product-art crm-art"><CrmPreview /><span className="image-label">UM NÚMERO. TODA A EQUIPE.</span></div></article>
+        <article className="product-card crm-product"><div className="product-art crm-art"><CrmPreview /><span className="image-label crm-label"><span className="label-icon"><WhatsApp size={16} aria-hidden="true" /></span><span className="label-text">Um número para toda a equipe</span><span className="label-avatars" aria-hidden="true">{['ana-costa', 'rafael-lima', 'julia-martins'].map(name => <img key={name} src={`${BASE}images/people/${name}.webp`} width="24" height="24" alt="" loading="lazy" decoding="async" />)}</span></span></div></article>
         <div className="crm-copy">
           <p className="eyebrow">CRM DA SIA</p>
           <h2 id="crm-title">Toda a equipe<br /><span className="accent">no mesmo WhatsApp.</span></h2>

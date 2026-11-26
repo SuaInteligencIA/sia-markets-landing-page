@@ -2,7 +2,7 @@ import { BASE } from './base';
 import { BarChart3, Check, MessagesSquare, Users } from './icons';
 import { AudioMessage, ChatBody, ListCard, Message } from './ChatDemo';
 
-// Equipe com os retratos fictícios dos nossos outros sites; clientes com iniciais.
+// Equipe com os retratos fictícios dos nossos outros sites; clientes com as próprias fotos fictícias.
 const team = [
   { name: 'Ana', photo: 'ana-costa' },
   { name: 'Rafael', photo: 'rafael-lima' },
@@ -10,13 +10,17 @@ const team = [
 ];
 
 const conversations = [
-  { initials: 'MS', name: 'Marina Souza', text: 'Entrega, por favor!', time: 'Agora', unread: 0, assignee: 0, tag: 'Pedido' },
-  { initials: 'PM', name: 'Paulo Mendes', text: 'Chegou certinho, obrigado!', time: '14:32', unread: 0, assignee: 1, tag: 'Entregue' },
-  { initials: 'SR', name: 'Sônia Ribeiro', text: 'Vocês entregam no Centro?', time: '14:25', unread: 2, assignee: 2, tag: 'Dúvida' },
+  { photo: 'marina-souza', name: 'Marina Souza', text: 'Entrega, por favor!', time: 'Agora', unread: 0, assignee: 0, tag: 'Pedido' },
+  { photo: 'paulo-mendes', name: 'Paulo Mendes', text: 'Chegou certinho, obrigado!', time: '14:32', unread: 0, assignee: 1, tag: 'Entregue' },
+  { photo: 'sonia-ribeiro', name: 'Sônia Ribeiro', text: 'Vocês entregam no Centro?', time: '14:25', unread: 2, assignee: 2, tag: 'Dúvida' },
 ];
 
+function Photo({ name, size }: { name: string; size: number }) {
+  return <img src={`${BASE}images/people/${name}.webp`} width={size} height={size} alt="" loading="lazy" decoding="async" />;
+}
+
 function TeamPhoto({ index, size }: { index: number; size: number }) {
-  return <img src={`${BASE}images/people/${team[index].photo}.webp`} width={size} height={size} alt="" loading="lazy" decoding="async" />;
+  return <Photo name={team[index].photo} size={size} />;
 }
 
 export function CrmPreview() {
@@ -32,14 +36,14 @@ export function CrmPreview() {
       <div className="crm-topline"><strong>Conversas</strong><span className="crm-count">3</span></div>
       <div className="crm-filters"><span className="active">Todas</span><span>Minhas</span><span>Aguardando</span></div>
       {conversations.map((conversation, index) => <div key={conversation.name} className={`inbox-person ${index === 0 ? 'active' : ''}`}>
-        <span className="person-avatar">{conversation.initials}</span>
+        <span className="person-avatar"><Photo name={conversation.photo} size={30} /></span>
         <div className="inbox-text"><strong>{conversation.name}</strong><span>{conversation.text}</span><em className="inbox-tag">{conversation.tag}</em></div>
         <div className="inbox-side"><small>{conversation.time}</small><span className="inbox-badges">{conversation.unread > 0 && <span className="unread">{conversation.unread}</span>}<span className="assignee"><TeamPhoto index={conversation.assignee} size={18} /></span></span></div>
       </div>)}
     </div>
     <div className="crm-chat">
       <div className="chat-topline">
-        <span className="person-avatar">MS</span>
+        <span className="person-avatar"><Photo name="marina-souza" size={30} /></span>
         <div><strong>Marina Souza</strong><small>WhatsApp · atendida por <span className="topline-agent"><TeamPhoto index={0} size={16} /> Ana</span></small></div>
         <span className="crm-register"><Check size={14} /> Registrar venda</span>
       </div>

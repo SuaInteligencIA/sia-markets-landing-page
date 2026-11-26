@@ -100,6 +100,12 @@ export const steps = [
     title: 'A venda vai para o painel',
     description: 'Ao finalizar o atendimento, a equipe registra a venda. Ela entra no painel, e você acompanha quanto o supermercado vendeu pelo WhatsApp.',
   },
+  {
+    id: 'entrega',
+    number: '05',
+    title: 'O pedido chega em casa',
+    description: 'O cliente recebe as compras na porta, do jeito que pediu pelo WhatsApp. Da próxima vez, é só chamar de novo.',
+  },
 ];
 
 // Valores fictícios do painel ilustrativo (412 vendas × R$ 117 ≈ R$ 48.200).
@@ -131,10 +137,11 @@ export const dashboardHighlights = [
 ];
 
 // Conversa ilustrativa: itens comuns, sem preço, marca ou disponibilidade.
-export const chatDemo: { from: 'cliente' | 'sia'; time: string; text?: string; audio?: string; list?: { group: string; items: string[] }[] }[] = [
+// `heard`: o que a SIA entendeu do áudio (aparece na conversa animada).
+export const chatDemo: { from: 'cliente' | 'sia'; time: string; text?: string; audio?: string; heard?: string; list?: { group: string; items: string[] }[] }[] = [
   { from: 'cliente', time: '09:41', text: 'Oi! Preciso de arroz, feijão e óleo' },
   { from: 'cliente', time: '09:41', text: 'ah, e 6 caixas de leite' },
-  { from: 'cliente', time: '09:42', audio: '0:08' },
+  { from: 'cliente', time: '09:42', audio: '0:08', heard: 'e não esquece o pão francês e uma dúzia de banana' },
   {
     from: 'sia',
     time: '09:42',

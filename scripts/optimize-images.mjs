@@ -32,7 +32,8 @@ for (const [name, widths] of images) {
 
 // Recortes para telas pequenas: a cliente-audio tem a faixa vazia à esquerda (espaço para o texto no
 // computador); no celular o texto vai abaixo da imagem, então a faixa sai.
-const crops = [['cliente-audio', 'cliente-audio-recorte', 0.345, [640, 768, 1024]]];
+// A entrega também: no quadro de "Como funciona" entra só a cena, sem a faixa vazia da esquerda.
+const crops = [['cliente-audio', 'cliente-audio-recorte', 0.345, [640, 768, 1024]], ['entrega-cliente', 'entrega-cliente', 0.3, [640, 960, 1280]]];
 for (const [name, outputName, leftFraction, widths] of crops) {
   const source = [`${sourceDirectory}/${name}.png`, `${sourceDirectory}/${name}.jpg`].find(existsSync);
   if (!source) continue;
@@ -43,4 +44,6 @@ for (const [name, outputName, leftFraction, widths] of crops) {
     const info = await sharp(source).extract({ left, top: 0, width: width - left, height }).resize({ width: size }).avif({ quality, effort: 6 }).toFile(output);
     console.log(output, info.size, `${width - left}x${height}`);
   }
+  const fallback = `public/images/${outputName}.webp`;
+  await sharp(source).extract({ left, top: 0, width: width - left, height }).resize({ width: 960 }).webp({ quality: 82, effort: 6 }).toFile(fallback);
 }

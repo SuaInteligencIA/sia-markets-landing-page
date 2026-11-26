@@ -277,3 +277,69 @@ h2 .accent{color:var(--blue)}
 /* Espaço fixo para o botão de pausa, abaixo do cartão, sem encostar nele. */
 @media(prefers-reduced-motion:no-preference){.workflow-visual{padding-bottom:64px}}
 @media(prefers-reduced-motion:no-preference) and (max-width:760px){.workflow-visual{padding-bottom:52px}}
+
+/* SIA ouvindo e entendendo o áudio */
+.audio-play.is-pause:after{left:11px;top:10px;width:10px;height:12px;border:0;border-left:3px solid #fff;border-right:3px solid #fff;box-sizing:border-box}
+.audio-message.is-playing .audio-wave span{animation:wave-fill .25s ease-out both}
+@keyframes wave-fill{from{background:#9fb5f2;transform:scaleY(.6)}60%{transform:scaleY(1.15)}to{background:var(--blue);transform:scaleY(1)}}
+.ai-slot{display:grid;align-self:flex-start;max-width:88%}
+.ai-slot>*{grid-area:1/1}
+.ai-note{display:flex;align-items:center;gap:8px;align-self:flex-start;max-width:88%;padding:7px 12px 7px 7px;border-radius:100px;background:#fff;border:1px solid #dbe5ff;box-shadow:0 1px 2px rgba(16,32,80,.08);font-size:12px;line-height:1.35;color:#173785}
+.ai-note strong{font-weight:600}
+.ai-note>svg{flex:none;color:var(--blue)}
+.ai-note-avatar.agent-avatar{flex:0 0 24px;width:24px;height:24px}
+.ai-understood{border-radius:16px}
+.ai-eq{display:inline-flex;align-items:flex-end;gap:2px;height:12px}
+.ai-eq i{width:3px;height:100%;border-radius:2px;background:var(--blue);transform-origin:bottom;animation:eq .9s ease-in-out infinite}
+.ai-eq i:nth-child(2){animation-delay:.15s}
+.ai-eq i:nth-child(3){animation-delay:.3s}
+.ai-eq i:nth-child(4){animation-delay:.45s}
+@keyframes eq{0%,100%{transform:scaleY(.3)}50%{transform:scaleY(1)}}
+
+/* Conversa que aparece aos poucos (Lista de compras): o espaço já existe; só a visibilidade muda. */
+.reveal{transition:opacity .5s cubic-bezier(.2,.8,.2,1),transform .5s cubic-bezier(.2,.8,.2,1),visibility .5s}
+.reveal.is-pending{opacity:0;visibility:hidden;transform:translateY(10px) scale(.98)}
+.reveal.is-shown .list-card li{animation:chat-pop .45s cubic-bezier(.2,.8,.2,1) both}
+.reveal.is-shown .list-card li:nth-child(1){animation-delay:.35s}
+.reveal.is-shown .list-card li:nth-child(2){animation-delay:.7s}
+.reveal.is-shown .list-card li:nth-child(3){animation-delay:1.05s}
+.reveal.is-shown .list-card li:nth-child(4){animation-delay:1.4s}
+.reveal.is-shown .list-card li:nth-child(5){animation-delay:1.75s}
+.reveal.is-shown .list-card li:nth-child(6){animation-delay:2.1s}
+/* Mais devagar também no Como funciona */
+.is-animated .list-card li:nth-child(1){animation-delay:.35s}
+.is-animated .list-card li:nth-child(2){animation-delay:.75s}
+.is-animated .list-card li:nth-child(3){animation-delay:1.15s}
+.is-animated .list-card li:nth-child(4){animation-delay:1.55s}
+.is-animated .list-card li:nth-child(5){animation-delay:1.95s}
+.insights-preview .chart-bars span{transition:height 1.4s cubic-bezier(.2,.8,.2,1)}
+.crm-section .person-avatar img{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block}
+
+/* Última etapa: a entrega */
+.delivery-preview{position:relative;width:100%;margin:26px;border-radius:22px;overflow:hidden;box-shadow:0 30px 60px rgba(6,18,64,.25);animation:enter .35s both;background:#fbf6ee}
+.delivery-preview img{display:block;width:100%;height:440px;object-fit:cover;object-position:60% 40%}
+.delivery-pill{position:absolute;left:16px;bottom:16px;display:inline-flex;align-items:center;gap:7px;padding:9px 14px;border-radius:100px;background:rgba(255,255,255,.92);border:1.5px solid #fff;box-shadow:0 12px 30px rgba(6,18,64,.18);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);font-size:13px;font-weight:500;color:var(--ink)}
+.delivery-pill svg{color:var(--blue)}
+.is-animated .delivery-pill{animation:chat-pop .5s cubic-bezier(.2,.8,.2,1) both}
+.is-animated.delivery-preview img{animation:delivery-in 1.2s cubic-bezier(.2,.8,.2,1) both}
+@keyframes delivery-in{from{transform:scale(1.06);opacity:.4}to{transform:none;opacity:1}}
+@media(max-width:760px){.delivery-preview{margin:16px}.delivery-preview img{height:340px}.delivery-pill{font-size:12px;left:12px;bottom:12px}}
+
+/* Etiqueta do CRM: ícone, texto legível e a equipe em fotos */
+.crm-section .crm-label{left:24px;top:22px;z-index:2;gap:10px;padding:6px 10px 6px 6px;border-radius:100px;font-size:13px;letter-spacing:0;font-weight:500;color:var(--ink);background:rgba(255,255,255,.92);border:1.5px solid #fff;box-shadow:0 12px 30px rgba(6,18,64,.2);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.label-icon{flex:none;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;background:linear-gradient(135deg,#2b5cff,#0052e6);box-shadow:0 4px 10px rgba(43,92,255,.35)}
+.label-avatars{display:flex;padding-left:8px}
+.label-avatars img{width:24px;height:24px;border-radius:50%;object-fit:cover;border:2px solid #fff;margin-left:-8px;box-shadow:0 1px 3px rgba(16,32,80,.2)}
+.crm-section .crm-art{padding-top:64px}
+@media(max-width:950px){.crm-section .crm-art{padding-top:60px}}
+@media(max-width:760px){.crm-section .crm-label{left:14px;top:14px;font-size:12px;gap:8px}.label-icon{width:24px;height:24px}.label-avatars img{width:20px;height:20px}.crm-section .crm-art{padding-top:52px}}
+@media(max-width:400px){.label-avatars{display:none}}
+
+/* Troca de etapa: a conversa "rola" — a etapa anterior sobe e some, a nova sobe vindo de baixo. */
+.step-stage{position:relative;display:grid;width:100%;align-items:center}
+.stage-item{grid-area:1/1;display:flex;justify-content:center;min-width:0}
+.step-stage .step-conversation,.step-stage .order-preview,.step-stage .insights-preview,.step-stage .delivery-preview{animation:none}
+.stage-item.is-entering{animation:stage-in .65s cubic-bezier(.2,.8,.2,1) both}
+.stage-item.is-leaving{animation:stage-out .55s cubic-bezier(.4,0,.6,1) both;pointer-events:none}
+@keyframes stage-in{from{opacity:0;transform:translateY(56px)}to{opacity:1;transform:none}}
+@keyframes stage-out{from{opacity:1;transform:none}to{opacity:0;transform:translateY(-56px)}}

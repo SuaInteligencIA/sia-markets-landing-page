@@ -115,20 +115,22 @@ try {
     assert.equal(await page.locator('#problema .problem-card').count(), 3);
   });
 
-  await check('Etapas: quatro passos, teclado e ARIA', async () => {
-    assert.equal(await page.locator('#como-funciona [role="tab"]').count(), 4);
+  await check('Etapas: cinco passos, teclado e ARIA', async () => {
+    assert.equal(await page.locator('#como-funciona [role="tab"]').count(), 5);
     await page.locator('#step-tab-0').focus();
     await page.keyboard.press('ArrowDown');
     assert.equal(await page.locator('#step-tab-1').getAttribute('aria-selected'), 'true');
     assert.equal(await page.evaluate(() => document.activeElement.id), 'step-tab-1');
     await accessibility('Segunda etapa');
     await page.keyboard.press('End');
-    assert.equal(await page.locator('#step-tab-3').getAttribute('aria-selected'), 'true');
+    assert.equal(await page.locator('#step-tab-4').getAttribute('aria-selected'), 'true');
+    assert.equal(await page.locator('#step-panel .delivery-preview img').count(), 1, 'Última etapa: a entrega');
+    assert.match(await page.locator('#step-panel .delivery-pill').innerText(), /entregue/i);
     await accessibility('Última etapa');
     await page.keyboard.press('ArrowRight');
     assert.equal(await page.locator('#step-tab-0').getAttribute('aria-selected'), 'true', 'Depois da última volta à primeira');
     await page.keyboard.press('ArrowUp');
-    assert.equal(await page.locator('#step-tab-3').getAttribute('aria-selected'), 'true', 'Antes da primeira vai à última');
+    assert.equal(await page.locator('#step-tab-4').getAttribute('aria-selected'), 'true', 'Antes da primeira vai à última');
     assert.deepEqual(await page.locator('[role="tab"]').evaluateAll(tabs => tabs.filter(tab => !document.getElementById(tab.getAttribute('aria-controls'))).map(tab => tab.id)), []);
     await page.keyboard.press('Home');
     assert.equal(await page.locator('#step-tab-0').getAttribute('aria-selected'), 'true');
@@ -187,10 +189,11 @@ try {
     assert.ok(await page.locator('#sua-agente .agent-mascot').evaluate(image => image.complete && image.naturalWidth > 0));
   });
 
-  await check('CRM: equipe com fotos, clientes com iniciais e conversa legível', async () => {
-    // Os retratos são da equipe (painel e CRM); os clientes usam iniciais, para o mesmo rosto não ter dois papéis.
+  await check('CRM: equipe e clientes com fotos e conversa legível', async () => {
     const crm = page.locator('.crm-preview');
-    assert.equal(await crm.locator('.person-avatar img').count(), 0, 'Clientes sem foto');
+    // Clientes com as próprias fotos (Marina, Paulo, Sônia), diferentes dos retratos da equipe.
+    assert.deepEqual(await crm.locator('.inbox-person .person-avatar img').evaluateAll(images => images.map(image => new URL(image.src).pathname.split('/').pop())), ['marina-souza.webp', 'paulo-mendes.webp', 'sonia-ribeiro.webp'], 'Clientes com foto');
+    assert.match(await crm.locator('.chat-topline .person-avatar img').getAttribute('src'), /marina-souza\.webp$/);
     assert.equal(await crm.locator('.inbox-person').count(), 3);
     assert.deepEqual(await crm.locator('.crm-team img').evaluateAll(images => images.map(image => new URL(image.src).pathname.split('/').pop()).sort()), ['ana-costa.webp', 'julia-martins.webp', 'rafael-lima.webp'], 'Equipe com fotos na barra lateral');
     assert.equal(await crm.locator('.inbox-person .assignee img').count(), 3, 'Cada conversa mostra a foto de quem atende');
@@ -311,25 +314,33 @@ try {
 
     await live.locator('#como-funciona').scrollIntoViewIfNeeded();
     await live.waitForFunction(() => document.querySelector('#como-funciona .step-progress:not(.is-paused)'));
-    await live.clock.runFor(400);
+    await live.clock.runFor(600);
     const early = await bubbles();
-    await live.clock.runFor(2600);
+    await live.clock.runFor(2400);
     assert.ok(await bubbles() > early, 'A conversa vai aparecendo aos poucos');
+    // A SIA ouve o áudio (tocando + "ouvindo") e depois mostra o que entendeu, antes de digitar.
+    assert.equal(await live.locator('#step-panel .audio-message.is-playing').count(), 1, 'Áudio tocando');
+    assert.equal(await live.locator('#step-panel .ai-listening').count(), 1, 'SIA ouvindo o áudio');
+    assert.equal(await live.locator('#step-panel .typing-bubble').count(), 0, 'Ainda não digita enquanto ouve');
     await live.clock.runFor(3000);
+    assert.match(await live.locator('#step-panel .ai-understood').innerText(), /arroz.*feij[aã]o.*leite.*p[aã]o.*banana/i, 'SIA mostra o que entendeu');
+    // Mais devagar: depois de 6 s ainda está na primeira etapa.
+    assert.equal(await selected(), 'step-tab-0', 'Ritmo calmo: a primeira etapa dura mais de 6 s');
+    await live.clock.runFor(3700);
     assert.equal(await selected(), 'step-tab-1', 'Passa sozinho para a etapa 2');
-    await live.clock.runFor(6000);
+    await live.clock.runFor(9200);
     assert.equal(await selected(), 'step-tab-2', 'E para a etapa 3');
 
     // Clique: vira slide, parado e completo.
-    await live.locator('#step-tab-3').click();
-    assert.equal(await selected(), 'step-tab-3');
+    await live.locator('#step-tab-4').click();
+    assert.equal(await selected(), 'step-tab-4');
     assert.equal(await live.locator('#como-funciona .step-progress').count(), 0, 'Sem barra de progresso no modo slide');
     await live.clock.runFor(8000);
-    assert.equal(await selected(), 'step-tab-3', 'Continua na etapa escolhida');
+    assert.equal(await selected(), 'step-tab-4', 'Continua na etapa escolhida');
     // Inatividade: a animação volta e segue da última para a primeira.
     await live.clock.runFor(3000);
     assert.equal(await live.locator('#como-funciona .step-progress').count(), 1, 'Autoplay volta após 10 s parado');
-    await live.clock.runFor(6000);
+    await live.clock.runFor(7400);
     assert.equal(await selected(), 'step-tab-0', 'Da última volta à primeira');
 
     // Pausa pelo botão: nada anda, nem depois do tempo de inatividade.
@@ -341,8 +352,27 @@ try {
     await live.clock.runFor(20000);
     assert.equal(await selected(), pausedAt, 'Pausado continua pausado');
     await toggle.click();
-    await live.clock.runFor(6000);
+    await live.clock.runFor(10000);
     assert.notEqual(await selected(), pausedAt, 'Retomar volta a andar');
+    // Conversa da Lista de compras: espera a primeira chegada, toca uma vez e fica completa.
+    const listChat = live.locator('.list-chat');
+    const pending = () => listChat.locator('.reveal.is-pending').count();
+    assert.ok(await pending() > 5, 'Antes de chegar, as mensagens esperam (com o espaço reservado)');
+    const heightBefore = await listChat.evaluate(element => element.getBoundingClientRect().height);
+    await listChat.scrollIntoViewIfNeeded();
+    await live.waitForFunction(() => document.querySelectorAll('.list-chat .reveal.is-shown').length > 0);
+    await live.clock.runFor(4200);
+    assert.equal(await listChat.locator('.audio-message.is-playing').count(), 1, 'SIA ouvindo o áudio da lista');
+    assert.equal(await listChat.locator('.ai-listening.is-shown').count(), 1);
+    assert.equal(Math.round(await listChat.evaluate(element => element.getBoundingClientRect().height)), Math.round(heightBefore), 'A conversa não muda de altura enquanto anima');
+    await live.clock.runFor(14000);
+    assert.equal(await pending(), 0, 'No fim, tudo visível');
+    assert.equal(await listChat.locator('.reveal').count(), 0, 'Fica no estado completo');
+    assert.match(await listChat.locator('.ai-understood').innerText(), /p[aã]o franc[eê]s.*banana/i);
+    await live.locator('#inicio').scrollIntoViewIfNeeded();
+    await listChat.scrollIntoViewIfNeeded();
+    await live.clock.runFor(2000);
+    assert.equal(await listChat.locator('.reveal').count(), 0, 'Não repete ao voltar');
     await motion.close();
 
     // Movimento reduzido (a página principal deste teste): nada anda e não há botão de pausa.

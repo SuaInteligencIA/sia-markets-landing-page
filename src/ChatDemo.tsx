@@ -36,19 +36,29 @@ function Meta({ time, read }: { time: string; read: boolean }) {
   return <span className="msg-meta"><time>{time}</time>{read && <ReadTicks />}</span>;
 }
 
-export function Message({ from, time, children }: { from: 'cliente' | 'sia'; time: string; children: ReactNode }) {
+export function Message({ from, time, className = '', children }: { from: 'cliente' | 'sia'; time: string; className?: string; children: ReactNode }) {
   const mine = from === 'cliente';
-  return <div className={`bubble ${mine ? 'guest-bubble' : 'agent-bubble'}`}>{children}<Meta time={time} read={mine} /></div>;
+  return <div className={`bubble ${mine ? 'guest-bubble' : 'agent-bubble'} ${className}`}>{children}<Meta time={time} read={mine} /></div>;
+}
+
+/** Classes de revelação para conversas que aparecem aos poucos; `null` = sem animação (completa). */
+export function reveal(shown: boolean | null): string {
+  return shown === null ? '' : `reveal ${shown ? 'is-shown' : 'is-pending'}`;
 }
 
 // Alturas fixas das barras (em % da altura da onda), para o desenho ser igual no servidor e no navegador.
 const wave = [30, 52, 74, 46, 88, 64, 40, 70, 96, 58, 36, 62, 84, 50, 28, 66, 90, 54, 38, 72, 48, 80, 34, 56, 42, 26];
 
-export function AudioMessage({ duration }: { duration: string }) {
-  return <span className="audio-message" role="img" aria-label={`Mensagem de áudio de ${duration}`}>
-    <span className="audio-play" aria-hidden="true" />
+/**
+ * Áudio do cliente. `idle`: acabou de chegar, ninguém ouviu (onda toda clara).
+ * `playing`: a SIA está ouvindo; a onda se preenche no tempo `listenMs`. `heard`: já ouvido inteiro.
+ */
+export function AudioMessage({ duration, state = 'idle', listenMs = 3000 }: { duration: string; state?: 'idle' | 'playing' | 'heard'; listenMs?: number }) {
+  const step = Math.round(listenMs / wave.length);
+  return <span className={`audio-message is-${state}`} role="img" aria-label={`Mensagem de áudio de ${duration}${state === 'playing' ? ', sendo ouvida pela SIA' : ''}`}>
+    <span className={`audio-play ${state === 'playing' ? 'is-pause' : ''}`} aria-hidden="true" />
     <span className="audio-track" aria-hidden="true">
-      <span className="audio-wave">{wave.map((height, index) => <span key={index} className={index < 9 ? 'played' : ''} style={{ height: `${height}%` }} />)}</span>
+      <span className="audio-wave">{wave.map((height, index) => <span key={index} className={state === 'heard' ? 'played' : ''} style={{ height: `${height}%`, animationDelay: state === 'playing' ? `${index * step}ms` : undefined }} />)}</span>
       <span className="audio-time">{duration}</span>
     </span>
     <span className="audio-mic" aria-hidden="true"><MicIcon size={13} /></span>
@@ -59,10 +69,20 @@ export function ListCard({ title, items }: { title: string; items: { group: stri
   return <div className="list-card"><span className="list-card-title">{title}</span><ul>{items.map(({ group, item }) => <li key={item}><Check size={16} aria-hidden="true" /><span className="list-item">{item}</span><span className="list-tag">{group}</span></li>)}</ul></div>;
 }
 
+/** A SIA ouvindo o áudio, com barrinhas de equalizador. */
+export function AiListening({ className = '' }: { className?: string }) {
+  return <div className={`ai-note ai-listening ${className}`} role="status"><AgentAvatar className="ai-note-avatar" /><span>SIA ouvindo o áudio</span><span className="ai-eq" aria-hidden="true"><i /><i /><i /><i /></span></div>;
+}
+
+/** O que a SIA entendeu do áudio. */
+export function AiUnderstood({ text, className = '' }: { text: string; className?: string }) {
+  return <div className={`ai-note ai-understood ${className}`}><AgentAvatar className="ai-note-avatar" /><span><strong>SIA entendeu:</strong> “{text}”</span><Check size={14} aria-hidden="true" /></div>;
+}
+
 export function TypingBubble() {
   return <div className="typing-bubble" role="status" aria-label="SIA está digitando"><span /><span /><span /></div>;
 }
 
-export function SystemPill({ children }: { children: ReactNode }) {
-  return <span className="chat-system"><Check size={14} aria-hidden="true" />{children}</span>;
+export function SystemPill({ children, className = '' }: { children: ReactNode; className?: string }) {
+  return <span className={`chat-system ${className}`}><Check size={14} aria-hidden="true" />{children}</span>;
 }
