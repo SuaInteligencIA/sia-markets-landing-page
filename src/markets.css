@@ -520,3 +520,19 @@ h2 .accent{color:var(--blue)}
 /* Fonte de reserva com as medidas da Space Grotesk: se a fonte demorar, a troca não move o texto. */
 @font-face{font-family:'Space Grotesk Fallback';src:local('Arial');size-adjust:104%;ascent-override:94%;descent-override:28%;line-gap-override:0%}
 :root{font-family:'Space Grotesk','Space Grotesk Fallback',sans-serif}
+
+/* Atendimento na hora */
+.wait-section{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;padding-top:0}
+.wait-answer{margin-top:20px;font-size:17px;line-height:1.7;color:#46506b;max-width:540px}
+.wait-answer strong{font-weight:500;color:var(--ink)}
+.wait-points{display:grid;gap:18px;margin-top:28px}
+.wait-point{display:flex;gap:14px;align-items:flex-start}
+.wait-point-icon{flex:none;width:44px;height:44px;border-radius:14px;display:flex;align-items:center;justify-content:center;color:#fff;background:linear-gradient(135deg,#2b5cff,#0052e6);box-shadow:0 10px 24px rgba(43,92,255,.25)}
+.wait-point h3{margin:0;font-size:17px;font-weight:500;letter-spacing:-.3px}
+.wait-point p{margin-top:3px;font-size:14px;line-height:1.6;color:#5a6480}
+.wait-visual{border-radius:32px;background:radial-gradient(ellipse at 50% 0%,#e8efff 0%,#d9e5fb 60%,#d8e2f5 100%);padding:40px 32px;display:flex;justify-content:center}
+.wait-chat{width:100%;max-width:440px;background:#fff;border-radius:24px;padding:0 14px 14px;box-shadow:0 24px 60px rgba(6,18,64,.14)}
+.wait-chat .chat-body{min-height:0}
+@media(max-width:950px){.wait-section{grid-template-columns:1fr;gap:36px}}
+@media(max-width:760px){.wait-answer{font-size:15px}.wait-visual{border-radius:24px;padding:24px 14px}.wait-chat{padding:0 10px 10px}}
+.nowrap{white-space:nowrap}

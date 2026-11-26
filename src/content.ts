@@ -54,7 +54,7 @@ export const benefits = [
   { label: 'Vendas no painel', icon: 'chart' },
   { label: 'Lista montada pela IA', icon: 'list' },
   { label: 'Equipe desafogada', icon: 'users' },
-  { label: 'Um só WhatsApp', icon: 'whatsapp' },
+  { label: 'Atendimento na hora', icon: 'timer' },
 ];
 
 export const problems = [
@@ -177,10 +177,21 @@ export const crmHighlights = [
   'Venda registrada ao finalizar o atendimento',
 ];
 
+// Atendimento na hora: a IA responde sem fila. A promessa é do atendimento; separar e entregar segue o horário da equipe.
+export const waitPoints = [
+  { title: 'Resposta na hora', description: 'Do primeiro "oi" à lista confirmada, sem fila de espera no WhatsApp.', icon: 'messages' },
+  { title: 'Mesmo no pico', description: 'Dez clientes chamando ao mesmo tempo na sexta à tarde? Todos são atendidos na hora.', icon: 'users' },
+  { title: 'Fora do horário também', description: 'O cliente manda a lista à noite, e a equipe começa o dia com o pedido organizado.', icon: 'timer' },
+];
+
 export const faqs = [
   {
     question: 'Como eu sei quanto o supermercado vendeu pelo WhatsApp?',
     answer: 'Ao finalizar cada atendimento, sua equipe registra a venda no CRM. Essas vendas formam o painel, onde você acompanha o total vendido pelo WhatsApp, a quantidade de vendas, o ticket médio e as vendas de cada atendente.',
+  },
+  {
+    question: 'O cliente precisa esperar alguém da equipe para ser atendido?',
+    answer: 'Não. O agente de IA responde na hora, a qualquer hora, inclusive no pico e fora do horário. Ele atende, monta a lista e confirma o pedido; a equipe entra para separar e entregar.',
   },
   {
     question: 'A IA substitui a minha equipe?',

@@ -115,6 +115,20 @@ try {
     assert.equal(await page.locator('#problema .problem-card').count(), 3);
   });
 
+  await check('Espera: seção sobre atender na hora, sem fila', async () => {
+    const section = page.locator('#atendimento-na-hora');
+    assert.match(await section.locator('h2').innerText(), /Quanto tempo o seu cliente espera/i);
+    assert.match(await section.innerText(), /na hora/i);
+    assert.equal(await section.locator('.wait-point').count(), 3);
+    const times = await section.locator('.chat-body .msg-meta time').allInnerTexts();
+    assert.ok(times.length >= 2 && new Set(times).size === 1, 'Pergunta e resposta no mesmo minuto');
+    assert.match(await page.locator('.hero-description').innerText(), /na hora/i, 'Topo fala de atender na hora');
+    assert.match(await page.locator('.benefit-strip').innerText(), /Atendimento na hora/);
+    assert.ok((await page.locator('#duvidas .faq-item h3 button').allInnerTexts()).some(question => /esperar/i.test(question)), 'FAQ sobre espera');
+    // Antes de Como funciona, logo depois do problema.
+    assert.deepEqual(await page.evaluate(() => [...document.querySelectorAll('main > section')].map(element => element.id).slice(1, 4)), ['problema', 'atendimento-na-hora', 'como-funciona']);
+  });
+
   await check('Etapas: cinco passos, teclado e ARIA', async () => {
     assert.equal(await page.locator('#como-funciona [role="tab"]').count(), 5);
     await page.locator('#step-tab-0').focus();
@@ -262,7 +276,7 @@ try {
   });
 
   await check('FAQ: abrir, ler e recolher com teclado', async () => {
-    assert.equal(await page.locator('#duvidas .faq-item').count(), 5);
+    assert.equal(await page.locator('#duvidas .faq-item').count(), 6);
     await page.locator('#faq-question-2').focus();
     await page.keyboard.press('Enter');
     assert.equal(await page.locator('#faq-question-2').getAttribute('aria-expanded'), 'true');

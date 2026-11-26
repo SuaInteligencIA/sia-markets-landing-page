@@ -1,5 +1,5 @@
 {
-  "date": "2026-11-26T17:38:00.971Z",
+  "date": "2026-11-26T18:38:49.320Z",
   "url": "http://127.0.0.1:4175/markets/",
   "browser": "Chromium",
   "checks": [
@@ -9,6 +9,7 @@
     "Botão principal: sempre \"Fale com a gente\"",
     "Acessibilidade: página desktop sem violações axe WCAG A/AA",
     "Problema: três dores do dono do supermercado",
+    "Espera: seção sobre atender na hora, sem fila",
     "Etapas: cinco passos, teclado e ARIA",
     "Painel: ilustração acessível, quatro indicadores e sem rolagem lateral",
     "Lista: conversa ilustrativa termina em lista organizada, sem preços",
