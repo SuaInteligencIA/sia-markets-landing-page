@@ -26,7 +26,7 @@ function TalkButton({ className = 'button button-primary', href = talkUrl }: { c
 function HeroArt() {
   if (heroImage.kind === 'scene') {
     const { name, alt } = heroImage;
-    return <div className="hero-art"><picture><source type="image/avif" srcSet={`${BASE}images/${name}-768.avif 768w, ${BASE}images/${name}-1024.avif 1024w, ${BASE}images/${name}-1536.avif 1536w`} sizes="(max-width:950px) 73vw, (max-width:1180px) 66vw, 64vw" /><img src={`${BASE}images/${name}.webp`} alt={alt} width="1536" height="1024" fetchPriority="high" /></picture></div>;
+    return <div className="hero-art"><picture><source type="image/avif" srcSet={`${BASE}images/${name}-768.avif 768w, ${BASE}images/${name}-1024.avif 1024w, ${BASE}images/${name}-1536.avif 1536w, ${BASE}images/${name}-2048.avif 2048w`} sizes="(max-width:950px) 73vw, (max-width:1180px) 66vw, 64vw" /><img src={`${BASE}images/${name}.webp`} alt={alt} width="1536" height="1024" fetchPriority="high" /></picture></div>;
   }
   return <div className="hero-art hero-art--mascot">
     <div className="hero-mascot-glow" aria-hidden="true" />
@@ -108,7 +108,7 @@ function App() {
       </section>
 
       <section className="list-banner page-inset" id="lista" aria-labelledby="list-title">
-        <div className="list-banner-art"><picture><source media="(max-width:950px)" type="image/avif" srcSet={`${BASE}images/cliente-audio-recorte-640.avif 640w, ${BASE}images/cliente-audio-recorte-768.avif 768w`} sizes="100vw" /><source type="image/avif" srcSet={`${BASE}images/cliente-audio-640.avif 640w, ${BASE}images/cliente-audio-768.avif 768w, ${BASE}images/cliente-audio-1024.avif 1024w`} sizes="(max-width:760px) 100vw, 1024px" /><img src={`${BASE}images/cliente-audio.webp`} width="1024" height="682" alt="Cliente na cozinha de casa mandando um áudio pelo celular, olhando a geladeira aberta e uma fruteira" loading="lazy" decoding="async" /></picture></div>
+        <div className="list-banner-art"><picture><source media="(max-width:950px)" type="image/avif" srcSet={`${BASE}images/cliente-audio-recorte-640.avif 640w, ${BASE}images/cliente-audio-recorte-768.avif 768w, ${BASE}images/cliente-audio-recorte-1024.avif 1024w`} sizes="100vw" /><source type="image/avif" srcSet={`${BASE}images/cliente-audio-768.avif 768w, ${BASE}images/cliente-audio-1024.avif 1024w, ${BASE}images/cliente-audio-1536.avif 1536w, ${BASE}images/cliente-audio-2048.avif 2048w`} sizes="(max-width:950px) 100vw, min(1536px, calc(100vw - 64px))" /><img src={`${BASE}images/cliente-audio.webp`} width="1024" height="682" alt="Cliente na cozinha de casa mandando um áudio pelo celular, olhando a geladeira aberta e uma fruteira" loading="lazy" decoding="async" /></picture></div>
         <div className="list-banner-copy">
           <p className="eyebrow">LISTA DE COMPRAS SEM ESFORÇO</p>
           <h2 id="list-title">A lista sai pronta.<br /><span className="accent">A fila anda.</span></h2>
@@ -127,7 +127,7 @@ function App() {
           </div>
         </div>
         <div className="team-panel">
-          <div className="team-art"><picture><source type="image/avif" srcSet={`${BASE}images/separacao-pedido-640.avif 640w, ${BASE}images/separacao-pedido-768.avif 768w, ${BASE}images/separacao-pedido-1024.avif 1024w`} sizes="(max-width:950px) calc(100vw - 40px), 46vw" /><img src={`${BASE}images/separacao-pedido.webp`} width="1024" height="682" alt="Atendente de avental azul embalando um pedido em sacolas de papel, com a lista confirmada no celular sobre o balcão" loading="lazy" decoding="async" /></picture></div>
+          <div className="team-art"><picture><source type="image/avif" srcSet={`${BASE}images/separacao-pedido-640.avif 640w, ${BASE}images/separacao-pedido-768.avif 768w, ${BASE}images/separacao-pedido-1024.avif 1024w, ${BASE}images/separacao-pedido-1536.avif 1536w`} sizes="(max-width:950px) calc(100vw - 40px), 46vw" /><img src={`${BASE}images/separacao-pedido.webp`} width="1024" height="682" alt="Atendente de avental azul embalando um pedido em sacolas de papel, com a lista confirmada no celular sobre o balcão" loading="lazy" decoding="async" /></picture></div>
           <h3 className="team-title">Sua equipe recebe tudo pronto.</h3>
           <div className="team-gains">{teamGains.map(gain => <div className="team-gain" key={gain.title}><span className="team-gain-icon"><FeatureIcon name={gain.icon} size={22} /></span><div><h4>{gain.title}</h4><p>{gain.description}</p></div></div>)}</div>
         </div>
