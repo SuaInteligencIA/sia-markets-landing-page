@@ -91,6 +91,9 @@ try {
     assert.deepEqual(whatsappLinks.filter(href => new URL(href).pathname !== `/${WHATSAPP_NUMBER}`), []);
     assert.ok(whatsappLinks.every(href => /mercado/i.test(new URL(href).searchParams.get('text') || '')), 'Mensagem pré-escrita cita o mercado');
     assert.equal(await page.locator('.powered-badge').getAttribute('href'), 'https://suainteligenc.ia.br/');
+    // O selo do rodapé não pode ter texto vazando para fora (ele tem tamanho próprio).
+    const badgeOverflow = await page.locator('.powered-badge').evaluate(badge => { const box = badge.getBoundingClientRect(); return [...badge.querySelectorAll('span, strong, em')].filter(element => { const r = element.getBoundingClientRect(); return r.width && (r.right > box.right + 1 || element.scrollWidth > element.clientWidth + 1); }).map(element => element.textContent.trim().slice(0, 30)); });
+    assert.deepEqual(badgeOverflow, [], 'Texto do selo cabe no selo');
   });
 
   await check('Palavras proibidas: nenhum arquivo publicado as contém', async () => {

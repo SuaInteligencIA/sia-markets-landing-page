@@ -512,7 +512,7 @@ h2 .accent{color:var(--blue)}
 #conteudo .button,#conteudo .text-link{font-size:max(12px,1em)}
 #conteudo .button{font-size:13px}
 #conteudo .text-link{font-size:12px}
-.site-footer a,.site-footer button,.site-footer span{font-size:max(11px,1em)}
+.site-footer a:not(.powered-badge),.site-footer button,.site-footer span:not(.powered-badge *){font-size:max(11px,1em)}
 @media(max-width:760px){#conteudo .eyebrow{font-size:10px;letter-spacing:1px}#conteudo .button{font-size:12px}}
 .site-header .header-right .button.header-contact{font-size:12px}
 .site-footer .footer-column:last-child>.footer-company{font-size:11px;line-height:1.5}
