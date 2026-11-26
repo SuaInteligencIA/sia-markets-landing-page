@@ -54,8 +54,13 @@ export function StepVisual({ step, beat }: { step: number; beat: number }) {
     const done = animated ? Math.min(beat, list.length) : 3;
     const shipped = animated && beat > list.length;
     return <div className={`order-preview ${className}`}><div className="order-top"><ShoppingBag size={20} aria-hidden="true" /><div><strong>Pedido de Marina Souza</strong><small>Lista confirmada pela SIA · {list.length} itens</small></div></div>
-      <ul className="order-items">{list.map(([, item], index) => <li key={item} className={index < done ? 'done' : ''}><Check size={17} aria-hidden="true" />{item}</li>)}</ul>
-      <div className={`order-status ${shipped ? 'shipped' : ''}`}><Truck size={17} aria-hidden="true" /> {shipped ? 'Saiu para entrega' : 'Separando para entrega'}</div></div>;
+      <div className="order-body">
+        <div className="order-main">
+          <ul className="order-items">{list.map(([, item], index) => <li key={item} className={index < done ? 'done' : ''}><Check size={17} aria-hidden="true" />{item}</li>)}</ul>
+          <div className={`order-status ${shipped ? 'shipped' : ''}`}><Truck size={17} aria-hidden="true" /> {shipped ? 'Saiu para entrega' : 'Separando para entrega'}</div>
+        </div>
+        <div className="order-art"><picture><source type="image/avif" srcSet={`${BASE}images/separacao-pedido-640.avif 640w, ${BASE}images/separacao-pedido-768.avif 768w, ${BASE}images/separacao-pedido-1024.avif 1024w`} sizes="(max-width:760px) calc(100vw - 80px), 280px" /><img src={`${BASE}images/separacao-pedido.webp`} width="1536" height="1024" alt="Atendente de avental azul embalando o pedido em sacolas de papel no balcão" loading="lazy" decoding="async" /></picture></div>
+      </div></div>;
   }
 
   if (step === 4) return <div className={`delivery-preview ${className}`}>

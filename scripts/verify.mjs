@@ -134,6 +134,11 @@ try {
     assert.deepEqual(await page.locator('[role="tab"]').evaluateAll(tabs => tabs.filter(tab => !document.getElementById(tab.getAttribute('aria-controls'))).map(tab => tab.id)), []);
     await page.keyboard.press('Home');
     assert.equal(await page.locator('#step-tab-0').getAttribute('aria-selected'), 'true');
+    // Etapa da separação: a ilustração da atendente separando o pedido ao lado da lista.
+    await page.locator('#step-tab-2').click();
+    const orderArt = page.locator('#step-panel .order-art img');
+    assert.equal(await orderArt.count(), 1);
+    assert.match(await orderArt.evaluate(image => { image.loading = 'eager'; return image.decode().then(() => image.currentSrc); }), /separacao-pedido/);
     // Etapa do painel: três indicadores legíveis, cada um com ícone, rótulo e número.
     await page.locator('#step-tab-3').click();
     const stats = page.locator('#step-panel .insights-stat');
