@@ -4,7 +4,7 @@ Site do **SIA Markets**, produto da Sua InteligêncIA para supermercados de pequ
 atendimentos do WhatsApp e agente de IA que monta a lista de compras. Mesma base e mesma identidade do SIA Reserve
 (API React 19 com Preact compat, Vite 6 e TypeScript, HTML pré-renderizado, Space Grotesk e azul `#2d5ffe`).
 
-Endereço: **https://suainteligenc.ia.br/markets/** (subpasta do site da Sua InteligêncIA). Ainda não publicado.
+Endereço: **https://markets.suainteligenc.ia.br/** (subdomínio do site da Sua InteligêncIA). Publicado em 26/11/2026.
 
 ## Executar
 
@@ -27,13 +27,18 @@ prévia do `dist/` sozinho (porta 4175) e roda as verificações em Chromium: ac
 menu no celular, sem rolagem lateral de 320 a 1920 px, links de WhatsApp e a **trava de palavras proibidas**, que lê
 todos os arquivos publicados.
 
-Para publicar, envie o conteúdo de `dist/` para a pasta `public_html/markets/` da hospedagem da Sua InteligêncIA
-(a mesma do site principal). O deploy do site principal só apaga o que ele mesmo enviou, então não mexe nessa pasta.
-Todos os caminhos já saem com `/markets/` na frente; a subpasta vem do `SITE_URL`.
+**A publicação é automática.** A cada 5 minutos o cron do cPanel roda
+[`deploy/atualizar-markets.sh`](deploy/atualizar-markets.sh) (cópia no servidor em `~/sia-markets-deploy/`): se o `main`
+do GitHub mudou, ele compila com Node 22 e copia o `dist/` para `public_html/markets.suainteligenc.ia.br/`. Um commit
+no `main` aparece no site em até uns 5 minutos. Se a compilação falhar, o site anterior continua no ar e o erro fica em
+`~/sia-markets-deploy/deploy.log`. O servidor não tem Chromium, então o `npm test` não roda lá: rode antes do push.
+Depois de alterar o script, envie a cópia nova para o servidor como upload (o editor do cPanel troca as quebras de
+linha para CRLF e o bash para de funcionar). O certificado HTTPS vem do AutoSSL do cPanel e se renova sozinho.
 
-O `robots.txt` só vale na raiz do domínio, então este site não gera um. Para o Google achar a página, inclua
-`https://suainteligenc.ia.br/markets/` no `sitemap.xml` do site principal (ou aponte o `robots.txt` de lá também para
-`https://suainteligenc.ia.br/markets/sitemap.xml`).
+O `.htaccess` força HTTPS, manda para o subdomínio quem chega pelo caminho da pasta dentro do site principal e define o
+cache (pasta `assets/` com hash: 1 ano; fontes e imagens: 30 dias; HTML: sempre revalidado). O endereço antigo
+`suainteligenc.ia.br/markets/` redireciona (301) para o subdomínio por um `.htaccess` em `public_html/markets/`, fora
+deste repositório. O `robots.txt` e o `sitemap.xml` do subdomínio saem do build; o endereço vem do `SITE_URL`.
 
 Para medir desempenho: `npm run preview` em um terminal e `npm run lighthouse entrega` em outro.
 Última medição (26/11/2026): celular 100 / 100 / 100 / 100 (LCP 1,8 s, CLS 0) e computador 100 / 100 / 100 / 100 (LCP 0,5 s, CLS 0)
